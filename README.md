@@ -1,14 +1,25 @@
-> [!CAUTION]
-> ### DO NOT MAKE CHANGES HERE!!!
-> this docs is managed by hibi publish and the whole purpose is to literally publish to github pages, to make changes to documentation please create a pr to [hibi](https://github.com/schmayterling/hibi) in the [docs](https://github.com/schmayterling/hibi/tree/main/docs) folder.
+# hibi documentation
 
+This repository holds the source of the [Hibi documentation](https://docs.hibi.garden). Guides are Markdown files in `docs/`, and [docs/README.md](docs/README.md) is the user guide home page.
 
-# welcome to hibi docs.
-this repo literally just serves as the homebase for hibi docs so we can deploy it via github pages
+[Hibi](https://github.com/schmayterling/hibi) generates the API reference, keeps the third-party license notices, and builds the site, so those pages are not in this repository.
 
-[open the documentation](https://docs.hibi.garden) · [hibi repo](https://github.com/schmayterling/hibi) 
+## Edit the guides
 
-<center>
-<a src="https://docs.hibi.garden"><img width="1698" height="996" alt="CleanShot 2026-09-17 at 1 11 38 PM" src="https://github.com/user-attachments/assets/d6f64bf2-21b8-485f-879c-c167d86b2c63" /></a>
-</center>
+Follow [Writing documentation](docs/development/core/writing-documentation.md). To preview your changes, point a Hibi checkout at this repository with an absolute path:
 
+```sh
+cd hibi
+npm ci
+HIBI_DOCS_SOURCE=/path/to/docs npm run export:docs
+```
+
+Then open `hibi/out/docs/index.html` in a browser.
+
+## Publishing
+
+Each pull request builds the site with Hibi's `main` branch and attaches it as the `documentation` artifact. Merging to `main` publishes the site. Hibi also starts a rebuild when its exporter, viewer, API reference, or license notices change. The published `revision.txt` records the documentation and Hibi commits used.
+
+## License
+
+The documentation is licensed under the GNU General Public License, version 3 only. See [LICENSE.md](LICENSE.md) and [LICENSE-MIT](LICENSE-MIT).

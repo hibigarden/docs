@@ -42,3 +42,7 @@ node scripts/export-docs.mjs docs out/docs-site --static --url https://example.c
 Serve the output with a static web server. The single-file export remains the default. The exporter refuses to reuse a static output directory so removed pages cannot remain published by accident.
 
 Use relative links between guides, the API reference, and license notices. Link to Hibi source files with `https://github.com/schmayterling/hibi/blob/main/` URLs. Put images within `docs/` and reference them with relative paths.
+
+## Publish
+
+Each pull request in the documentation repository builds the site with Hibi's `main` branch and attaches it as an artifact. Merging to `main` publishes the site. Hibi also starts a rebuild when the viewer, exporter, API reference, or license notices change.
