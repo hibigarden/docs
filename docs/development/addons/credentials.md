@@ -34,4 +34,25 @@ network: { origins: ['https://en.wiktionary.org', 'https://api.datamuse.com'] },
 
 Declare between 1 and 16 unique canonical HTTPS origins with lowercase hostnames, no trailing slash, and no default `:443` port; keep any non-default port. IP literals and local or private hostnames are not allowed. Hostnames embedding an IP address, such as `127.0.0.1.nip.io`, are allowed as declarations, but resolving to a private address still requires destination and private-address approvals. Only the manifest reviewed by Hibi's main process counts; a renderer-supplied declaration cannot grant access. Enabling the addon approves credential-free GET requests to those exact origins. Redirects outside the declarations, requests with credentials, and requests to local or private addresses still prompt. The addon row and settings show the declared hosts so users can review them before enabling it.
 
+## Upload JSON
+
+Use `requestText` for a host-mediated JSON POST. Feature-detect it when supporting older API version 2 builds. The destination origin must appear in the manifest's `network.origins`.
+
+```typescript
+if (typeof context.host.network.requestText !== 'function')
+  throw new Error('Update Hibi to use this addon.')
+const response = await context.host.network.requestText({
+  url: 'https://api.example.com/notes',
+  method: 'POST',
+  body: JSON.stringify({ title: 'Garden notes' }),
+  credentialKey: 'api-token',
+})
+if (response.ok && response.value.status === 409)
+  context.notify('The remote note changed. Review it before retrying.')
+```
+
+Every POST asks for fresh permission showing the exact URL, UTF-8 upload size, and credential key. Declaring an origin does not approve uploads. Local or private DNS results still require a separate grant. The host sends `application/json; charset=utf-8`, accepts at most 64 MiB of request bytes and 1 MiB of decoded response text, and never follows POST redirects or retries automatically.
+
+Final HTTP responses, including errors such as 409, return `ok: true` with their status and bounded text. Permission, transport, timeout, and size failures return `ok: false`. A transport failure may occur after the server committed an upload; query the remote state before retrying. Credential echo filtering also applies to error bodies.
+
 An installed addon shares the renderer with other addons. Any code running in that renderer can reach an enabled addon's declared origins without a prompt; declarations do not isolate addons from each other. Host ownership checks prevent stale or accidental cross-addon requests, but they cannot stop a malicious addon in the same renderer from spoofing another addon's ID or observing a secret when it is entered. Do not promise isolation from untrusted installed addons or from other software running as the same user. The bridge has no method to retrieve stored plaintext.
