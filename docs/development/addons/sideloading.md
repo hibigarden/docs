@@ -158,7 +158,7 @@ Publish the prepared files in a public HTTPS Git repository or ZIP archive. Hibi
 
 Git packages need their compiled entry committed, and Git installed on the user's machine. Private repositories, SSH URLs, submodules, and Git LFS files are not supported. Do not include `node_modules`, secrets, or native executables.
 
-To start a new repository with an example extension and theme, use the [addon starter](https://github.com/hibigarden/addon-starter). To list a package in Hibi's addon directory, see [publishing to the Hibi garden](publishing-to-the-garden.md).
+To start a new repository, use the [addon starter](https://github.com/hibigarden/addon-starter) for an extension or the [theme starter](https://github.com/hibigarden/theme-starter) for a theme. To list a package in Hibi's addon directory, see [publishing to the Hibi garden](publishing-to-the-garden.md).
 
 ### GitHub links
 

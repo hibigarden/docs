@@ -2,9 +2,9 @@
 
 The [Hibi garden](https://www.hibi.garden/addons/) lists community addons. The same list appears in the **Hibi garden** tab of **Settings → Addons**, where people install them with **Install**. Hibi's maintainers review every listed addon and sign the exact files its entry names, so people can install it from the garden without allowing unsigned addons.
 
-## Start from the addon starter
+## Start from a template
 
-The [addon starter](https://github.com/hibigarden/addon-starter) is a GitHub template with an example extension in `addons/hello` and an example theme in `addons/hello-theme`. Choose **Use this template** on GitHub, then follow its readme to rename a package, check it, and install it in Hibi.
+Use the [addon starter](https://github.com/hibigarden/addon-starter) for an extension; it has an example extension in `addons/hello`. Use the [theme starter](https://github.com/hibigarden/theme-starter) for a theme. Choose **Use this template** on GitHub, then follow the template's readme to rename the package, check it, and install it in Hibi.
 
 Keep each package in its own folder, with its `README.md`, its license in `LICENSE.txt` or `LICENSE.md`, and every compiled file it uses. Hibi refuses files without an extension, such as `LICENSE`, and does not build packages during installation. See [sideloading and sharing](sideloading.md) for the full package rules.
 
@@ -46,4 +46,4 @@ Merging the pull request publishes the addon. It appears on [hibi.garden/addons]
 
 Once your entry is listed, you can link to it with `hibi://addons/install?id=<id>`. The link opens the Hibi garden in Hibi and asks for the usual install confirmation.
 
-The signature covers only the files your entry lists. People who install your addon another way, such as from your repository URL, a newer commit, or the [addon starter](https://github.com/hibigarden/addon-starter), get an unsigned package unless you ship a Hibi signature with it. Unsigned packages install only after the user turns on **Allow unsigned addons**. See [signatures and unsigned packages](sideloading.md#signatures-and-unsigned-packages).
+The signature covers only the files your entry lists. People who install your addon another way, such as from your repository URL or a newer commit, get an unsigned package unless you ship a Hibi signature with it. Unsigned packages install only after the user turns on **Allow unsigned addons**. See [signatures and unsigned packages](sideloading.md#signatures-and-unsigned-packages).

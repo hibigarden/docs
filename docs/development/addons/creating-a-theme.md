@@ -1,6 +1,6 @@
 # Creating a theme
 
-A theme package contains color data and does not need JavaScript. Create `hibi-addon.json` and `README.md` in a folder.
+A theme package contains color data and does not need JavaScript. To start a repository you can share, use the [theme starter](https://github.com/hibigarden/theme-starter) template on GitHub and follow its readme. To write one by hand, create `hibi-addon.json` and `README.md` in a folder.
 
 ```json
 {
