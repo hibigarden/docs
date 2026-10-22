@@ -26,4 +26,4 @@ The current note's tag count follows its Markdown flavor and syntax settings. A 
 
 Save a new note inside the workspace before expecting it in graph or tag results. Both addons include unsaved edits to the active workspace note. Large workspaces may need a smaller folder to stay within indexing limits.
 
-The [Graph](../../src/addons/graph/README.md) and [Tags](../../src/addons/tags/README.md) pages include credits.
+The [Graph](https://github.com/schmayterling/hibi/blob/main/src/addons/graph/README.md) and [Tags](https://github.com/schmayterling/hibi/blob/main/src/addons/tags/README.md) pages include credits.

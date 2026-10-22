@@ -36,7 +36,7 @@ If a source language fails to load, choose **Retry language** in its notice. Ret
 
 ## Equations in Markdown
 
-With the LaTeX addon enabled, use `$x$` for inline math. See [Equations in Markdown](../../src/addons/math/README.md#equations-in-markdown) for display math and literal dollar signs.
+With the LaTeX addon enabled, use `$x$` for inline math. See [Equations in Markdown](https://github.com/schmayterling/hibi/blob/main/src/addons/math/README.md#equations-in-markdown) for display math and literal dollar signs.
 
 If an existing document used line-final `text $$x$$` for display math, move `$$x$$` onto its own line.
 

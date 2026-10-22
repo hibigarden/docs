@@ -1,6 +1,6 @@
 # Dictionary pack storage and measurements
 
-The dictionary addon downloads official sources on request and converts them locally. Hibi neither bundles nor hosts dictionary data. See the [source catalog and licenses](../../../src/addons/dictionary/README.md#offline-dictionary-sources) and [user instructions](../../features/dictionary-packs.md).
+The dictionary addon downloads official sources on request and converts them locally. Hibi neither bundles nor hosts dictionary data. See the [source catalog and licenses](https://github.com/schmayterling/hibi/blob/main/src/addons/dictionary/README.md#offline-dictionary-sources) and [user instructions](../../features/dictionary-packs.md).
 
 ## Installation and storage
 

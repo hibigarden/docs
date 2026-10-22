@@ -26,4 +26,4 @@ Use the block's pencil button to edit its source or its PDF button to export it.
 
 Keep imports, images, data, and fonts inside the workspace or current file's folder. Hidden files and symbolic links are unsupported, and automatic package downloads are disabled.
 
-If a project exceeds a size or time limit, the preview explains the error. The [addon page](../../src/addons/typst/README.md) includes credits and bundled font notices.
+If a project exceeds a size or time limit, the preview explains the error. The [addon page](https://github.com/schmayterling/hibi/blob/main/src/addons/typst/README.md) includes credits and bundled font notices.

@@ -10,7 +10,7 @@ Once installed, place the cursor in a word or select it, then run **Define word*
 
 Lookups use Unicode NFC normalization, which also folds CJK compatibility ideographs; two affected JMdict headwords become reachable only after updating an older Japanese pack.
 
-Installed packs also power the [dictionary side view](../../src/addons/dictionary/README.md#side-view) while it follows the cursor and the separate [Autocomplete addon](../../src/addons/autocomplete/README.md). Autocomplete combines offline vocabulary and [custom words](../../src/addons/dictionary/README.md#custom-words) with word patterns learned on this device. Neither feature sends anything online while you type.
+Installed packs also power the [dictionary side view](https://github.com/schmayterling/hibi/blob/main/src/addons/dictionary/README.md#side-view) while it follows the cursor and the separate [Autocomplete addon](https://github.com/schmayterling/hibi/blob/main/src/addons/autocomplete/README.md). Autocomplete combines offline vocabulary and [custom words](https://github.com/schmayterling/hibi/blob/main/src/addons/dictionary/README.md#custom-words) with word patterns learned on this device. Neither feature sends anything online while you type.
 
 Definitions and readings are more complete than thesaurus data for Chinese and Japanese. Filipino, French, and German use the synonyms and antonyms available in Wiktionary.
 
@@ -22,4 +22,4 @@ If installation fails, retry from the same settings page. A damaged pack can be 
 
 Packs belong to your Hibi profile and are shared by its workspaces. Hibi does not bundle or host the source dictionaries. Downloading a pack never sends document content or lookup words.
 
-Source credits and licenses are available offline under **Settings → Credits**. The [addon's source list](../../src/addons/dictionary/README.md#offline-dictionary-sources) includes official download links, source versions, sizes, and licensing details.
+Source credits and licenses are available offline under **Settings → Credits**. The [addon's source list](https://github.com/schmayterling/hibi/blob/main/src/addons/dictionary/README.md#offline-dictionary-sources) includes official download links, source versions, sizes, and licensing details.
