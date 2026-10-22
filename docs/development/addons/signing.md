@@ -25,14 +25,18 @@ Ship the generated `hibi-addon.sig.json` with the package. The signer and instal
 
 ## Sign directory listings
 
-Every entry in [hibigarden/addons-repository](https://github.com/hibigarden/addons-repository) needs a signature in `signatures/<id>.json`. It uses the same envelope as `hibi-addon.sig.json` and covers the exact files the entry names. After reviewing an accepted entry, put those files in a folder: the `addons/<id>` folder itself, the listed folder exported from the pinned commit without running scripts, or the extracted ZIP file. Sign that folder and copy its `hibi-addon.sig.json` to `signatures/<id>.json` in the pull request:
+Every entry in [hibigarden/addons-repository](https://github.com/hibigarden/addons-repository) needs a signature in `signatures/<id>.json`. It uses the same envelope as `hibi-addon.sig.json` and covers the exact files the entry names: the `addons/<id>` folder, the listed folder at the pinned commit, or the contents of the pinned ZIP file.
+
+The directory signs merged entries itself. Merging a reviewed pull request starts its sign workflow, which signs every entry whose signature is missing or no longer matches, checks the whole directory strictly, and commits the signatures to `main`. It signs with the directory's package key, `8dc7673025d00464`. Hibi trusts that key for addon packages only; revocation lists still need the offline root key, which never enters CI. The package key is a secret of the directory's `addon-signing` environment, which runs only on `main` and is never available to pull requests. The job that holds the key can read the repository but not change it, and nothing from a listed package runs. To sign one entry again, run the sign workflow on `main` from the Actions tab and enter its id.
+
+Pull request checks report a missing or outdated signature as pending, and an invalid signature as a failure. Merging publishes the entry; Hibi reads the directory and its signatures at runtime, so new listings need no Hibi release.
+
+To sign an entry by hand instead, put its listed files in a folder, sign it, and copy the result:
 
 ```sh
 node scripts/addon-signing.mjs sign /path/to/listed-files --key ~/.hibi-signing/hibi-addon-root.key
 cp /path/to/listed-files/hibi-addon.sig.json /path/to/addons-repository/signatures/<id>.json
 ```
-
-The directory's `npm run check` and `npm run check:remote` verify every signature with Hibi's public keys and compare it with the listed files, the pinned commit, or the ZIP contents. Its CI never has the private key. Merging publishes the entry; Hibi reads the directory and its signatures at runtime, so new listings need no Hibi release.
 
 ## Publish a revocation list
 
