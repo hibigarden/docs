@@ -11,7 +11,7 @@ on:
         required: true
         default: main
   repository_dispatch:
-    types: [hibi-docs-inputs-changed]
+    types: [hibi-docs-update]
 
 permissions:
   contents: read
@@ -81,7 +81,6 @@ jobs:
           HIBI_SOURCE_REVISION: ${{ steps.revision.outputs.hibi }}
           DOCS_REVISION: ${{ steps.revision.outputs.docs }}
         run: |
-          npm run docs
           npm run docs:check
           node --test --test-name-pattern='development guide examples' tests/addon-reference.test.mjs
           npm run export:docs
