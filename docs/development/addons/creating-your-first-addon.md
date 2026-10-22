@@ -35,7 +35,7 @@ import { ADDON_API_VERSION, type AddonManifest } from '../../addons/api'
 
 export default {
   id: 'hello',
-  name: 'Hello',
+  name: 'Hello',,,
   description: 'A greeting from your first addon.',
   version: '1.0.0',
   apiVersion: ADDON_API_VERSION,

@@ -52,7 +52,7 @@ jobs:
               fi
               ;;
             push) ref=main deploy=true ;;
-            *) ref=main ;;
+            *) ref=95231e9d4d318acdc62091af3e84e8e860802c59 ;;
           esac
           if [[ ! $ref =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]]; then
             echo '::error::hibi_ref must be a branch, tag, or commit'
