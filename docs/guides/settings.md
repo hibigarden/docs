@@ -62,7 +62,7 @@ Use **Syntax** to enable or disable formatting features, and **Code Highlight** 
 
 Enabling an addon can ask to enable its required addons too; disabling a provider leaves its consumers enabled but blocked, while documents stay editable under their existing syntax protections.
 
-Choose a category above either list to show only features, formats, themes, or importers. Categories work together with the text filter; choose **All** to see every category. Categories without installed addons are hidden.
+Choose a category above either list to show only features, formats, themes, or importers. Categories work together with the text filter; choose **All** to see every category. Categories without any addons in the current list are hidden.
 
 **UI preview** is enabled when you run Hibi in development. In a release build, enable it under **Settings → Addons**, then choose **Open UI preview** from the command palette. Edit the sample text, turn on **Show red outlines** to inspect control boundaries, and enter CSS to preview changes across Hibi. Choose **Save CSS** to keep those rules after restart. If saved CSS obscures the interface, choose **Disable custom CSS** from the native Addons menu.
 
@@ -79,6 +79,8 @@ Click anywhere on an addon row outside its controls to read its documentation. O
 5. For several packages, review each row's result and close the dialog. Enable successfully installed addons when you are ready to use them.
 
 Required providers install before addons that depend on them. Required providers must already be installed or remain selected. Unchecking a missing provider makes its consumers unavailable with a reason; other selected packages can still install. Keep the review open to select remaining packages or retry failed rows without downloading again. A failed package does not undo successful installations. **Cancel** during installation stops pending work; closing the dialog or pressing `Escape` does the same. Completed installations remain disabled, except replacements that keep their setting. See [sideloading and sharing](../development/addons/sideloading.md#discovery-and-package-limits) for discovery limits and package layout rules.
+
+Choose **Refresh** in the Hibi garden tab to check for new listings. If the directory is unavailable, Hibi shows the last downloaded list when one is available.
 
 The Hibi garden helps you find addons, but listing an addon there does not sign it or vouch for it. Its listing shows the addon's license, and the usual review and [signature checks](#signed-addons) still apply. Hibi installs exactly the files the listing names. If the download differs, Hibi shows **The downloaded addon does not match its Hibi garden listing. Refresh the directory and try again.**
 

@@ -13,7 +13,7 @@ Keep each package in its own folder, with its `README.md`, its license in `LICEN
 The directory lives in [hibigarden/addons-repository](https://github.com/hibigarden/addons-repository). Each entry in its `catalog.json` uses exactly one of these sources:
 
 - **`path`**: a folder in the directory repository itself, such as `addons/hello`. Choose this when you want the directory to host the package.
-- **`repository`**: a public Git repository, a full 40-character commit, and optionally the folder that holds `hibi-addon.json`. Choose this to keep publishing from your own repository.
+- **`repository`**: a public GitHub repository, a full 40-character commit, and optionally the folder that holds `hibi-addon.json`. Choose this to keep publishing from your own repository.
 - **`download`**: an HTTPS ZIP URL, its size in bytes, and its lowercase SHA-256 digest. Choose this for release assets that never change.
 
 ```json
