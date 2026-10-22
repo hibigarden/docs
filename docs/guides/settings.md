@@ -73,7 +73,7 @@ Click anywhere on an addon row outside its controls to read its documentation. O
 ### Install an addon
 
 1. Choose **Hibi garden** to browse [available addons](https://hibi.garden/addons).
-2. Choose **Install from URL** and enter a public HTTPS Git repository or addon ZIP URL. For a local package, run **Install addon…** from the command palette.
+2. Choose **Install from URL** and enter a public HTTPS Git repository or addon ZIP URL. To install from one folder, branch, tag, or commit of a GitHub repository, enter the URL of that folder on GitHub. For a local package, run **Install addon…** from the command palette.
 3. Review the package details and trust notice. Each package shows **Signed by Hibi** or **Unsigned**; see [signed addons](#signed-addons). A single package uses the usual install confirmation. If Hibi finds several packages in nested folders, it lists them together with all installable packages selected. Invalid or blocked packages show a reason and cannot be selected.
 4. In the review list, uncheck packages you do not want, then choose **Install selected**. Use `Tab` to move between controls and `Space` to toggle a checkbox.
 5. For several packages, review each row's result and close the dialog. Enable successfully installed addons when you are ready to use them.

@@ -156,11 +156,28 @@ Relative `url()` and `@import` references resolve from the stylesheet's own loca
 
 Publish the prepared files in a public HTTPS Git repository or ZIP archive. Hibi searches recursively, so each package can live in its own nested folder. Users can install that URL through **Settings → Addons → Install from URL** and review several packages together.
 
-Git packages need their compiled entry committed on the default branch, and Git installed on the user's machine. Private repositories, SSH URLs, and submodules are not supported. Do not include `node_modules`, secrets, or native executables.
+Git packages need their compiled entry committed, and Git installed on the user's machine. Private repositories, SSH URLs, submodules, and Git LFS files are not supported. Do not include `node_modules`, secrets, or native executables.
+
+To start a new repository with an example extension and theme, use the [addon starter](https://github.com/hibigarden/addon-starter). To list a package in Hibi's addon directory, see [publishing to the Hibi garden](publishing-to-the-garden.md).
+
+### GitHub links
+
+A GitHub repository URL installs from its default branch. To install from one folder, branch, tag, or commit instead, copy the URL of that folder on GitHub:
+
+| URL | Installs |
+| --- | --- |
+| `https://github.com/you/addons` | Every package on the default branch |
+| `https://github.com/you/addons/tree/main/addons/hello` | Packages in `addons/hello` on the `main` branch |
+| `https://github.com/you/addons/tree/v1.2.0` | Every package at the `v1.2.0` tag |
+| `https://github.com/you/addons/tree/<commit>/addons/hello` | Packages in `addons/hello` at that exact commit |
+
+Branch and tag names can contain slashes. A commit must be the full 40-character ID. A commit link always installs exactly that commit, so use one when you want everyone to get the files you reviewed.
+
+A folder link installs only from that folder, so files elsewhere in the repository do not appear in the review or count toward the archive and discovery limits. Hibi installs files exactly as they were committed. It ignores `.gitattributes` settings such as line-ending conversion, keyword expansion, filters, and `export-ignore`. Links to other GitHub pages, such as issues or single files, are refused. Release download links install like other ZIP files.
 
 ## Discovery and package limits
 
-Repository discovery allows at most 5,000 entries, 64 MiB of uncompressed data, 5 MiB per file, and 64 manifests. A manifest may sit at the root or beneath at most 12 directory segments. ZIP downloads retain a 25 MiB compressed transfer limit. Exceeding a discovery limit rejects the input rather than showing an incomplete list.
+Repository discovery allows at most 5,000 entries, 64 MiB of uncompressed data, 5 MiB per file, and 64 manifests. A Git download can use at most 64 MiB, and the files it installs from must fit in a 25 MiB archive. A manifest may sit at the root or beneath at most 12 directory segments. ZIP downloads retain a 25 MiB compressed transfer limit. Exceeding a discovery limit rejects the input rather than showing an incomplete list.
 
 Each selected package retains its own limits: 1,000 entries, 25 MiB total, and 5 MiB per file. Its readme and declared compiled entry must be inside its folder. Parent or sibling libraries are not copied automatically.
 

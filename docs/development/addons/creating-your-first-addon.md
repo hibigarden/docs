@@ -2,6 +2,8 @@
 
 This addon adds a command that displays a greeting. Generate a standalone package, or follow the manual source-addon guide below.
 
+To start a repository you can share, use the [addon starter](https://github.com/hibigarden/addon-starter) template on GitHub instead. It contains an example extension and theme, plus checks that find packages the way Hibi does.
+
 ## Generate a standalone addon
 
 From a Hibi source checkout, run:

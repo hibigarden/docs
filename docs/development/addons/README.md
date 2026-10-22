@@ -14,6 +14,7 @@ Addons can add commands, editor behavior, sidebar views, document formats, and t
 - [Creating an importer](creating-an-importer.md)
 - [Creating a theme](creating-a-theme.md)
 - [Sideloading and sharing](sideloading.md)
+- [Publishing to the Hibi garden](publishing-to-the-garden.md)
 - [Testing your addon](testing-your-addon.md)
 
 Use the [API reference](../addon-api-reference/README.md) to look up signatures and options.
