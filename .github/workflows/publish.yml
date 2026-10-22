@@ -1,4 +1,4 @@
-name: build documentation
+name: publish documentation
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       hibi_ref:
-        description: hibi branch, tag, or commit to build with
+        description: hibi branch, tag, or commit to build with; only main publishes
         required: true
         default: main
   repository_dispatch:
@@ -16,14 +16,19 @@ on:
 permissions:
   contents: read
 
+# Publishing runs share one queue so each starts after the previous one finishes.
 concurrency:
-  group: docs-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.ref }}
+  group: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'repository_dispatch' || (github.event_name == 'workflow_dispatch' && inputs.hibi_ref == 'main')) && 'docs-pages' || format('docs-{0}', github.event.number || github.run_id) }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      deploy: ${{ steps.hibi.outputs.deploy }}
+      docs: ${{ steps.revision.outputs.docs }}
+      hibi: ${{ steps.revision.outputs.hibi }}
     steps:
       - name: choose hibi revision
         id: hibi
@@ -32,22 +37,30 @@ jobs:
           INPUT_REF: ${{ inputs.hibi_ref }}
           PAYLOAD_SHA: ${{ github.event.client_payload.hibi_sha }}
         run: |
+          deploy=false
           case "$EVENT" in
-            workflow_dispatch) ref=$INPUT_REF ;;
+            workflow_dispatch)
+              ref=$INPUT_REF
+              [[ $ref == main ]] && deploy=true
+              ;;
             repository_dispatch)
               ref=$PAYLOAD_SHA
+              deploy=true
               if [[ ! $ref =~ ^[0-9a-f]{40}$ ]]; then
                 echo '::error::client_payload.hibi_sha must be a full commit SHA'
                 exit 1
               fi
               ;;
+            push) ref=main deploy=true ;;
             *) ref=main ;;
           esac
           if [[ ! $ref =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]]; then
             echo '::error::hibi_ref must be a branch, tag, or commit'
             exit 1
           fi
+          [[ $GITHUB_REF == refs/heads/main ]] || deploy=false
           echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
       - name: check out documentation
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -85,9 +98,67 @@ jobs:
           node --test --test-name-pattern='development guide examples' tests/addon-reference.test.mjs
           npm run export:docs
           printf 'docs %s\nhibi %s\n' "$DOCS_REVISION" "$HIBI_SOURCE_REVISION" > out/docs/revision.txt
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - if: steps.hibi.outputs.deploy != 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: documentation
           path: hibi/out/docs
           if-no-files-found: error
           retention-days: 14
+      - if: steps.hibi.outputs.deploy == 'true'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: hibi/out/docs
+          retention-days: 1
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: check for a newer publication
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DOCS_SHA: ${{ needs.build.outputs.docs }}
+          HIBI_SHA: ${{ needs.build.outputs.hibi }}
+        run: |
+          skip() {
+            echo "::notice::$1; not publishing"
+            echo 'deploy=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          }
+          docs_main=$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)
+          [[ $docs_main == "$DOCS_SHA" ]] || skip "documentation main moved to $docs_main"
+          on_main=$(gh api "repos/schmayterling/hibi/compare/$HIBI_SHA...main" --jq .status)
+          [[ $on_main == ahead || $on_main == identical ]] || skip "hibi $HIBI_SHA is not on main"
+          site=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .html_url)
+          code=$(curl -sS -o published.txt -w '%{http_code}' "${site%/}/revision.txt?run=$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT")
+          case $code in
+            200)
+              live=$(awk '$1 == "hibi" { print $2 }' published.txt)
+              if [[ ! $live =~ ^[0-9a-f]{40}$ ]]; then
+                echo '::error::published revision.txt has no hibi revision'
+                exit 1
+              fi
+              order=$(gh api "repos/schmayterling/hibi/compare/$live...$HIBI_SHA" --jq .status)
+              [[ $order == ahead || $order == identical ]] || skip "published hibi $live is newer than $HIBI_SHA"
+              ;;
+            404) ;;
+            *)
+              echo "::error::could not read the published revision.txt (HTTP $code)"
+              exit 1
+              ;;
+          esac
+          echo 'deploy=true' >> "$GITHUB_OUTPUT"
+      - if: steps.guard.outputs.deploy == 'true'
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
