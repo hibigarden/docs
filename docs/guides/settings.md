@@ -58,11 +58,11 @@ Use **Syntax** to enable or disable formatting features, and **Code Highlight** 
 
 ## Addons
 
-Enable or disable addons and themes in the alphabetical **Addons** list. Enabling a addon makes its settings and formats available. **Reset all** restores the default enabled addons without removing installed packages.
+**Settings → Addons** has two tabs. **Installed** lists built-in and installed addons and themes alphabetically; enable or disable them there. **Hibi garden** lists addons you can install. Enabling an addon makes its settings and formats available. **Reset all** restores the default enabled addons without removing installed packages.
 
 Enabling an addon can ask to enable its required addons too; disabling a provider leaves its consumers enabled but blocked, while documents stay editable under their existing syntax protections.
 
-Choose a category above the list to show only features, formats, themes, or importers. Categories work together with the text filter; choose **All** to see every category. Categories without installed addons are hidden.
+Choose a category above either list to show only features, formats, themes, or importers. Categories work together with the text filter; choose **All** to see every category. Categories without installed addons are hidden.
 
 **UI preview** is enabled when you run Hibi in development. In a release build, enable it under **Settings → Addons**, then choose **Open UI preview** from the command palette. Edit the sample text, turn on **Show red outlines** to inspect control boundaries, and enter CSS to preview changes across Hibi. Choose **Save CSS** to keep those rules after restart. If saved CSS obscures the interface, choose **Disable custom CSS** from the native Addons menu.
 
@@ -72,13 +72,17 @@ Click anywhere on an addon row outside its controls to read its documentation. O
 
 ### Install an addon
 
-1. Choose **Hibi garden** to browse [available addons](https://hibi.garden/addons).
-2. Choose **Install from URL** and enter a public HTTPS Git repository or addon ZIP URL. To install from one folder, branch, tag, or commit of a GitHub repository, enter the URL of that folder on GitHub. For a local package, run **Install addon…** from the command palette.
+1. Open the **Hibi garden** tab to browse [available addons](https://www.hibi.garden/addons/). Use the search box and categories to find one, then choose **Install**.
+2. Or choose **Install from URL** and enter a public HTTPS Git repository or addon ZIP URL. To install from one folder, branch, tag, or commit of a GitHub repository, enter the URL of that folder on GitHub. For a local package, run **Install addon…** from the command palette.
 3. Review the package details and trust notice. Each package shows **Signed by Hibi** or **Unsigned**; see [signed addons](#signed-addons). A single package uses the usual install confirmation. If Hibi finds several packages in nested folders, it lists them together with all installable packages selected. Invalid or blocked packages show a reason and cannot be selected.
 4. In the review list, uncheck packages you do not want, then choose **Install selected**. Use `Tab` to move between controls and `Space` to toggle a checkbox.
 5. For several packages, review each row's result and close the dialog. Enable successfully installed addons when you are ready to use them.
 
 Required providers install before addons that depend on them. Required providers must already be installed or remain selected. Unchecking a missing provider makes its consumers unavailable with a reason; other selected packages can still install. Keep the review open to select remaining packages or retry failed rows without downloading again. A failed package does not undo successful installations. **Cancel** during installation stops pending work; closing the dialog or pressing `Escape` does the same. Completed installations remain disabled, except replacements that keep their setting. See [sideloading and sharing](../development/addons/sideloading.md#discovery-and-package-limits) for discovery limits and package layout rules.
+
+The Hibi garden helps you find addons, but listing an addon there does not sign it or vouch for it. Its listing shows the addon's license, and the usual review and [signature checks](#signed-addons) still apply. Hibi installs exactly the files the listing names. If the download differs, Hibi shows **The downloaded addon does not match its Hibi garden listing. Refresh the directory and try again.**
+
+Websites and other apps can link to an addon. A `hibi://addons/install?id=<id>` link opens the Hibi garden and asks you to confirm the installation, as usual. A `hibi://addons/open?id=<id>` link shows a built-in or installed addon without enabling it.
 
 Only install addons you trust. Enabled addons can access your documents and workspace. Git installation requires Git on your computer; private repositories and packages that need a build are unsupported.
 

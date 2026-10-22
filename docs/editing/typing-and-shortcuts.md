@@ -68,4 +68,4 @@ To move focus out of the editor with the keyboard, press `Escape` and then `Tab`
 
 ## Typing speed
 
-Enable **Typing speed** under **Settings → Addons** to see estimated words or characters per minute while typing. For document totals instead, enable **Word count**.
+Install **Typing speed** from the **Hibi garden** tab in **Settings → Addons**, then enable it to see estimated words or characters per minute while typing. It is a community addon licensed under GPL-3.0-only. For document totals instead, enable **Word count**.
