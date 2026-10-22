@@ -1,0 +1,94 @@
+name: build documentation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      hibi_ref:
+        description: hibi branch, tag, or commit to build with
+        required: true
+        default: main
+  repository_dispatch:
+    types: [hibi-docs-inputs-changed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: choose hibi revision
+        id: hibi
+        env:
+          EVENT: ${{ github.event_name }}
+          INPUT_REF: ${{ inputs.hibi_ref }}
+          PAYLOAD_SHA: ${{ github.event.client_payload.hibi_sha }}
+        run: |
+          case "$EVENT" in
+            workflow_dispatch) ref=$INPUT_REF ;;
+            repository_dispatch)
+              ref=$PAYLOAD_SHA
+              if [[ ! $ref =~ ^[0-9a-f]{40}$ ]]; then
+                echo '::error::client_payload.hibi_sha must be a full commit SHA'
+                exit 1
+              fi
+              ;;
+            *) ref=main ;;
+          esac
+          if [[ ! $ref =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]]; then
+            echo '::error::hibi_ref must be a branch, tag, or commit'
+            exit 1
+          fi
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+      - name: check out documentation
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: docs
+          persist-credentials: false
+      - name: check out hibi
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: schmayterling/hibi
+          ref: ${{ steps.hibi.outputs.ref }}
+          path: hibi
+          persist-credentials: false
+      - name: record revisions
+        id: revision
+        run: |
+          echo "docs=$(git -C docs rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "hibi=$(git -C hibi rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: hibi/.nvmrc
+          cache: npm
+          cache-dependency-path: hibi/package-lock.json
+      - run: npm ci
+        working-directory: hibi
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+      - name: build documentation
+        working-directory: hibi
+        env:
+          HIBI_DOCS_SOURCE: ${{ github.workspace }}/docs
+          HIBI_SOURCE_REVISION: ${{ steps.revision.outputs.hibi }}
+          DOCS_REVISION: ${{ steps.revision.outputs.docs }}
+        run: |
+          npm run docs
+          npm run docs:check
+          node --test --test-name-pattern='development guide examples' tests/addon-reference.test.mjs
+          npm run export:docs
+          printf 'docs %s\nhibi %s\n' "$DOCS_REVISION" "$HIBI_SOURCE_REVISION" > out/docs/revision.txt
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: documentation
+          path: hibi/out/docs
+          if-no-files-found: error
+          retention-days: 14
