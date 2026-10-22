@@ -78,6 +78,8 @@ jobs:
         run: |
           echo "docs=$(git -C docs rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           echo "hibi=$(git -C hibi rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "HIBI_DOCS_SOURCE=$GITHUB_WORKSPACE/docs" >> "$GITHUB_ENV"
+          echo "HIBI_SOURCE_REVISION=$(git -C hibi rev-parse HEAD)" >> "$GITHUB_ENV"
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: hibi/.nvmrc
@@ -87,15 +89,23 @@ jobs:
         working-directory: hibi
         env:
           ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
-      - name: build documentation
+      - name: prepare documentation
+        id: prepare
+        working-directory: hibi
+        run: npm run docs
+      # Link and example checks both run so one failure does not hide the other.
+      - name: check documentation
+        working-directory: hibi
+        run: npm run docs:check
+      - name: test guide examples
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        working-directory: hibi
+        run: node --test --test-name-pattern='development guide examples' tests/addon-reference.test.mjs
+      - name: export site
         working-directory: hibi
         env:
-          HIBI_DOCS_SOURCE: ${{ github.workspace }}/docs
-          HIBI_SOURCE_REVISION: ${{ steps.revision.outputs.hibi }}
           DOCS_REVISION: ${{ steps.revision.outputs.docs }}
         run: |
-          npm run docs:check
-          node --test --test-name-pattern='development guide examples' tests/addon-reference.test.mjs
           npm run export:docs
           printf 'docs %s\nhibi %s\n' "$DOCS_REVISION" "$HIBI_SOURCE_REVISION" > out/docs/revision.txt
       - if: steps.hibi.outputs.deploy != 'true'
