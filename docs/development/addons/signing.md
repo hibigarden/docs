@@ -23,6 +23,17 @@ node scripts/addon-signing.mjs verify /path/to/addon
 
 Ship the generated `hibi-addon.sig.json` with the package. The signer and installer share the package inventory and hashing code, including path exclusions. Every included file except the signature is covered. Changing any included file requires signing again. The verifier accepts only Hibi's trusted public keys; it does not accept a key supplied by the package.
 
+## Sign directory listings
+
+Every entry in [hibigarden/addons-repository](https://github.com/hibigarden/addons-repository) needs a signature in `signatures/<id>.json`. It uses the same envelope as `hibi-addon.sig.json` and covers the exact files the entry names. After reviewing an accepted entry, put those files in a folder: the `addons/<id>` folder itself, the listed folder exported from the pinned commit without running scripts, or the extracted ZIP file. Sign that folder and copy its `hibi-addon.sig.json` to `signatures/<id>.json` in the pull request:
+
+```sh
+node scripts/addon-signing.mjs sign /path/to/listed-files --key ~/.hibi-signing/hibi-addon-root.key
+cp /path/to/listed-files/hibi-addon.sig.json /path/to/addons-repository/signatures/<id>.json
+```
+
+The directory's `npm run check` and `npm run check:remote` verify every signature with Hibi's public keys and compare it with the listed files, the pinned commit, or the ZIP contents. Its CI never has the private key. Merging publishes the entry; Hibi reads the directory and its signatures at runtime, so new listings need no Hibi release.
+
 ## Publish a revocation list
 
 Prepare a statement following the [revocation format](sideloading.md#revoked-addons). Start with sequence 1 and an empty `entries` array; increase the sequence for every subsequent change. Use an explanation suitable for users. Omit `versions` to revoke all versions of an ID.

@@ -1,6 +1,6 @@
 # Publishing to the Hibi garden
 
-The [Hibi garden](https://www.hibi.garden/addons/) lists community addons. The same list appears in the **Hibi garden** tab of **Settings → Addons**, where people install them with **Install**. Listing an addon helps people find it, but it does not sign the addon or vouch for it.
+The [Hibi garden](https://www.hibi.garden/addons/) lists community addons. The same list appears in the **Hibi garden** tab of **Settings → Addons**, where people install them with **Install**. Hibi's maintainers review every listed addon and sign the exact files its entry names, so people can install it from the garden without allowing unsigned addons.
 
 ## Start from the addon starter
 
@@ -34,14 +34,16 @@ The directory lives in [hibigarden/addons-repository](https://github.com/hibigar
 }
 ```
 
-Hibi installs exactly the listed commit or ZIP file. A download whose size or digest differs is refused, and so is a package whose ID, version, or kind differs from its entry. To publish a new version, update the entry in a new pull request. Copy `id`, `name`, `description`, `version`, `apiVersion`, `kind`, and `authors` from `hibi-addon.json` exactly, and state the addon's license as an [SPDX expression](https://spdx.org/licenses/).
+Hibi installs exactly the listed commit or ZIP file. A download whose size or digest differs is refused, and so is a package whose ID, version, or kind differs from its entry or whose files differ from its signature. To publish a new version, update the entry in a new pull request. Copy `id`, `name`, `description`, `version`, `apiVersion`, `kind`, and `authors` from `hibi-addon.json` exactly, and state the addon's license as an [SPDX expression](https://spdx.org/licenses/).
 
 Before you submit an entry, you can test a repository entry by installing its commit link, such as `https://github.com/you/hello-theme/tree/<commit>/addons/hello-theme`. See [GitHub links](sideloading.md#github-links).
 
 ## Submit it
 
-Follow the directory's [contributing guide](https://github.com/hibigarden/addons-repository/blob/main/CONTRIBUTING.md). Run its checks, install and try your addon in Hibi, then open a pull request that describes what the addon does, which access it asks for, and how you tested it. Reviewers read the package source and manifest. They do not run build scripts or install dependencies from linked repositories.
+Follow the directory's [contributing guide](https://github.com/hibigarden/addons-repository/blob/main/CONTRIBUTING.md). Run its checks, install and try your addon in Hibi, then open a pull request that describes what the addon does, which access it asks for, and how you tested it. Reviewers read the package source and manifest. They do not run build scripts or install dependencies from linked repositories. You do not need a signing key: once your addon is accepted, a maintainer signs the listed files and adds the signature to the pull request as `signatures/<id>.json`. Until then, the directory's checks report that the entry needs a signature.
+
+Merging the pull request publishes the addon. It appears on [hibi.garden/addons](https://www.hibi.garden/addons/) and in Hibi after **Refresh**, without a new Hibi release. Each new version needs a new pull request and a new signature.
 
 Once your entry is listed, you can link to it with `hibi://addons/install?id=<id>`. The link opens the Hibi garden in Hibi and asks for the usual install confirmation.
 
-Packages without a Hibi signature install only after the user turns on **Allow unsigned addons**. To ask for a signature, see [signatures and unsigned packages](sideloading.md#signatures-and-unsigned-packages).
+The signature covers only the files your entry lists. People who install your addon another way, such as from your repository URL, a newer commit, or the [addon starter](https://github.com/hibigarden/addon-starter), get an unsigned package unless you ship a Hibi signature with it. Unsigned packages install only after the user turns on **Allow unsigned addons**. See [signatures and unsigned packages](sideloading.md#signatures-and-unsigned-packages).

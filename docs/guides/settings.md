@@ -80,9 +80,13 @@ Click anywhere on an addon row outside its controls to read its documentation. O
 
 Required providers install before addons that depend on them. Required providers must already be installed or remain selected. Unchecking a missing provider makes its consumers unavailable with a reason; other selected packages can still install. Keep the review open to select remaining packages or retry failed rows without downloading again. A failed package does not undo successful installations. **Cancel** during installation stops pending work; closing the dialog or pressing `Escape` does the same. Completed installations remain disabled, except replacements that keep their setting. See [sideloading and sharing](../development/addons/sideloading.md#discovery-and-package-limits) for discovery limits and package layout rules.
 
-Choose **Refresh** in the Hibi garden tab to check for new listings. If the directory is unavailable, Hibi shows the last downloaded list when one is available.
+Choose **Refresh** in the Hibi garden tab to check for new listings. New addons appear as soon as they are listed; you do not need to update Hibi. If the directory is unavailable, Hibi shows the last downloaded list when one is available.
 
-The Hibi garden helps you find addons, but listing an addon there does not sign it or vouch for it. Its listing shows the addon's license, and the usual review and [signature checks](#signed-addons) still apply. Hibi installs exactly the files the listing names. If the download differs, Hibi shows **The downloaded addon does not match its Hibi garden listing. Refresh the directory and try again.**
+Addons you have installed show **Installed** in the Hibi garden. Choose **Uninstall** to remove one; Hibi moves it to the system trash.
+
+Hibi's maintainers review every addon in the Hibi garden and sign the exact files it lists. When you install from the Hibi garden, Hibi checks that signature before installing anything, so these addons install without **Allow unsigned addons**. The listing also shows the addon's license. If the download differs from the signed files, Hibi refuses it and shows **The downloaded addon does not match its Hibi garden listing. Refresh the directory and try again.**
+
+The signature covers only the listed files. The same addon installed another way, such as from its repository URL or a newer commit, is checked like any other package and may be **Unsigned**.
 
 Websites and other apps can link to an addon. A `hibi://addons/install?id=<id>` link opens the Hibi garden and asks you to confirm the installation, as usual. A `hibi://addons/open?id=<id>` link shows a built-in or installed addon without enabling it.
 
