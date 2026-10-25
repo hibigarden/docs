@@ -22,9 +22,9 @@ flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/fl
 
 Pull request and `main` checks only build the unpacked app. Installers are built by the nightly and release workflow, which also installs and briefly launches the Debian and Flatpak packages on x64 and arm64.
 
-## Nightly builds
+## Beta and nightly builds
 
-The **nightly** GitHub Actions workflow builds Linux AppImage, Debian, and Flatpak packages for x64 and arm64, a Windows installer, and macOS Intel and Apple Silicon packages. It runs checks before publishing a prerelease with download hashes and a changelog. Run it manually from Actions when you need a new build; unchanged revisions still build. See [releases and nightly builds](releases.md) for publication rules.
+The **nightly and releases** GitHub Actions workflow builds Linux AppImage, Debian, and Flatpak packages for x64 and arm64, a Windows installer, and macOS Intel and Apple Silicon packages. It runs the full checks first. A run that passes everywhere publishes a numbered beta release; any other complete run publishes a nightly prerelease. Both include download hashes and a changelog. Run it manually from Actions when you need a new build; unchanged revisions still build. See [releases and nightly builds](releases.md) for publication rules.
 
 Windows and Linux packages are unsigned. macOS packages use Developer ID signing and notarization from repository secrets.
 

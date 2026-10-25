@@ -1,40 +1,48 @@
 # Releases and nightly builds
 
-The updater reads `update.json` from the rolling `nightly-green` (recommended) or `nightly` (all nightlies, including broken builds) release. Publication generates SHA-512 hashes and sizes from the packaged installers with `scripts/update-feed.mjs`. The manifest pins downloads to an immutable dated release, which also contains `latest.yml`, `latest-linux.yml`, `latest-linux-arm64.yml`, and `latest-mac.yml` for electron-updater. A failed package job cannot publish either feed. Broken checks advance only the all-nightlies feed.
+Hibi has two update channels. **Beta (stable)** is the default and receives numbered releases that passed every required check on every platform. **Nightly (bleeding edge)** receives every published build, including betas. Back up your notes before installing a nightly.
 
-Before publication, Linux package filenames are normalized to `linux-x64` and `linux-arm64`, replacing `x86_64`, `amd64`, and `aarch64`. This keeps feeds compatible with older installed updaters that reject underscores, including when checking from macOS or Windows. Publication fails if two packages would get the same name.
+The updater reads `feed.json` from the rolling `beta` or `nightly` release. Publication generates SHA-512 hashes and sizes from the packaged installers with `scripts/update-feed.mjs`. The feed pins downloads to an immutable release, which also contains `latest.yml`, `latest-linux.yml`, `latest-linux-arm64.yml`, and `latest-mac.yml` for electron-updater. A failed package job cannot publish either feed.
 
-The main process owns channel preferences, feed requests, verified downloads, and installation. Windows NSIS, Linux AppImage (x64 and arm64), and macOS ZIP updates use electron-updater. Debian and Flatpak packages are published as downloads only. They never appear in `update.json`, because older updaters reject the whole feed when any asset has an unknown extension, and those installs report updates as unavailable. The macOS feed includes both architectures, and the manifest keeps DMG entries for older builds while pinning the ZIP hashes for self-updating builds. Restart installation passes through the normal document flush and unsaved-edit confirmation. Nightly ordering uses date and numeric workflow run/attempt, never lexical commit-hash order.
+Before publication, Linux package filenames are normalized to `linux-x64` and `linux-arm64`, replacing `x86_64`, `amd64`, and `aarch64`. Publication fails if two packages would get the same name.
+
+The main process owns channel preferences, feed requests, verified downloads, and installation. Windows NSIS, Linux AppImage (x64 and arm64), and macOS ZIP updates use electron-updater. Debian and Flatpak packages are published as downloads only and never appear in the feed. The macOS feed includes both architectures and pins the ZIP hashes for self-updating builds. Restart installation passes through the normal document flush and unsaved-edit confirmation. Update ordering compares the version first, puts a release above its own nightlies, then orders nightlies by date and numeric workflow run/attempt, never by commit hash.
 
 The **nightly and releases** workflow builds Linux x64, Linux arm64, Windows x64, macOS Apple Silicon, and macOS Intel installers from one fixed commit. Linux arm64 builds and checks run on GitHub's native `ubuntu-24.04-arm` runner. Every release build compiles the app and runs the full required suite on each platform. Download caches can speed up installation; cached builds and previous test results never certify a release.
 
-Required checks run in four isolated shards per platform. All four reports must match the packaged commit and platform, and every shard must pass for that platform to be marked successful. Packaging runs once per platform after the checks finish.
+Required checks run in four isolated shards per platform. After all 20 shards report, the workflow decides the release channel, tag, and version, then packages every platform with that version. Publication rereads the shard reports and refuses to publish if they do not match the packages.
 
-| Result | Nightly | Stable release |
-| --- | --- | --- |
-| All packages succeed and all required checks pass | Publish as **nightly-green** and update the recommended nightly. | Publish the release. |
-| All packages succeed but a required check fails | Publish as **nightly-broken**, with a warning and test results. Keep the previous recommended nightly. | Do not publish. |
-| Compilation or packaging fails on any platform | Do not publish a release or change the recommendation. | Do not publish. |
+| Result | Publication |
+| --- | --- |
+| All packages succeed, all required checks pass, and there are commits since the last beta | Publish a beta release and advance both the beta and nightly feeds. |
+| All packages succeed, but a required check fails or nothing changed since the last beta | Publish a nightly prerelease and advance only the nightly feed. Failed checks leave the workflow marked as failed. |
+| Compilation or packaging fails on any platform | Do not publish or change either feed. |
+
+## Betas
+
+Betas use `v<version>` tags and are full GitHub releases marked as latest. Each beta increments the patch version of the newest `v*` tag. The version in `package.json` is a floor, so raising it starts a new series: with `0.2.0`, the first beta is `v0.2.0`, followed by `v0.2.1`, `v0.2.2`, and so on. To release a minor version, select **Actions → nightly and releases → Run workflow** on `main` and choose **bump: minor**; after `v0.2.9`, that produces `v0.3.0`. Scheduled runs always increment the patch. Pushing a version tag does not start a release.
+
+The rolling [beta release](https://github.com/schmayterling/hibi/releases/tag/beta) carries the beta feed. It never moves back to an older commit, so a rerun of an older revision cannot replace a newer beta.
 
 ## Nightlies
 
 Nightlies run daily at 18:00 UTC (02:00 Manila time), including when the source commit has not changed. GitHub may delay scheduled runs. You can also select **Actions → nightly and releases → Run workflow** on `main`. The **clean** option bypasses download caches; full builds and checks run either way.
 
-Green builds use `nightly-<date>-<commit>-<run>-<attempt>` tags. Broken builds use `nightly-broken-<date>-<commit>-<run>-<attempt>`. These releases and their assets are not replaced after publication. Release notes identify failed platforms and link to the workflow logs. A broken nightly leaves the workflow marked as failed even when its debug installers are published.
+Nightlies use `nightly-<date>-<commit>-<run>-<attempt>` tags and versions such as `0.2.1-nightly.20261025.gabcdef0.12.1`, based on the next beta version. These releases and their assets are not replaced after publication. Release notes list each platform's check and package results and link to the workflow logs. The rolling [nightly release](https://github.com/schmayterling/hibi/releases/tag/nightly) carries the nightly feed.
 
-The rolling [nightly-green release](https://github.com/schmayterling/hibi/releases/tag/nightly-green) points to the latest recommended build after the first green nightly is published. Its `recommended-nightly.json` asset contains the build's tag, version, commit, and release URL. Consumers should follow this pointer instead of choosing the newest prerelease: that prerelease may be broken. Broken builds never move this pointer. A rerun of an older commit cannot replace a newer recommendation.
+## Moving from the old nightly channels
 
-Back up your notes before installing a nightly. Broken builds are for debugging and dogfooding, and may lose functionality. Installers and checksums live on the dated release; the rolling release only carries the recommendation.
+Earlier builds followed `nightly-green` (recommended nightly) or `nightly` (every nightly, including broken builds), and can only install old-format nightlies. The last old-format nightly, `0.2.0-nightly.*`, was published to both old feeds and contains the new updater. When it starts, a recommended-nightly install switches to Beta and an every-nightly install switches to Nightly; both then update from the new feeds. The old `nightly-green/update.json`, `nightly-green/recommended-nightly.json`, and `nightly/update.json` files are no longer updated.
 
-Set the repository Actions secret `NIGHTLIES_WEBHOOK_URL` to a Discord webhook URL to announce published nightlies. Each message mentions role `1550309423166267432` and includes the tag, source commit, installer links, and one green or red status embed. Download links come from the installer checksum manifest and exclude source archives. Stable releases and failed publications do not send announcements. If the secret is unset, announcements are skipped. Delivery failures fail the notification step without undoing publication or changing the recommendation.
+## Announcements
 
-## Stable releases
+Set the repository Actions secret `NIGHTLIES_WEBHOOK_URL` to a Discord webhook URL to announce published betas and nightlies. Each message mentions role `1550309423166267432` and includes the tag, source commit, and installer links. Download links come from the installer checksum manifest and exclude source archives. Failed publications do not send announcements, and a rerun of an already published release does not announce it again. If the secret is unset, announcements are skipped. Delivery failures fail the notification step without undoing publication or changing either feed.
 
-Push a `v<version>` tag that exactly matches the non-prerelease version in `package.json`, such as `v0.1.0`. The same workflow runs the full required checks on all five platforms. A failing, skipped, or cancelled check cannot be promoted to a stable release. Compilation and packaging must also succeed everywhere.
+## Publication details
+
+Publication requires no extra token: only the publish job has repository contents write permission. Nightlies remain prereleases and never replace GitHub's latest release. Failed uploads leave a draft for retry; temporary Actions artifacts expire after one day. If one platform fails packaging, successful platform artifacts may remain in that workflow run for inspection, but no release is published.
 
 For local distribution packages, use `npm run dist`. It runs `npm run check` before creating installers. `npm run package` creates an unpacked development app and does not certify a release.
-
-Publication requires no extra token: only the publish job has repository contents write permission. Nightlies remain prereleases and never replace GitHub's latest stable release. Failed uploads leave a draft for retry; temporary Actions artifacts expire after one day. If one platform fails packaging, successful platform artifacts may remain in that workflow run for inspection, but no release is published.
 
 ## Addon starter package
 
