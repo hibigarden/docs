@@ -74,7 +74,7 @@ Click anywhere on an addon row outside its controls to read its documentation. O
 
 Enable **Autocomplete** and **Dictionary and thesaurus**, then open Autocomplete settings. **Exclude this document** and **Exclude this workspace** stop learning and personal suggestions in that scope without erasing words already learned. Use **Clear learned words** to remove existing history. Offline dictionary suggestions remain available.
 
-Hibi retains every valid exclusion without a count limit. Older versions could discard exclusions beyond the first 512; exclusions already removed from saved settings must be added again. Document exclusions do not follow path changes. Recheck them after renaming or moving a note, or after saving an untitled draft for the first time.
+Hibi retains every valid exclusion without a count limit. Older versions could discard exclusions from long lists; exclusions already removed from saved settings must be added again. Document exclusions do not follow path changes. Recheck them after renaming or moving a note, or after saving an untitled draft for the first time.
 
 If settings cannot be saved, an alert explains that changes apply until Hibi restarts. Privacy choices remain active in the current window, but unsaved changes do not survive restart. A later successful settings change retries the complete exclusion lists and clears the alert.
 
