@@ -18,9 +18,9 @@ context.commands.register({
 
 The transform receives the current source. Return the replacement text, or `null` to leave it unchanged. For file actions such as saving, use `context.editor.runCommand('save')` so Hibi can handle dialogs and unsaved changes.
 
-`getDocument()` includes `tabId`, `revision`, and `contentVersion`. The revision identifies a replacement editor; the content version advances when text changes, including undo and redo. If you calculate a result asynchronously, compare all three before using it. A matching file name alone does not mean the document is unchanged.
+`getDocument()` includes `tabId`, `revision`, and `contentVersion`. The revision identifies a replacement editor; the content version advances when changes are applied, including undo and redo. If you calculate a result asynchronously, compare all three before using it. A matching file name alone does not mean the document is unchanged.
 
-For edits calculated from an earlier snapshot, use `applySourceEdits()`. It validates the version and exact text before applying all changes in one undo operation. Offsets count UTF-16 code units in the complete document source, including frontmatter. Rich view accepts literal text replacements only when the host can prove their exact location and preserve the surrounding structure. Other ranges return `unsupported-view`. Navigation position maps must not be used to build edit ranges.
+For edits calculated from an earlier snapshot, use `applySourceEdits()`. It validates the version and exact text before applying all changes in one undo operation. Offsets count UTF-16 code units in the complete document source, including frontmatter. Rich view accepts literal text replacements only when the host can prove their exact location and preserve the surrounding structure. Structurally unsupported ranges return `unsupported-view`; invalid source boundaries, including a range that splits a CRLF pair, return `invalid`. Navigation position maps must not be used to build edit ranges.
 
 ```typescript
 const document = context.editor.getDocument()
@@ -40,7 +40,13 @@ Handle `stale` by calculating a new proposal from the latest snapshot, and `comp
 
 A request can contain up to 256 non-overlapping changes in source view or 32 in rich view. Each change must include its exact `expectedText`; insertions use an empty string. Edits cannot split a surrogate pair or share an insertion boundary. Inserted and expected text together are limited to 4 Mi UTF-16 units, the serialized request to 8 Mi units, and the resulting document to Hibi's 2 MiB UTF-8 limit. Changes use the host's ordered persistence journal and save barriers.
 
-Source offsets include the original line endings. CodeMirror uses normalized positions internally, but Hibi translates API ranges and retains untouched CRLF and mixed line endings. New lines use the document's first line-ending style. Edits cannot split a CRLF pair; use a whole-source transform for changes that only replace line endings. Source and rich edits share the host's operation history, which retains up to 128 groups and 8 MiB of estimated change payload by default. Retained undo/redo restores exact source, including line endings. Expired groups cannot be undone through a second widget history.
+Source offsets include the original line endings. CodeMirror uses normalized positions internally, but Hibi translates API ranges and retains untouched CRLF and mixed line endings. New lines use the document's first line-ending style. Edits cannot split a CRLF pair, even when the replacement would leave the text unchanged. Source view validates ranges before accepting a no-op. A valid no-op returns `applied` without advancing the content version.
+
+In Source view, multiple individually changed ranges create a content version and one undo step even when their combined result has identical text. For example, deleting the first `a` in `aaa` and inserting `a` at the end still records an operation. Multiple ranges may also apply when their combined effect changes only line endings. Use a whole-source transform when a line-ending-only edit is rejected by normalized source validation.
+
+Range validation uses the same boundary diagnostic for offsets outside the source, overlaps, and split characters or line endings. Request parsing separately rejects malformed identities and ranges such as `NaN`. Handle result statuses rather than matching diagnostic wording.
+
+Source and rich edits share the host's operation history, which retains up to 128 groups and 8 MiB of estimated change payload by default. Retained undo/redo restores exact source, including line endings. Expired groups cannot be undone through a second widget history.
 
 Rich corrections also keep a per-editor source-preservation cache of up to 32 entries and 8 Mi UTF-16 units for matching subsequent serialization results. That cache is separate from authoritative operation history; its eviction does not make retained host undo normalize Markdown. A schema change creates a new rich editor and follows the syntax transition policy. Source editor recreation restores the session's source selection.
 
@@ -154,6 +160,8 @@ For an active-note worker, `context.editor.getMetadataSyntax(document.id, docume
 ## Attach editor behavior
 
 `context.editor.registerRich()` attaches behavior to each visual editor. Its `attach(editor, context)` callback must return a cleanup function. It can register a ProseMirror plugin, but cannot change the editor schema. `registerSource()` calls `create(context)` to make a CodeMirror extension for each source editor. `context.viewId` names the view that holds the editor and matches `viewId` in the view targets from `context.editorViews`, so a command can find the editor it was run from when a split shows the same note twice. Hibi always supplies this context when it invokes the hooks. The parameter is optional so existing wrappers can still call `create()` or `attach(editor)` manually; callbacks that use view identity must handle an omitted context. See [RichExtension](../addon-api-reference/RichExtension.md) and [SourceExtension](../addon-api-reference/SourceExtension.md).
+
+A retained source editor can be hidden while Normal view is active. Its extensions receive one combined update when the pane is shown or read, rather than one update per formatted edit. Use `onDocumentChange()` to observe source changes independently of pane updates.
 
 Throw when an attachment cannot be installed. Hibi displays the failure and keeps that editor read-only until the failing addon is disabled or successfully installed. Already attached rich-editor features are detached if a later attachment fails.
 

@@ -6,9 +6,13 @@ Choose **Folder** to copy an ordinary folder. Enable **Import from Obsidian**, *
 
 Hibi copies the import into a new folder and keeps your originals. Existing documents are never replaced. Review any notices shown after the import, especially unresolved note links.
 
-Imports support up to 10,000 files and folders, 256 MiB total, and 32 MiB per file. Hidden files, application settings, `node_modules`, and symbolic links are excluded. Archives must be a single unencrypted ZIP file, without ZIP64 or split volumes.
+Folder imports have no file-count or total-size limit. Hibi streams attachments from disk rather than loading them all into memory, and folder attachments have no import size limit. Hidden files, application settings, `node_modules`, and symbolic links are excluded.
 
-Converted documents must fit Hibi’s 2 MiB editing limit. CSV tables support up to 10,000 rows and 256 columns.
+For Obsidian, Notion, and Bear conversion, each note or CSV file must be UTF-8 text no larger than 2 MiB. Converted files must fit within 32 MiB. CSV tables have no separate row or column limit.
+
+Archives must be a single unencrypted ZIP file, without ZIP64 or split volumes. ZIP imports retain safety limits of 10,000 entries, 256 MiB for both the archive and its expanded files, and 32 MiB per extracted file. Extract a larger export yourself and import its folder instead; conversion limits still apply.
+
+Choose **Cancel** while an import is busy, or dismiss the dialog, to stop it. Hibi removes temporary files before cancellation completes. An import already published into the workspace remains there.
 
 ## Obsidian
 

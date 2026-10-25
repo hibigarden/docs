@@ -31,6 +31,12 @@ description: Set up your first Hibi workspace.
 
 Set **Site URL** to the published address, including a path such as `https://example.com/docs/`. Static-folder exports use it for canonical links and a sitemap. **Social image URL** must point to a publicly hosted image. You can also set the author, language, and whether search engines may index the site.
 
+## Links to headings
+
+Heading fragments follow the same rule as Hibi: underscores are preserved, so a heading named `api_v2` uses `#api_v2`. Repeated headings receive suffixes such as `#title-1` and `#title-2`. Both export layouts retain older exported fragments as aliases, reserving their destinations before assigning new suffixes.
+
+These reservations can change where an existing link opens in Hibi. If `### ✨ features` comes before `### features`, `#features` opens `✨ features`, and the plain `features` heading uses `#features-1`. Check links to headings whose names differ only by punctuation or symbols.
+
 ## Password protection
 
 Turn on **Require a password** to encrypt the exported content. Hibi remembers that protection is enabled but asks for the password each time you export. Readers can unlock the result locally or on an HTTPS website.
