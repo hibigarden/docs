@@ -159,7 +159,7 @@ For an active-note worker, `context.editor.getMetadataSyntax(document.id, docume
 
 ## Attach editor behavior
 
-For API version 3, use `context.editor.registerFormatted()` to create CodeMirror extensions for each formatted editor. Its `create(context)` can return an extension or a promise, and receives the same view identity as `registerSource()`. Request the `formatted` capability when using the host's CodeMirror and Lezer Markdown SDK. The host removes these extensions when the addon stops. See [FormattedExtension](../addon-api-reference/FormattedExtension.md).
+For API version 3, use `context.editor.registerFormatted()` to create CodeMirror extensions for each formatted editor. Its `create(context)` can return an extension or a promise, and receives the same view identity as `registerSource()`. Request the `formatted` capability when using the host's CodeMirror and Lezer Markdown SDK. The host removes these extensions when the addon stops. The `FormattedExtension` type describes this factory.
 
 `registerRich()` and the `rich` capability support the previous Tiptap editor. They do not attach to the CodeMirror formatted editor.
 
