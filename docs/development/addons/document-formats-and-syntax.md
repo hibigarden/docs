@@ -30,6 +30,19 @@ Hibi shares an in-flight load across aliases. Disabling or removing an addon whi
 
 Implement `render(source, documentId)` to return `{ html, css }` for workspace export. Keep rendering separate from editing: a preview or export must not rewrite the source. Hibi sanitizes the resulting HTML before displaying the exported site.
 
+For site-wide additions, register one contribution inside `start(context)`. Hibi offers it under **Site addons** in the export dialog and removes it when the addon stops. Feature-detect `context.site` for older API version 2 builds.
+
+```typescript
+context.site.register({
+  description: 'Keeps exported headings together when printing.',
+  css: '@media print { h1, h2, h3 { break-after: avoid; } }',
+})
+```
+
+The optional `transform` receives rendered HTML and CSS plus the page's workspace-relative path, original Markdown, and optional document ID. Return `{ html, css }` without changing source files. Transforms run serially during export; resulting HTML is sanitized. Registered CSS is limited to 128 KiB and comes before the author's CSS overrides. Scripts, native bridges, and addon state are not included in the site.
+
+The **Export** addon publishes a version 1 API through `context.addons.ready('documentation')`. Declare `documentation` in your manifest's `requires.addons` list before calling it: `"requires": { "addons": [{ "id": "documentation" }] }`. Its `buildSite(options?)` returns `SiteExportArtifact`: `{ version: 1, pages, files: [{ path, content }] }`, with UTF-8 file contents built in memory and no destination dialog. It uses the workspace's saved export preferences, active addon renderers, and palettes. The result is always a static folder. Protected, unreadable, and unmigrated legacy export preferences are rejected. Ask the user to review and save export options in Hibi before publishing; callers cannot override password protection through this API. Addon API exchange is not an isolation boundary: installed addons share the renderer and may already have workspace access.
+
 Formats that execute document code need an explicit run action. Do not execute it when the document opens or when a preview refreshes. Native compilers belong in a bundled addon's native entry point.
 
 ## Extend Markdown
