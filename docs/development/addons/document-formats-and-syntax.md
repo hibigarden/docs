@@ -49,6 +49,10 @@ Formats that execute document code need an explicit run action. Do not execute i
 
 Use [MarkdownFlavor](../addon-api-reference/MarkdownFlavor.md) for a Markdown dialect or syntax extension, and [MarkdownSyntaxFeature](../addon-api-reference/MarkdownSyntaxFeature.md) for its settings toggle. Keep disabled syntax editable as source. Use a [MarkdownExtension](../addon-api-reference/MarkdownExtension.md) for a reversible source-to-body projection, such as frontmatter above the visual editor.
 
+For API version 3, a flavor's `syntax` supplies Lezer Markdown configuration for source highlighting and the CodeMirror formatted view. Its `render` entries use inline `decorate` callbacks and cached block `layout` callbacks; keep their work near the viewport and preserve canonical source positions. Legacy `richExtensions` apply only to the previous Tiptap editor.
+
+If an installed flavor's parser callback throws, Hibi reports the owning flavor, disables that registration, and retries the current parse without its syntax so the accepted edit survives. Register the flavor again or restart the addon to retry it. A failed formatted rendering callback removes that flavor's formatted contribution while other contributions remain available.
+
 The Markdown, frontmatter, and Typst addons in `src/addons/` provide working examples. Disabling a format must never delete or rewrite its documents.
 
 For an unchanged contiguous body, a `MarkdownProjection` can declare `sourceOffset`: its exact UTF-16 start in the input. Hibi validates and composes these offsets before allowing rich-text edits. Omit it for transformed or generated content; those projections remain readable but cannot receive exact rich-text fixes.

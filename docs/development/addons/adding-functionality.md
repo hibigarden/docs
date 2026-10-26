@@ -159,6 +159,10 @@ For an active-note worker, `context.editor.getMetadataSyntax(document.id, docume
 
 ## Attach editor behavior
 
+For API version 3, use `context.editor.registerFormatted()` to create CodeMirror extensions for each formatted editor. Its `create(context)` can return an extension or a promise, and receives the same view identity as `registerSource()`. Request the `formatted` capability when using the host's CodeMirror and Lezer Markdown SDK. The host removes these extensions when the addon stops. See [FormattedExtension](../addon-api-reference/FormattedExtension.md).
+
+`registerRich()` and the `rich` capability support the previous Tiptap editor. They do not attach to the CodeMirror formatted editor.
+
 `context.editor.registerRich()` attaches behavior to each visual editor. Its `attach(editor, context)` callback must return a cleanup function. It can register a ProseMirror plugin, but cannot change the editor schema. `registerSource()` calls `create(context)` to make a CodeMirror extension for each source editor. `context.viewId` names the view that holds the editor and matches `viewId` in the view targets from `context.editorViews`, so a command can find the editor it was run from when a split shows the same note twice. Hibi always supplies this context when it invokes the hooks. The parameter is optional so existing wrappers can still call `create()` or `attach(editor)` manually; callbacks that use view identity must handle an omitted context. See [RichExtension](../addon-api-reference/RichExtension.md) and [SourceExtension](../addon-api-reference/SourceExtension.md).
 
 A retained source editor can be hidden while Normal view is active. Its extensions receive one combined update when the pane is shown or read, rather than one update per formatted edit. Use `onDocumentChange()` to observe source changes independently of pane updates.
