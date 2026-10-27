@@ -126,6 +126,8 @@ jobs:
     if: needs.build.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      published: ${{ steps.guard.outputs.deploy }}
     permissions:
       contents: read
       pages: write
@@ -172,3 +174,26 @@ jobs:
       - if: steps.guard.outputs.deploy == 'true'
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  pin:
+    needs: [build, deploy]
+    if: needs.deploy.result == 'success' && needs.deploy.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: ask hibi to pin this documentation revision
+        env:
+          GH_TOKEN: ${{ secrets.HIBI_DOCS_PIN_TOKEN }}
+          DOCS_SHA: ${{ needs.build.outputs.docs }}
+        run: |
+          set -euo pipefail
+          if [[ -z ${GH_TOKEN:-} ]]; then
+            echo '::warning::HIBI_DOCS_PIN_TOKEN is unset, so hibi was not asked to pin this revision'
+            exit 0
+          fi
+          if [[ ! $DOCS_SHA =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error::published docs revision is not a full commit SHA'
+            exit 1
+          fi
+          node -e 'process.stdout.write(JSON.stringify({event_type:"hibi-docs-published", client_payload:{docs_sha:process.env.DOCS_SHA}}))' |
+            gh api --method POST repos/schmayterling/hibi/dispatches --input -
