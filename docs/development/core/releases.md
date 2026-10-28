@@ -1,8 +1,8 @@
 # Releases and nightly builds
 
-Hibi has two update channels. **Beta (stable)** is the default and receives numbered releases that passed every required check on every platform. **Nightly (bleeding edge)** receives every published build, including betas. Back up your notes before installing a nightly.
+Hibi has two update channels. **Beta (stable)** is the default and receives numbered releases. Betas normally require every check to pass on every platform, but maintainers can explicitly force a beta with failed checks. **Nightly (bleeding edge)** lists every published build, including betas. Back up your notes before installing a nightly.
 
-The updater reads `feed.json` from the rolling `beta` or `nightly` release. Publication generates SHA-512 hashes and sizes from the packaged installers with `scripts/update-feed.mjs`. The feed pins downloads to an immutable release, which also contains `latest.yml`, `latest-linux.yml`, `latest-linux-arm64.yml`, and `latest-mac.yml` for electron-updater. A failed package job cannot publish either feed.
+The updater reads `feed.json` from the rolling `beta` or `nightly` release. Publication generates SHA-512 hashes and sizes from verified installers with `scripts/update-feed.mjs`. The feed pins downloads to an immutable release. That release also contains the applicable `latest.yml`, `latest-linux.yml`, `latest-linux-arm64.yml`, and `latest-mac.yml` metadata for electron-updater.
 
 Before publication, Linux package filenames are normalized to `linux-x64` and `linux-arm64`, replacing `x86_64`, `amd64`, and `aarch64`. Publication fails if two packages would get the same name.
 
@@ -10,17 +10,25 @@ The main process owns channel preferences, feed requests, verified downloads, an
 
 The **nightly and releases** workflow builds Linux x64, Linux arm64, Windows x64, macOS Apple Silicon, and macOS Intel installers from one fixed commit. Linux arm64 builds and checks run on GitHub's native `ubuntu-24.04-arm` runner. Every release build compiles the app and runs the full required suite on each platform. Download caches can speed up installation; cached builds and previous test results never certify a release.
 
-Required checks run in four isolated shards per platform. After all 20 shards report, the workflow decides the release channel, tag, and version, then packages every platform with that version. Publication rereads the shard reports and refuses to publish if they do not match the packages.
+Required checks run in four isolated shards per platform. After all 20 shards report, the workflow decides the release channel, tag, and version, then packages every platform with that version. Publication rereads the shard reports and verifies that package reports match the source commit, channel, tag, version, and check results. Missing, duplicate, or mismatched check reports stop publication, including forced releases.
 
 | Result | Publication |
 | --- | --- |
-| All packages succeed, all required checks pass, and there are commits since the last beta | Publish a beta release and advance both the beta and nightly feeds. |
-| All packages succeed, but a required check fails or nothing changed since the last beta | Publish a nightly prerelease and advance only the nightly feed. Failed checks leave the workflow marked as failed. |
-| Compilation or packaging fails on any platform | Do not publish or change either feed. |
+| All required checks pass, and there are commits since the last beta or an explicit version was requested | Publish a beta release and advance both the beta and nightly listings. |
+| A required check fails, or nothing changed and no explicit version was requested, without force | Publish a nightly prerelease and advance only the nightly listing. Failed checks leave the workflow marked as failed. |
+| A maintainer explicitly forces the release | Publish a beta and advance both listings. Failed checks remain recorded and produce warnings. |
+
+## Partial releases and automatic updates
+
+Compilation, packaging, or verification failure excludes that platform without blocking the others. A platform contributes installers only when its build, packaging, verification, and final job result succeed and its complete installer set is present: AppImage, Debian, and Flatpak for each Linux architecture; NSIS for Windows; or signed, notarized DMG and ZIP for each macOS architecture. Failed or missing platforms remain visible in the release results. If no platform has verified installers, publication creates a metadata-only release. Release notes, channel listings, and announcements link only to available verified installers and state when none are available.
+
+A beta updates both channel listings; a nightly updates only the nightly listing. Automatic updates advance only when every platform has a complete verified installer set. Partial and metadata-only releases preserve each channel's entire last complete `feed.json`, even for platforms with new installers. The feed uses one tag and version for every platform, and existing macOS readers require both ZIP architectures, so it cannot mix new and older packages. A channel's first partial publication creates a listing without an automatic update feed. Use the versioned release's available downloads for manual installation.
 
 ## Betas
 
-Betas use `v<version>` tags and are full GitHub releases marked as latest. Each beta increments the patch version of the newest `v*` tag. The version in `package.json` is a floor, so raising it starts a new series: with `0.2.0`, the first beta is `v0.2.0`, followed by `v0.2.1`, `v0.2.2`, and so on. To release a minor version, select **Actions → nightly and releases → Run workflow** on `main` and choose **bump: minor**; after `v0.2.9`, that produces `v0.3.0`. Scheduled runs always increment the patch. Pushing a version tag does not start a release.
+Betas use `v<version>` tags and are full GitHub releases, marked as latest when they include installers. By default, each beta increments the patch version of the newest plain `v<semver>` tag. The version in `package.json` is a floor, so raising it starts a new series: with `0.2.0`, the first beta is `v0.2.0`, followed by `v0.2.1`, `v0.2.2`, and so on. To release a minor version, select **Actions → nightly and releases → Run workflow** on `main` and choose **bump: minor**; after `v0.2.9`, that produces `v0.3.0`. Scheduled runs always increment the patch and ignore manual version and force inputs. Pushing a version tag does not start a release.
+
+For an exact version, enter plain semver in **version**, such as `0.3.0`. An existing `v0.3.0` tag is rejected. An explicit version can release an unchanged revision when checks pass. To force a beta despite failed checks, enable **force_release** or append `^` to **version**: `0.3.0^` produces tag `v0.3.0` and package version `0.3.0`. The caret is removed before tagging. Force still runs every check and requires matching source identity and verified, complete installer sets for each published platform. Release notes and announcements disclose the override and retain actual results.
 
 The rolling [beta release](https://github.com/schmayterling/hibi/releases/tag/beta) carries the beta feed. It never moves back to an older commit, so a rerun of an older revision cannot replace a newer beta.
 
@@ -36,11 +44,11 @@ Earlier builds followed `nightly-green` (recommended nightly) or `nightly` (ever
 
 ## Announcements
 
-Set the repository Actions secret `NIGHTLIES_WEBHOOK_URL` to a Discord webhook URL to announce published betas and nightlies. Each message mentions role `1550309423166267432` and includes the tag, source commit, and installer links. Download links come from the installer checksum manifest and exclude source archives. Failed publications do not send announcements, and a rerun of an already published release does not announce it again. If the secret is unset, announcements are skipped. Delivery failures fail the notification step without undoing publication or changing either feed.
+Set the repository Actions secret `NIGHTLIES_WEBHOOK_URL` to a Discord webhook URL to announce published betas and nightlies. Each message mentions role `1550309423166267432` and includes the tag, source commit, and available installer links. Download links come from the verified installer checksum manifest and exclude source archives and unavailable platforms. Forced betas disclose the override; metadata-only releases state that no verified installers are available. Failed publications do not send announcements, and a rerun of an already published release does not announce it again. If the secret is unset, announcements are skipped. Delivery failures fail the notification step without undoing publication or changing either feed.
 
 ## Publication details
 
-Publication requires no extra token: only the publish job has repository contents write permission. Nightlies remain prereleases and never replace GitHub's latest release. Failed uploads leave a draft for retry; temporary Actions artifacts expire after one day. If one platform fails packaging, successful platform artifacts may remain in that workflow run for inspection, but no release is published.
+Publication requires no extra token: only the publish job has repository contents write permission. Nightlies remain prereleases and never replace GitHub's latest release. Failed uploads leave a draft for retry from the same source commit. Retrying removes stale draft attachments and replaces only the currently verified files. An already published release keeps its assets and feeds. Temporary Actions artifacts expire after one day.
 
 For local distribution packages, use `npm run dist`. It runs `npm run check` before creating installers. `npm run package` creates an unpacked development app and does not certify a release.
 

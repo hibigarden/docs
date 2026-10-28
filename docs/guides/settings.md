@@ -116,7 +116,9 @@ Choose **Save a copy** on the recovery screen to keep the draft Hibi still has i
 
 ## App details and licenses
 
-Under **About → Updates**, choose **Beta (stable)** for numbered releases that passed every required check on every platform, or **Nightly (bleeding edge)** to also receive daily builds that may be broken. Beta is the default. The choice applies across workspaces and stays saved after restarting. Installs that followed the old recommended nightly move to Beta, and installs that followed every nightly move to Nightly.
+Under **About → Updates**, choose **Beta (stable)** for numbered releases, or **Nightly (bleeding edge)** to also receive daily builds that may be broken. Betas normally pass every required check on every platform, but maintainers can force a beta with failed checks; its release notes disclose the override. Beta is the default. The choice applies across workspaces and stays saved after restarting. Installs that followed the old recommended nightly move to Beta, and installs that followed every nightly move to Nightly.
+
+Some releases have downloads for only the platforms whose installers passed verification. Automatic updates stay on the last release with complete verified installers for every platform. See [releases and nightly builds](../development/core/releases.md#partial-releases-and-automatic-updates) for details.
 
 While Hibi is open, installed builds check for updates every six hours by default. Use **Check frequency** to choose one, six, twelve, or twenty-four hours. **Check for updates on startup** also checks shortly after Hibi opens; it is on by default and can be turned off without changing the chosen frequency. **Check now** checks immediately. Choose **Download update** when a newer build is available, then **Restart and install** on macOS, Windows, or a Linux AppImage. Hibi asks you to save or discard unsaved edits before restarting; cancelling keeps the app open. Back up your documents before using a nightly.
 
