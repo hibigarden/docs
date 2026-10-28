@@ -92,6 +92,8 @@ context.commands.register({
 
 Content mounts only while the view is visible. Keep anything that must survive closing the sidebar in addon state. Use the shared [Sidebar](../addon-api-reference/Sidebar.md) component for lists and trees.
 
+For frequently changing badges and unsaved dots, pass a `status` map keyed by item ID. Each value may supply `dirty` and `decoration` fields, which take precedence over the item's own values when present. Keep `items` stable while updating `status` to preserve the tree model, expansion, and focus.
+
 Trees with more than 200 expanded rows mount only the viewport and a small buffer, plus selected, focused, editing and dragged rows. Arrow keys, Home and End reveal their targets; renaming retains focus when scrolled away. Stable item IDs preserve the scroll anchor when items change. Use the shared row and section height tokens rather than overriding individual row heights. The complete item model remains in memory; windowing bounds the DOM, not your addon's data preparation. Settings tab lists keep their existing rendering.
 
 Focus navigation reads the current row geometry before scrolling, so a changed row-height token keeps its target visible even before resize observation runs.

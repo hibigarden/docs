@@ -10,11 +10,15 @@ Review the folder before sharing it. The export includes its supported documents
 
 Turn off **Single HTML file** to use the experimental static-folder export. Each document gets a pre-rendered page with a URL such as `/development/README.md/`. Upload the whole folder to your website host. Links also work without the trailing slash on hosts that redirect directory URLs. The export includes separate JavaScript and CSS files, making it easier to edit after exporting.
 
-Hibi creates a new folder for each static export. It does not replace previous exports. A root `README.md` or `index.md` becomes the starting page.
+Hibi creates a new folder for each static export. It does not replace previous exports. A root `README.md` or `index.md` becomes the starting page unless you choose another page under **Layout and navigation**.
 
 ## Customize the site
 
 Set the site title, logo, and favicon in the export dialog. Choose light and dark themes, or use **CSS overrides** to change styles. **Lock theme** hides the reader’s appearance picker and keeps your selected themes.
+
+Under **Layout and navigation**, choose the home page, standard or wide reading width, page outline, previous and next links, and site footer. Navigation follows the folder tree, with each folder's overview first. Search finds both pages and individual headings.
+
+Enabled theme addons appear alongside bundled themes. Their colors and license details travel with the export, so readers do not need to install them. Enabled document formats and Markdown extensions use their export renderers. **Site addons** lists additional export contributions; turn off an entry to omit its CSS and export-time transforms for this workspace.
 
 Enable the **Graph** addon before exporting to include the [note graph](../editing/graph-and-tags.md). You can turn **Include graph** off for an individual export.
 
@@ -30,6 +34,12 @@ description: Set up your first Hibi workspace.
 ```
 
 Set **Site URL** to the published address, including a path such as `https://example.com/docs/`. Static-folder exports use it for canonical links and a sitemap. **Social image URL** must point to a publicly hosted image. You can also set the author, language, and whether search engines may index the site.
+
+## Links to headings
+
+Heading fragments follow the same rule as Hibi: underscores are preserved, so a heading named `api_v2` uses `#api_v2`. Repeated headings receive suffixes such as `#title-1` and `#title-2`. Both export layouts retain older exported fragments as aliases, reserving their destinations before assigning new suffixes.
+
+These reservations can change where an existing link opens in Hibi. If `### ✨ features` comes before `### features`, `#features` opens `✨ features`, and the plain `features` heading uses `#features-1`. Check links to headings whose names differ only by punctuation or symbols.
 
 ## Password protection
 

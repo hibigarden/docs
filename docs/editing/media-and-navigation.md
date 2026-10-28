@@ -28,6 +28,8 @@ Shift-click a link to follow it. In Normal view, you can also hold Ctrl+Cmd whil
 
 Obsidian `[[Note]]`, `[[Note|Alias]]`, and links to headings or blocks open their note in the current workspace. A heading-only link in the current note jumps to that heading. Links to headings or blocks in another note open the note; Hibi does not yet scroll to the target within that note. Ambiguous note names do not open a guessed target.
 
+Heading fragments preserve underscores, so `#api_v2` reaches a heading named `api_v2`. Repeated headings use numbered suffixes such as `#title-1`. [Exported sites](../guides/exporting.md#links-to-headings) use the same fragments and retain older aliases; those reserved destinations can affect headings with similar names.
+
 In Markdown source, this also follows reference links such as `[guide][help]` with a `[help]: guide.md` definition elsewhere in the note. Labels ignore case, and the first matching definition wins. Definitions inside enabled frontmatter are excluded. This supports the built-in Markdown, GitHub Markdown and Text extras readers; addons with custom parsers or projections keep their existing link behavior.
 
 Use `Cmd/Ctrl+[` to go back and `Cmd/Ctrl+]` to go forward through opened notes. In Settings, these shortcuts navigate settings pages instead. History lasts until you close the app.

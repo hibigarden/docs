@@ -30,11 +30,28 @@ Hibi shares an in-flight load across aliases. Disabling or removing an addon whi
 
 Implement `render(source, documentId)` to return `{ html, css }` for workspace export. Keep rendering separate from editing: a preview or export must not rewrite the source. Hibi sanitizes the resulting HTML before displaying the exported site.
 
+For site-wide additions, register one contribution inside `start(context)`. Hibi offers it under **Site addons** in the export dialog and removes it when the addon stops. Feature-detect `context.site` for older API version 2 builds.
+
+```typescript
+context.site.register({
+  description: 'Keeps exported headings together when printing.',
+  css: '@media print { h1, h2, h3 { break-after: avoid; } }',
+})
+```
+
+The optional `transform` receives rendered HTML and CSS plus the page's workspace-relative path, original Markdown, and optional document ID. Return `{ html, css }` without changing source files. Transforms run serially during export; resulting HTML is sanitized. Registered CSS is limited to 128 KiB and comes before the author's CSS overrides. Scripts, native bridges, and addon state are not included in the site.
+
+The **Export** addon publishes a version 1 API through `context.addons.ready('documentation')`. Declare `documentation` in your manifest's `requires.addons` list before calling it: `"requires": { "addons": [{ "id": "documentation" }] }`. Its `buildSite(options?)` returns `SiteExportArtifact`: `{ version: 1, pages, files: [{ path, content }] }`, with UTF-8 file contents built in memory and no destination dialog. It uses the workspace's saved export preferences, active addon renderers, and palettes. The result is always a static folder. Protected, unreadable, and unmigrated legacy export preferences are rejected. Ask the user to review and save export options in Hibi before publishing; callers cannot override password protection through this API. Addon API exchange is not an isolation boundary: installed addons share the renderer and may already have workspace access.
+
 Formats that execute document code need an explicit run action. Do not execute it when the document opens or when a preview refreshes. Native compilers belong in a bundled addon's native entry point.
 
 ## Extend Markdown
 
 Use [MarkdownFlavor](../addon-api-reference/MarkdownFlavor.md) for a Markdown dialect or syntax extension, and [MarkdownSyntaxFeature](../addon-api-reference/MarkdownSyntaxFeature.md) for its settings toggle. Keep disabled syntax editable as source. Use a [MarkdownExtension](../addon-api-reference/MarkdownExtension.md) for a reversible source-to-body projection, such as frontmatter above the visual editor.
+
+For API version 3, a flavor's `syntax` supplies Lezer Markdown configuration for source highlighting and the CodeMirror formatted view. Its `render` entries use inline `decorate` callbacks and cached block `layout` callbacks; keep their work near the viewport and preserve canonical source positions. Legacy `richExtensions` apply only to the previous Tiptap editor.
+
+If an installed flavor's parser callback throws, Hibi reports the owning flavor, disables that registration, and retries the current parse without its syntax so the accepted edit survives. Register the flavor again or restart the addon to retry it. A failed formatted rendering callback removes that flavor's formatted contribution while other contributions remain available.
 
 The Markdown, frontmatter, and Typst addons in `src/addons/` provide working examples. Disabling a format must never delete or rewrite its documents.
 

@@ -8,7 +8,7 @@ Use the sidebar button or `Cmd/Ctrl+/` to collapse or expand settings navigation
 
 ## Editor and appearance
 
-Use **Editor** for [tabs, default view, and spell check](editing.md). Use **Appearance** to change [colorschemes](colorschemes.md), the toolbar, and cursor style.
+Use **Editor** for [tabs, default view, and spell check](editing.md). Use **Appearance** to change [colorschemes](colorschemes.md), the toolbar, and cursor style. Changes to indentation and autosave settings also apply in other open Hibi windows.
 
 Under **Editor → Modal editing**, Hibi shows the current modal addon and explains how switching works. Hibi allows only one modal addon at a time. Enabling another modal addon asks before disabling the current one. Disabling a modal addon never enables another one automatically.
 
@@ -69,6 +69,14 @@ Choose a category above either list to show only features, formats, themes, or i
 Click anywhere on an addon row outside its controls to read its documentation. On a addon’s settings page, click its title. The row’s enable switch and remove button work separately.
 
 **Connects to** lists an addon's declared HTTPS hosts in its row and settings. Enabling it approves credential-free GET requests to those exact origins. Redirects outside the declared origins, requests with credentials, and requests to local or private addresses still prompt. Hibi only honors declarations in the manifest reviewed by its main process.
+
+### Autocomplete privacy
+
+Enable **Autocomplete** and **Dictionary and thesaurus**, then open Autocomplete settings. **Exclude this document** and **Exclude this workspace** stop learning and personal suggestions in that scope without erasing words already learned. Use **Clear learned words** to remove existing history. Offline dictionary suggestions remain available.
+
+Hibi retains every valid exclusion without a count limit. Older versions could discard exclusions from long lists; exclusions already removed from saved settings must be added again. Document exclusions do not follow path changes. Recheck them after renaming or moving a note, or after saving an untitled draft for the first time.
+
+If settings cannot be saved, an alert explains that changes apply until Hibi restarts. Privacy choices remain active in the current window, but unsaved changes do not survive restart. A later successful settings change retries the complete exclusion lists and clears the alert.
 
 ### Install an addon
 
