@@ -24,7 +24,7 @@ Obsidian `![[image.png]]` and `![[drawing.svg]]` embeds also display in the form
 
 ## Edit a link
 
-In Normal view, hover over a link or place the caret in it to see its destination and the **Edit**, **Open**, **Copy**, and **Remove** actions. Press Tab from the link to reach these actions, and Escape to return to editing. You can also right-click a link and choose **Edit link…**.
+In Normal view, hover over a link or place the caret in it to see its destination and the **Edit**, **Open**, **Copy**, and **Remove** actions. Press Tab from the link to reach these actions, and Escape to return to editing. You can also right-click a link and choose **Edit link…**, or press `Shift+F10` while the caret is in the link.
 
 **Edit** opens a dialog prefilled with the link's destination. Choose **Save** to apply a change or **Cancel** to leave the link unchanged. **Remove** keeps the link's text. Use `Cmd/Ctrl+Z` to undo a saved change or removal. The toolbar's **Link** action also changes to **Edit link** when the caret is in a link.
 
