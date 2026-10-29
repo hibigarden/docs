@@ -1,0 +1,9 @@
+# Export a note as PDF
+
+Open a note, then choose **Export as PDF…** from the command palette or the **File** menu. Choose where to save the PDF. Hibi includes your unsaved edits and renders the note in both editor engines and in source view.
+
+The PDF always uses Hibi’s light theme, including diagrams, even when the app uses a dark theme. Enabled syntax addons render supported content such as math and Mermaid diagrams. Local images referenced by the note are embedded; remote images are not downloaded. Frontmatter properties are omitted.
+
+The page size follows your system’s region: Letter in the United States, Canada, Mexico, the Philippines, Chile, Colombia, and Venezuela, and A4 elsewhere. Pages have 0.75-inch margins.
+
+To export a whole workspace, see [Export a workspace to HTML](exporting.md). For Typst’s own PDF export, see [Typst documents and PDF export](../editing/typst.md).
