@@ -24,11 +24,11 @@ Obsidian `![[image.png]]` and `![[drawing.svg]]` embeds also display in the form
 
 ## Edit a link
 
-In Normal view, hover over a link or place the caret in it to see its destination and the **Edit**, **Open**, **Copy**, and **Remove** actions. Press Tab from the link to reach these actions, and Escape to return to editing. You can also right-click a link and choose **Edit link…**, or press `Shift+F10` while the caret is in the link.
-
-**Edit** opens a dialog prefilled with the link's destination. Choose **Save** to apply a change or **Cancel** to leave the link unchanged. **Remove** keeps the link's text. Use `Cmd/Ctrl+Z` to undo a saved change or removal. The toolbar's **Link** action also changes to **Edit link** when the caret is in a link.
+Place the caret in a link and choose **Edit link** in the toolbar; the **Link** action changes to **Edit link** there. The dialog opens prefilled with the link's destination. Choose **Save** to apply a change, **Remove link** to keep only the link's text, or **Cancel** to leave the link unchanged. Use `Cmd/Ctrl+Z` to undo a saved change or removal.
 
 Editing a reference link changes that occurrence to an inline link and leaves its shared definition unchanged.
+
+With **Enable exotic butter (experimental)** turned on in **Settings → Editor**, Normal view also shows a link's destination and its **Edit**, **Open**, **Copy**, and **Remove** actions when you hover over the link or place the caret in it. **Remove** keeps the link's text, including web and email addresses that Hibi detects as links. Right-click a link, or press `Shift+F10` with the caret in it, to choose **Edit link…**, **Open link**, **Copy link**, or **Remove link**. When **Tab key indents** is off, Tab from a link also reaches the actions; Escape, or Tab past the last action, returns to the link.
 
 ## Links and history
 
