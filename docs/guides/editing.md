@@ -6,6 +6,8 @@ Hibi opens on the welcome screen with no document tabs. Start typing to create a
 
 **Normal** lets you format text without seeing Markdown markers. **Source view** shows the original text with syntax highlighting. **Side-by-side** places editable source next to a read-only formatted preview. You can select and copy preview text; switch to **Normal** to edit formatted text.
 
+With **Show markdown markers** enabled, the CodeMirror formatted view reveals Markdown around the caret or selection. Visible markers are ordinary text: use arrow keys, click between their characters, select them, or edit them with typing, Backspace, and Delete. This includes link destinations, list and task prefixes, and code fence lines. Hidden markers keep their existing caret stops. The legacy rich view shows formatting hints that cannot be edited directly.
+
 While you type in the source pane, the formatted pane may catch up shortly after you pause. Your changes are available to saving and undo immediately. Entering the formatted pane brings it up to date for reading and selection.
 
 Choose your starting view under **Settings → Editor → Layout → Default view**. Only views supported by the current [format](../editing/formats.md) are available. You can switch from the toolbar or use a [keyboard shortcut](../editing/typing-and-shortcuts.md).
