@@ -37,6 +37,7 @@ Start with [editing](guides/editing.md), or choose a topic below.
 
 ## Share your work
 
+- [Export a note as PDF](guides/pdf-export.md)
 - [Export a workspace to HTML](guides/exporting.md)
 - [Typst documents and PDF export](editing/typst.md)
 

@@ -28,7 +28,9 @@ Hibi shares an in-flight load across aliases. Disabling or removing an addon whi
 
 ## Support export
 
-Implement `render(source, documentId)` to return `{ html, css }` for workspace export. Keep rendering separate from editing: a preview or export must not rewrite the source. Hibi sanitizes the resulting HTML before displaying the exported site.
+Implement `render(source, documentId, options)` to return `{ html, css }` for workspace and PDF export. Keep rendering separate from editing: a preview or export must not rewrite the source. Hibi sanitizes the resulting HTML before displaying it.
+
+The optional `ExportRenderOptions` argument supplies `theme` when the caller needs a specific colorscheme. PDF export passes Hibi’s light theme. Use `options?.theme ?? context.colorschemes.getActive()` for themed renders. Markdown flavor `export.transform(rendered, source, documentId, options)` receives the same options as its fourth argument, and `context.editor.renderDocument(source, name, documentId, options)` forwards them. Existing renderers can omit the options argument.
 
 Formats that execute document code need an explicit run action. Do not execute it when the document opens or when a preview refreshes. Native compilers belong in a bundled addon's native entry point.
 
