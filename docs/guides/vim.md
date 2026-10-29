@@ -4,6 +4,8 @@ Enable **Vim** under **Settings → Addons** to use Vim keys in source view and 
 
 Use `ciw` to change a word, `/word` to search, or `:%s/old/new/g` to replace text.
 
+Use `v` for a character selection, `Shift+V` for whole lines, or `Ctrl+V` for a rectangular block. Move the cursor to extend the selection, then use a command such as `d` or `y` to delete or copy it. A block selection includes each line it crosses.
+
 ## File commands
 
 | Command | Action |
