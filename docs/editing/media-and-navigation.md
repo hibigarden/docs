@@ -22,6 +22,14 @@ Relative paths start from the saved note's folder. Absolute paths and local `fil
 
 Obsidian `![[image.png]]` and `![[drawing.svg]]` embeds also display in the formatted editor. Hibi looks beside the note, at the vault root, and in the attachment folder named by Obsidian's `attachmentFolderPath` setting. Hibi reads that setting without changing `.obsidian` files. `![[Other note]]` shows a link to the note rather than embedding its content.
 
+## Edit a link
+
+In Normal view, hover over a link or place the caret in it to see its destination and the **Edit**, **Open**, **Copy**, and **Remove** actions. Press Tab from the link to reach these actions, and Escape to return to editing. You can also right-click a link and choose **Edit link…**.
+
+**Edit** opens a dialog prefilled with the link's destination. Choose **Save** to apply a change or **Cancel** to leave the link unchanged. **Remove** keeps the link's text. Use `Cmd/Ctrl+Z` to undo a saved change or removal. The toolbar's **Link** action also changes to **Edit link** when the caret is in a link.
+
+Editing a reference link changes that occurrence to an inline link and leaves its shared definition unchanged.
+
 ## Links and history
 
 Shift-click a link to follow it. In Normal view, you can also hold Ctrl+Cmd while clicking a link. Web and email links open in your default app; local note links open in Hibi. Regular clicks keep editing.
