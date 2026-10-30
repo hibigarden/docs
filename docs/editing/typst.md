@@ -6,7 +6,7 @@ To use features from a newer Typst release, turn on **Use system Typst** in the 
 
 ## Write and export
 
-Use Source view to edit Typst, or Side-by-side for a live typeset preview. Typst has no visual editor.
+Use Source view to edit Typst, or Side-by-side for a live typeset preview. Typst has no Normal view.
 
 Choose **Export PDF** above the preview, or run **Export Typst PDF** from the command palette.
 

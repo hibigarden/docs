@@ -28,7 +28,7 @@ Enable format addons under **Settings → Addons**, then open **Formats** to con
 
 ## Views and formatting tools
 
-Plain text uses Source view. Formats without a visual editor offer source and side-by-side preview. The toolbar shows formatting tools supported by the current format, while run, compile, and export buttons appear above its preview.
+Plain text uses Source view. Formats without a Normal view offer source and side-by-side preview. The toolbar shows formatting tools supported by the current format, while run, compile, and export buttons appear above its preview.
 
 For these formats, Source view pauses the preview. Switch to Side-by-side to load it again. Your source selection and undo history stay in place while the preview loads.
 
@@ -38,7 +38,7 @@ If a source language fails to load, choose **Retry language** in its notice. Ret
 
 With the LaTeX addon enabled, use `$x$` for inline math. As in Obsidian, the expression can't start with a space or tab, and the first `$` after it closes it unless a space or tab comes before that `$` or a digit after it, so `$5 and $10` stays text. It can continue on later lines of its paragraph. See [Equations in Markdown](https://github.com/schmayterling/hibi/blob/main/src/addons/math/README.md#equations-in-markdown) for display math and literal dollar signs.
 
-As in Obsidian, `$$x$$` inside a line of a heading, paragraph, or table cell is display math. The next `$$` closes it, even on a later line of the same paragraph, and the expression can contain single dollar signs or be blank. HTML and PDF exports and the Source view outline draw it as a formula. With **Enable exotic butter (experimental)** turned on in **Settings → Editor**, Normal view and its outline also draw it, and word counts leave it out. Otherwise Normal view keeps these pairs as text and preserves them when saving. As in Obsidian, `\$$x$$` reads as a dollar sign, inline math `x`, and another dollar sign; write `\$\$x\$\$` to keep all the dollar signs as text.
+As in Obsidian, `$$x$$` inside a line of a heading, paragraph, or table cell is display math. The next `$$` closes it, even on a later line of the same paragraph, and the expression can contain single dollar signs or be blank. Normal view, the page outline, and HTML and PDF exports draw it as a formula, and word counts leave it out. As in Obsidian, `\$$x$$` reads as a dollar sign, inline math `x`, and another dollar sign; write `\$\$x\$\$` to keep all the dollar signs as text.
 
 ## Install required tools
 
