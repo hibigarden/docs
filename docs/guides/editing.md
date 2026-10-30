@@ -72,7 +72,7 @@ Press `Cmd/Ctrl+K` to search commands and settings. Use arrow keys and Enter to 
 
 ## Save and rename
 
-Use **File → Save** (`Cmd/Ctrl+S`) or **Save as** (`Cmd/Ctrl+Shift+S`). New notes need a location before [autosave](settings.md#autosave) can work. If another app changes a file, Hibi asks before replacing it.
+Use **File → Save** (`Cmd/Ctrl+S`) or **Save as** (`Cmd/Ctrl+Shift+S`). New notes need a location before [autosave](settings.md#autosave) can work. If another app changes a file, Hibi asks before replacing it; see [When another app changes a note](#when-another-app-changes-a-note).
 
 You can keep typing while saving. If you save again before the current save finishes, Hibi saves your latest edits afterward.
 
@@ -85,6 +85,24 @@ When normal view rewrites Markdown, entity references such as `&copy;` can save 
 To rename a note, run **Rename document…** from the command palette or choose **Rename** in its workspace menu. Renaming keeps unsaved edits and does not replace another file.
 
 Files must use UTF-8 and be no larger than 2 MiB. Save your work regularly: unsaved drafts can be lost in an app or machine crash. [Version history](../editing/version-history.md) stores previous saves.
+
+## When another app changes a note
+
+Opening a note that is already open returns to its tab. This applies to **File → Open**, opening the file from another app, a link, and the explorer, including a link to the note you are reading and the current note's row in the explorer. If the tab has no unsaved edits, it shows the file's latest text. If it has unsaved edits and another app changed the file, Hibi asks whether to save them:
+
+- **Save** keeps your edits. Hibi then asks before replacing the changed file.
+- **Don’t save** discards your edits and shows the file's text.
+- **Cancel** keeps your edits and leaves the file as it is.
+
+When another app opens several files at once, cancelling for one note still opens the others.
+
+Hibi also asks once when you return to unsaved edits whose file another app changed, whether you choose the tab, go back or forward, or click its pane in a split. The prompt names the note. **Replace** saves your edits over the file, and **Cancel** keeps both. Hibi asks again only if the file changes again.
+
+If another app writes to the file while Hibi is asking, Hibi asks again before replacing it. [Version history](../editing/version-history.md) keeps the text that **Replace** overwrote.
+
+If another app creates a file with the name of a new note you haven't saved yet, opening that file asks the same way. **Don’t save** discards the new note and opens the file.
+
+If a note's file is moved or deleted outside Hibi, its tab keeps the text. Saving asks first, then writes the note back where it was.
 
 ## Optional writing tools
 
