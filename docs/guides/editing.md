@@ -4,15 +4,13 @@ Hibi opens on the welcome screen with no document tabs. Start typing to create a
 
 ## Choose a view
 
-**Normal** lets you format text without seeing Markdown markers. **Source view** shows the original text with syntax highlighting. **Side-by-side** places editable source next to a read-only formatted preview. You can select and copy preview text; switch to **Normal** to edit formatted text.
-
-While you type in the source pane, the formatted pane may catch up shortly after you pause. Your changes are available to saving and undo immediately. Entering the formatted pane brings it up to date for reading and selection.
+**Normal** lets you format text without seeing Markdown markers. **Source view** shows the original text with syntax highlighting. **Side-by-side** places the source next to the formatted text, and you can edit in either pane. An edit in one pane appears in the other at once, and undo covers both.
 
 Choose your starting view under **Settings → Editor → Layout → Default view**. Only views supported by the current [format](../editing/formats.md) are available. You can switch from the toolbar or use a [keyboard shortcut](../editing/typing-and-shortcuts.md).
 
-Switching views preserves your source. Normal view stays editable regardless of character count or word count. Hibi keeps untouched Markdown when you edit formatted text, including when addons such as LaTeX are enabled, and rejects an edit if it cannot prove the resulting source is safe. Use Source view for syntax the formatted editor cannot preserve, including reference definitions.
+Switching views preserves your source. Normal view stays editable regardless of character count or word count. Hibi keeps untouched Markdown when you edit formatted text, including when addons such as LaTeX are enabled. If an edit would rewrite other Markdown, Hibi refuses it and suggests Source view. Normal view hides reference definitions such as `[help]: guide.md`; edit them in Source view.
 
-Raw HTML appears as a monospace source chip or box in Normal view. Hibi preserves the markup without running it or turning it into live HTML. Click a chip or box to select it, then press Delete or Backspace to remove it as a unit. Use Source view to edit the HTML itself. A chip can include surrounding Markdown formatting to keep the whole fragment intact. When HTML surrounds several Markdown blocks, its opening and closing fragments appear in separate boxes, and you can edit the Markdown between them. Plain `<br>` tags remain line breaks and keep their original spelling when saved. Copying or dragging a chip within the same window preserves it while its copied content is still recognized, including with native copy and paste on Windows. Pasting a chip into another window or after reloading inserts inline code or a fenced code block instead.
+Raw HTML appears as monospace source in Normal view, inline tags as chips and HTML blocks as boxes. Hibi doesn't run the markup or turn it into live HTML, and you can edit it in place like other text. When HTML surrounds several Markdown blocks, its opening and closing fragments appear in separate boxes, and you can edit the Markdown between them. A plain `<br>` tag shows as a line break; while Markdown markers are shown, its tag appears when the caret touches it.
 
 When you use an input method, choosing and revising candidates remains one undo step even if you pause between candidates. Each new composition starts a separate undo step in both source and formatted views.
 
@@ -34,7 +32,7 @@ To keep one file open at a time, turn off **Settings → Editor → Documents �
 
 ## Format text
 
-Select text, then choose a toolbar action. In side-by-side view, formatting actions are available while the source pane is focused. The toolbar offers tools for the current format, with extra buttons in the **More** menu. Within an editable formatted table, additional actions let you add or remove rows and columns.
+Select text, then choose a toolbar action. In side-by-side view, toolbar actions apply to the pane you last focused. The toolbar offers tools for the current format, with extra buttons in the **More** menu. Within an editable formatted table, additional actions let you add or remove rows and columns.
 
 New profiles start with undo and redo, bold and italic, two heading levels, lists, links, and images. Other formatting actions stay in **More**. Tags, workspace graph, and keyboard sound buttons start hidden; their commands remain available. Existing toolbar layouts are preserved.
 

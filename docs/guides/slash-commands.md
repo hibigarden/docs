@@ -12,7 +12,7 @@ Escape or an outside click closes the menu and leaves your text unchanged. The m
 
 ## Addon actions
 
-Enabled addons can add commands. For example, Frontmatter adds `/frontmatter` when the note has no page properties. Actions that change a whole note can reset undo history in the formatted editor; source-view undo remains available.
+Enabled addons can add commands. For example, Frontmatter adds `/frontmatter` when the note has no page properties. Undo reverses an action that changes the whole note in one step, in either view.
 
 ## Where it works
 
