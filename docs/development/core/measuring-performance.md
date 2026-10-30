@@ -41,10 +41,10 @@ Use the native trace harness to separate input queue delay, editor updates, defe
 
 ```sh
 npm run build
-node scripts/trace-input-paint.mjs --mode source --target source --size all --shape all --position middle --continue-on-error --out /tmp/hibi-input-baseline
+node scripts/trace-input-paint.mjs --size all --shape all --position middle --continue-on-error --out /tmp/hibi-input-baseline
 ```
 
-The output directory must be new. Character and word fixtures contain exactly 100,000 characters or 100,000 words respectively. Normal paragraphs and one giant wrapped paragraph are separate cases. Each case types in Source view in an isolated profile; the `visual`, `split` and `split-tabs` modes do not support the formatted Normal view yet and refuse to run. The recorded addon configuration includes word count, typing speed and the standard Markdown syntax addons; Discord presence stays disabled in these test profiles.
+The output directory must be new. Character and word fixtures contain exactly 100,000 characters or 100,000 words respectively. Normal paragraphs and one giant wrapped paragraph are separate cases. Each case types in Source view in an isolated profile. The recorded addon configuration includes word count, typing speed and the standard Markdown syntax addons; Discord presence stays disabled in these test profiles.
 
 The probe observes source changes immediately after the native CodeMirror view update returns. It registers no editor extension, so installing the measurement callback does not change the path being measured. The temporary addon only exposes the SDK and document context. The native observer adds overhead and uses the same endpoint in Hibi and the bare engine.
 
@@ -54,7 +54,7 @@ Selection checks predict the final character range without changing editor state
 
 Initial source placement focuses the active pane before dispatching its selection and scroll request, so split scrolling follows the intended pane. Setup waits up to five seconds for the requested caret position to be focused and inside the viewport instead of assuming two animation frames suffice. A timeout remains a failed setup, with the final caret and pane geometry retained; the harness does not retry scrolling or weaken visibility checks.
 
-Use `--quick` only to validate the harness or investigate first-key behavior; it skips the 30-second holds and does not satisfy the sustained-input check. `--mode`, `--size`, `--shape`, `--position` and `--target` select smaller investigations. Run `--help` for the accepted values.
+Use `--quick` only to validate the harness or investigate first-key behavior; it skips the 30-second holds and does not satisfy the sustained-input check. `--size`, `--shape` and `--position` select smaller investigations. Run `--help` for the accepted values.
 
 Use `--file /path/to/note.md` to benchmark an existing UTF-8 Markdown document. The harness copies its original bytes into each isolated case, records its size and SHA-256 hash, and skips the synthetic size and shape combinations. It never edits the supplied file. Source input retains exact raw-source save assertions.
 
@@ -85,8 +85,8 @@ V8 profiles can contain samples reported out of timestamp order. The analyzer re
 Compare Hibi with the bare CodeMirror engine using the same generated document, key cadence, visible-character checks, selection and scrolling probes:
 
 ```sh
-node scripts/trace-input-paint.mjs --engine hibi --fixed-chrome --background --mode source --target source --size words --shape all --out /tmp/hibi-words-comparison
-node scripts/trace-input-paint.mjs --engine bare --fixed-chrome --background --mode source --target source --size words --shape all --out /tmp/bare-words-comparison
+node scripts/trace-input-paint.mjs --engine hibi --fixed-chrome --background --size words --shape all --out /tmp/hibi-words-comparison
+node scripts/trace-input-paint.mjs --engine bare --fixed-chrome --background --size words --shape all --out /tmp/bare-words-comparison
 ```
 
 Both commands cover exactly 100,000 words in ordinary paragraphs and a giant paragraph, with Source view input. Run them sequentially with matching instrumentation and compare the recorded fixture hashes, viewport rectangles and typography. `--fixed-chrome` keeps the titlebar and toolbar visible throughout each case; it excludes their auto-hide transitions. This flag is required for the bare baseline and leaves default Hibi benchmark behavior unchanged. Measure default Hibi behavior separately before claiming the user-facing problem is fixed.
