@@ -20,7 +20,7 @@ The transform receives the current source. Return the replacement text, or `null
 
 `getDocument()` includes `tabId`, `revision`, and `contentVersion`. The revision identifies a replacement editor; the content version advances when text changes, including undo and redo. If you calculate a result asynchronously, compare all three before using it. A matching file name alone does not mean the document is unchanged.
 
-For edits calculated from an earlier snapshot, use `applySourceEdits()`. It validates the version and exact text before applying all changes in one undo operation. Offsets count UTF-16 code units in the complete document source, including frontmatter. Rich view accepts literal text replacements only when the host can prove their exact location and preserve the surrounding structure. Other ranges return `unsupported-view`. Navigation position maps must not be used to build edit ranges.
+For edits calculated from an earlier snapshot, use `applySourceEdits()`. It validates the version and exact text before applying all changes in one undo operation. Offsets count UTF-16 code units in the complete document source, including frontmatter. Normal view accepts literal text replacements only when the host can prove their exact location and preserve the surrounding structure. Other ranges return `unsupported-view`. Navigation position maps must not be used to build edit ranges.
 
 ```typescript
 const document = context.editor.getDocument()
@@ -38,15 +38,13 @@ if (document) {
 
 Handle `stale` by calculating a new proposal from the latest snapshot, and `composing` by waiting until text composition finishes. A stopped addon receives `disposed`. Reusing a request ID with different edits is invalid. Retries with the same payload return the original result while it remains in the addon's bounded cache: at most 128 requests and 8 Mi UTF-16 units of serialized payloads. After eviction, the version check still prevents an old content-changing edit from being applied again.
 
-A request can contain up to 256 non-overlapping changes in source view or 32 in rich view. Each change must include its exact `expectedText`; insertions use an empty string. Edits cannot split a surrogate pair or share an insertion boundary. Inserted and expected text together are limited to 4 Mi UTF-16 units, the serialized request to 8 Mi units, and the resulting document to Hibi's 2 MiB UTF-8 limit. Changes use the host's ordered persistence journal and save barriers.
+A request can contain up to 256 non-overlapping changes. Each change must include its exact `expectedText`; insertions use an empty string. Edits cannot split a surrogate pair or share an insertion boundary. Inserted and expected text together are limited to 4 Mi UTF-16 units, the serialized request to 8 Mi units, and the resulting document to Hibi's 2 MiB UTF-8 limit. Changes use the host's ordered persistence journal and save barriers.
 
-Source offsets include the original line endings. CodeMirror uses normalized positions internally, but Hibi translates API ranges and retains untouched CRLF and mixed line endings. New lines use the document's first line-ending style. Edits cannot split a CRLF pair; use a whole-source transform for changes that only replace line endings. Source and rich edits share the host's operation history, which retains up to 128 groups and 8 MiB of estimated change payload by default. Retained undo/redo restores exact source, including line endings. Expired groups cannot be undone through a second widget history.
-
-Rich corrections also keep a per-editor source-preservation cache of up to 32 entries and 8 Mi UTF-16 units for matching subsequent serialization results. That cache is separate from authoritative operation history; its eviction does not make retained host undo normalize Markdown. A schema change creates a new rich editor and follows the syntax transition policy. Source editor recreation restores the session's source selection.
+Source offsets include the original line endings. CodeMirror uses normalized positions internally, but Hibi translates API ranges and retains untouched CRLF and mixed line endings. New lines use the document's first line-ending style. Edits cannot split a CRLF pair; use a whole-source transform for changes that only replace line endings. Source and Normal view edits share the host's operation history, which retains up to 128 groups and 8 MiB of estimated change payload by default. Retained undo/redo restores exact source, including line endings. Expired groups cannot be undone through a second widget history. Source editor recreation restores the session's source selection.
 
 ## Work with mounted editor views
 
-`context.editorViews` lists mounted editor instances and returns the active view. A view target includes document and view generations, so closing and reopening a note invalidates old targets. The current layout mounts one editor view at a time; rich and source panes share that view target.
+`context.editorViews` lists mounted editor instances and returns the active view. A view target includes document and view generations, so closing and reopening a note invalidates old targets. The current layout mounts one editor view at a time; its Normal view and source panes share that view target.
 
 ```typescript
 const view = context.editorViews.getActive()
@@ -65,7 +63,7 @@ if (view) {
 }
 ```
 
-Selection positions are opaque and local to the named editor. Source view and the default formatted Normal view count UTF-16 offsets in the note's normalized Markdown source, where each line break is one unit; the Tiptap editor, used when **Enable exotic butter** is off in **Settings → Editor**, counts ProseMirror positions, which include node boundaries. `editor: 'rich'` names either Normal-view editor, so derive ranges from the selection and the text around it. `getSelection()` returns the primary selection with its anchor and head. Pass the captured view, editor kind, editor generation, and content version to `setSelection()` or `reveal()`; these methods reject stale or unavailable panes and do not focus the editor. Editor generation changes when a pane is rebuilt without changing source. Use `documents.applyEdits()` for source changes instead of treating navigation positions as source edit ranges.
+Selection positions are opaque UTF-16 offsets local to the named editor. `editor: 'rich'` is the formatted Normal view and `editor: 'source'` is Source view; both count offsets in the note's normalized Markdown source, where each line break is one unit. Derive ranges from the selection and the text around it. `getSelection()` returns the primary selection with its anchor and head. Pass the captured view, editor kind, editor generation, and content version to `setSelection()` or `reveal()`; these methods reject stale or unavailable panes and do not focus the editor. Editor generation changes when a pane is rebuilt without changing source. Use `documents.applyEdits()` for source changes instead of treating navigation positions as source edit ranges.
 
 To edit a specific open document, call `context.documents.readSource(target)` and pass its versioned target to `context.documents.applyEdits()` with exact `expectedText` for each source range. The edit applies to that document without changing focus, including when its editor is mounted. A mounted editor returns `busy` while starting and may return `unsupported-view` for ranges it cannot preserve. If the session, content version, or projection ID is stale, read the document or projection again before retrying.
 
@@ -77,7 +75,7 @@ To edit a specific open document, call `context.documents.readSource(target)` an
 
 Offsets in the projection's `text` differ from source offsets. Find a containing span and translate using `span.sourceFrom + offset - span.from`. A result crossing spans is not an exact edit range. Keep the corresponding source substring as `expectedText`.
 
-Use `setDecorations(projection.id, decorations)` to underline up to 32 analysis ranges in the active editor. Each decoration has an ID, `from`, `to`, a short `message`, and an optional `severity` of `info` or `warning`. Invalid or stale results return `false`. Call `clearDecorations()` to remove them; stopping the addon also clears them. Unaffected marks move with ordinary edits only while their exact source text still matches. Rich view omits ranges it cannot prove.
+Use `setDecorations(projection.id, decorations)` to underline up to 32 analysis ranges in the active editor. Each decoration has an ID, `from`, `to`, a short `message`, and an optional `severity` of `info` or `warning`. Invalid or stale results return `false`. Call `clearDecorations()` to remove them; stopping the addon also clears them. Unaffected marks move with ordinary edits only while their exact source text still matches.
 
 Listen to `onDocumentChange()` for text changes and `onProjectionChange()` for view or schema changes. The built-in Review addon demonstrates asynchronous checks, annotations, stale-result handling, and one-step fixes.
 
@@ -128,7 +126,7 @@ context.commands.register({
 
 The command receives the clicked entry even when another note is active. Hibi rejects it if the workspace tree changes before execution, so handle a stale target by asking the user to open the menu again. For command-activated addons, a menu declaration in the manifest shows the item before startup; `when` takes effect once the addon registers its command.
 
-Use `menu: { location: 'editor' }` for a command in the source and rich editor context menus. Its invocation includes the captured document, view, and `selection` with editor-specific offsets, content version, and up to 256 characters of selected text. Hibi checks that target again after command activation. Existing context-action providers appear in the same menu and continue to apply version-checked edits.
+Use `menu: { location: 'editor' }` for a command in the Normal and Source view context menus. Its invocation includes the captured document, view, and `selection` with editor-specific offsets, content version, and up to 256 characters of selected text. Hibi checks that target again after command activation. Existing context-action providers appear in the same menu and continue to apply version-checked edits.
 
 ## Show notifications
 
@@ -153,9 +151,9 @@ For an active-note worker, `context.editor.getMetadataSyntax(document.id, docume
 
 ## Attach editor behavior
 
-`context.editor.registerRich()` attaches behavior to each Tiptap editor. Tiptap runs only when **Enable exotic butter** is off in **Settings → Editor**; in the default formatted view, those features stay off and Hibi shows a notice until the addon is updated. Its `attach(editor, context)` callback must return a cleanup function. It can register a ProseMirror plugin, but cannot change the editor schema. `registerSource()` calls `create(context)` to make a CodeMirror extension for each source editor. `context.viewId` names the view that holds the editor and matches `viewId` in the view targets from `context.editorViews`, so a command can find the editor it was run from when a split shows the same note twice. Hibi always supplies this context when it invokes the hooks. The parameter is optional so existing wrappers can still call `create()` or `attach(editor)` manually; callbacks that use view identity must handle an omitted context. See [RichExtension](../addon-api-reference/RichExtension.md) and [SourceExtension](../addon-api-reference/SourceExtension.md).
+`context.editor.registerFormatted()` calls `create(context)` to make a CodeMirror extension for each formatted Normal view editor, and `registerSource()` does the same for each source editor. `context.viewId` names the view that holds the editor and matches `viewId` in the view targets from `context.editorViews`, so a command can find the editor it was run from when a split shows the same note twice. Hibi always supplies this context when it invokes the hooks. The `registerSource()` parameter is optional so existing wrappers can still call `create()` manually; callbacks that use view identity must handle an omitted context. See [FormattedExtension](../addon-api-reference/FormattedExtension.md) and [SourceExtension](../addon-api-reference/SourceExtension.md).
 
-Throw when an attachment cannot be installed. Hibi displays the failure and keeps that editor read-only until the failing addon is disabled or successfully installed. Already attached rich-editor features are detached if a later attachment fails.
+Throw when an extension cannot be created. Hibi reports the failure and removes that feature, and any feature that later fails while handling an edit, from the editors in every window until the addon is turned off or restarted. Its other features and editing keep working. Input waits for the features of a `modalEditing` addon, so a failure there keeps that editor read-only until the addon is disabled or the feature installs.
 
 Use `onInput()` to observe typed characters, or `onKeyEvent()` to observe editor key events. These hooks do not receive input from settings, search fields, or dialogs.
 
@@ -178,9 +176,9 @@ await context.editor.registerContextActionProvider((request) => {
 })
 ```
 
-Hibi owns the menus and applies accepted edits through its version-checked document edit path as one undo operation. Rich view accepts only exact plain-text ranges that preserve the surrounding Markdown. Invalid ranges and edits from a changed document are rejected. The returned removal functions and addon shutdown cancel pending work and remove visible results.
+Hibi owns the menus and applies accepted edits through its version-checked document edit path as one undo operation. Normal view accepts only exact plain-text ranges that preserve the surrounding Markdown. Invalid ranges and edits from a changed document are rejected. The returned removal functions and addon shutdown cancel pending work and remove visible results.
 
-Completion providers registered with `registerCompletionProvider()` return [CompletionItem](../addon-api-reference/CompletionItem.md) values with a label, the replacement text, and the editor-local range it replaces. Enter accepts the highlighted item, and so does Tab unless the item sets `acceptOnTab: false`. In both rich and source views, Tab closes the popup before reaching the editor's own indentation handling when the item cannot accept it. When no completion list is open, Tab is never taken by completions.
+Completion providers registered with `registerCompletionProvider()` return [CompletionItem](../addon-api-reference/CompletionItem.md) values with a label, the replacement text, and the editor-local range it replaces. Enter accepts the highlighted item, and so does Tab unless the item sets `acceptOnTab: false`. In both Normal and Source view, Tab closes the popup before reaching the editor's own indentation handling when the item cannot accept it. When no completion list is open, Tab is never taken by completions.
 
 Set `captureArrowKeys: false` for passive predictions. When every visible item sets it to false, any arrow key closes the popup and leaves caret movement and selection to the editor. Mixed lists retain arrow navigation when any item keeps the default value of true. Completions are not requested while the slash command menu or the editor actions menu is open, and opening the actions menu closes an open completion list.
 

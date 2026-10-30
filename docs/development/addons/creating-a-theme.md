@@ -8,7 +8,7 @@ A theme package contains color data and does not need JavaScript. To start a rep
   "name": "Evening",
   "description": "A dark blue color scheme.",
   "version": "1.0.0",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "kind": "theme",
   "authors": [{ "displayName": "Your name" }],
   "themes": [{
