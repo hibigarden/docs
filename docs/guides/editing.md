@@ -50,7 +50,7 @@ With **Enable exotic butter** on in **Settings → Editor**, the markers Normal 
 
 With **Enable exotic butter** off, the markers are visual hints, not editable characters or a verbatim view of the original delimiters. They are excluded from copied text, saved Markdown, and exports, and code blocks show no extra hints. Use Source view to edit the syntax itself.
 
-At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text. The cursor moves past the closing hint without adding a space or changing your text. This also works when Markdown markers are hidden.
+At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text, without adding a space or changing your text. With **Enable exotic butter** on, each press moves past one character of a shown closing marker, so leaving `**bold**` takes two presses; with Markdown markers hidden, one press moves past the whole marker. With **Enable exotic butter** off, the cursor moves past the closing hint, including when Markdown markers are hidden.
 
 In GitHub Markdown, `- [ ]` and `- [x]` display as unchecked and checked tasks even without text after the marker. Type either marker followed by a space in Normal view to create a task. You can mix tasks with ordinary bullets and nest tasks inside bullet lists. Consecutive empty tasks stay in one list and can be indented with `Tab`. Indented continuation text belongs to the task. Checkboxes in numbered lists, such as `1. [ ]`, stay literal.
 
