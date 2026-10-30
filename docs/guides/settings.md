@@ -20,7 +20,7 @@ Hover over a control briefly to see its compact help tooltip, or reach it with k
 
 Under **Appearance → Window**, set **Status bar** to **Show**, **Auto-hide**, or **Hide**. Auto-hide reveals the bar when you move to the bottom edge of the editor or focus one of its controls.
 
-On Linux, turn on **Hide window controls** in the same section to hide the minimize, maximize, and close buttons in Hibi and addon windows that use Hibi’s top bar. Restart Hibi to apply the change. The setting is off by default.
+On Linux, turn on **Hide window controls** in the same section to hide the minimize, maximize, and close buttons in Hibi and addon windows that use Hibi’s top bar. After saving, Hibi shows a reminder to quit and reopen the app while the change is pending. The reminder clears if you restore the current choice. The setting is off by default.
 
 The top bar and its document tabs stay visible while you type. Turn on **Hide top bar while typing** in the same section to fade it while you write; the bar returns when you pause or move the pointer to the top of the window.
 
