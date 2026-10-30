@@ -28,7 +28,11 @@ Place the caret in a link and choose **Edit link** in the toolbar; the **Link** 
 
 Editing a reference link changes that occurrence to an inline link and leaves its shared definition unchanged.
 
-With **Enable exotic butter** on in **Settings → Editor**, as it is by default, Normal view also shows a link's destination and its **Edit**, **Open**, **Copy**, and **Remove** actions when you hover over the link or place the caret in it. **Remove** keeps the link's text, including web and email addresses that Hibi detects as links. Right-click a link, or press `Shift+F10` with the caret in it, to choose **Edit link…**, **Open link**, **Copy link**, or **Remove link**. When **Tab key indents** is off, Tab from a link also reaches the actions; Escape, or Tab past the last action, returns to the link.
+With **Enable exotic butter** on in **Settings → Editor**, as it is by default, Normal view also shows a link's destination and its **Edit**, **Open**, **Copy**, and **Remove** actions when you hover over the link or place the caret in it or at either end of it. **Remove** keeps the link's text, including web and email addresses that Hibi detects as links. Escape hides the actions until you move the caret out of the link. When a note opens with the caret at a link, that link's actions appear once the caret leaves it, or when you point at or click the link.
+
+Right-click a link, or press `Shift+F10` with the caret in it, to choose **Edit link…**, **Open link**, **Copy link**, or **Remove link**. When an addon adds editor actions, such as **Dictionary and thesaurus**, they appear in the same menu as a separate group below the link's actions, in table cells too. In the menu, use the arrow keys, Home, and End to move between actions and Enter to choose one; Escape or Tab closes the menu. When **Tab key indents** is off, Tab from a link also reaches the actions; Escape, or Tab past the last action, returns to the link.
+
+While a note is read-only, **Edit** and **Remove** are unavailable, including in actions and menus that were already open; **Open** and **Copy** still work.
 
 ## Links and history
 
