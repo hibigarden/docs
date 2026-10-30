@@ -50,7 +50,7 @@ At the end of a document, press the right arrow key to leave bold, italic, strik
 
 In GitHub Markdown, `- [ ]` and `- [x]` display as unchecked and checked tasks even without text after the marker. Type either marker followed by a space in Normal view to create a task. You can mix tasks with ordinary bullets and nest tasks inside bullet lists. Consecutive empty tasks stay in one list and can be indented with `Tab`. Indented continuation text belongs to the task. Checkboxes in numbered lists, such as `1. [ ]`, stay literal.
 
-For footnotes in GitHub Markdown, write `text[^note]` and add a definition such as `[^note]: Reference text.` in Source view. Side-by-side view and HTML export place referenced notes at the end of the document.
+For footnotes in GitHub Markdown, write `text[^note]` and add a definition such as `[^note]: Reference text.` on its own line, in either view. Normal view marks each reference and keeps each definition where you wrote it; HTML export places referenced notes at the end of the document.
 
 Under **Settings → Appearance → Toolbar → Arrange toolbar actions**, drag actions or use the arrow controls to reorder them. By default, addon actions follow formatting actions. Select an action and choose **Show in toolbar**, **Menu only**, or **Hide**. Menu-only actions always stay in the **More** dropdown, even in a wide window. Hidden actions disappear from both the toolbar and its dropdown; their commands and shortcuts remain available. These choices are saved separately from the order, so **Reset order** keeps each action's placement.
 
