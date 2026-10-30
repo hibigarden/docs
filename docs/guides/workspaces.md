@@ -40,6 +40,8 @@ The **Ignore rules** field writes `.hibi/ignore`. It uses gitignore syntax: `dra
 
 Hibi stores table column widths and row heights for workspace files in `.hibi/layout.json`, which it creates the first time you resize a table. Renaming or moving a file in the explorer keeps its sizes; entries for deleted files are removed later. The file stays under 1 MiB: when it would grow larger, Hibi forgets the sizes of the files you resized least recently, and it starts over if it finds a larger file. Deleting `.hibi/layout.json` returns every table to automatic sizes and leaves your notes unchanged.
 
+Hibi keeps copies of images with an `https://` address in `.hibi/cache`, which it tells Git to skip. Deleting the folder makes Hibi download the images again.
+
 Older `.hibi.json` and `.hibiignore` files still work. Saving workspace settings writes the new files inside `.hibi/` and keeps the originals. The new files take precedence.
 
 ## Use the page outline
