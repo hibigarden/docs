@@ -28,7 +28,7 @@ Place the caret in a link and choose **Edit link** in the toolbar; the **Link** 
 
 Editing a reference link changes that occurrence to an inline link and leaves its shared definition unchanged.
 
-With **Enable exotic butter (experimental)** turned on in **Settings → Editor**, Normal view also shows a link's destination and its **Edit**, **Open**, **Copy**, and **Remove** actions when you hover over the link or place the caret in it. **Remove** keeps the link's text, including web and email addresses that Hibi detects as links. Right-click a link, or press `Shift+F10` with the caret in it, to choose **Edit link…**, **Open link**, **Copy link**, or **Remove link**. When **Tab key indents** is off, Tab from a link also reaches the actions; Escape, or Tab past the last action, returns to the link.
+With **Enable exotic butter** on in **Settings → Editor**, as it is by default, Normal view also shows a link's destination and its **Edit**, **Open**, **Copy**, and **Remove** actions when you hover over the link or place the caret in it. **Remove** keeps the link's text, including web and email addresses that Hibi detects as links. Right-click a link, or press `Shift+F10` with the caret in it, to choose **Edit link…**, **Open link**, **Copy link**, or **Remove link**. When **Tab key indents** is off, Tab from a link also reaches the actions; Escape, or Tab past the last action, returns to the link.
 
 ## Links and history
 
