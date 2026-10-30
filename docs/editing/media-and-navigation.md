@@ -38,7 +38,7 @@ While a note is read-only, **Edit** and **Remove** are unavailable, including in
 
 ## Links and history
 
-Shift-click a link to follow it. In Normal view, you can also hold Ctrl+Cmd while clicking a link. Web and email links open in your default app; local note links open in Hibi. With **Enable exotic butter** on, as it is by default, a link to a heading, such as `guide.md#setup`, opens the note at that heading, including a link to the note you are reading. Regular clicks keep editing.
+Shift-click a link to follow it. In Normal view, you can also hold Ctrl+Cmd while clicking a link. Web and email links open in your default app; local note links open in Hibi. A link to a heading, such as `guide.md#setup`, opens the note at that heading, including a link to the note you are reading. Regular clicks keep editing.
 
 Obsidian `[[Note]]`, `[[Note|Alias]]`, and links to headings or blocks open their note in the current workspace. A heading-only link in the current note jumps to that heading. Links to headings or blocks in another note open the note; Hibi does not yet scroll to the target within that note. Ambiguous note names do not open a guessed target.
 
