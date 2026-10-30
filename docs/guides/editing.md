@@ -44,11 +44,13 @@ In Normal view and its side-by-side preview, soft line breaks and surrounding sp
 
 Escaped block prefixes such as `\# heading` and `1\. item` remain literal text when you edit and save in normal view. Leading spaces and tabs at the start of a paragraph outside tables are preserved when saving.
 
-In formatted view, the active text block shows subtle Markdown hints for heading levels, bold, italic, strikethrough, and inline code. They follow the cursor and disappear when focus leaves the formatted editor or you select several blocks. Code blocks keep their literal text without extra hints.
+In Normal view, the active text block shows its Markdown markers, such as heading levels, bold, italic, strikethrough, and inline code. They follow the cursor and disappear when focus leaves the formatted editor or you select several blocks. To hide them, turn off **Settings → Editor → Writing → Show Markdown markers**. The setting is on by default and persists on this device.
 
-These markers are visual hints, not editable characters or a verbatim view of the original delimiters. They are excluded from copied text, saved Markdown, and exports. Use source view to edit the syntax itself. To hide the hints, turn off **Settings → Editor → Writing → Show Markdown markers**. The setting is on by default and persists on this device.
+With **Enable exotic butter** on in **Settings → Editor**, the markers Normal view shows are the note's own Markdown: use the arrow keys, click between their characters, select them, or edit them with typing, Backspace, and Delete. This includes link destinations, list, quote, and task prefixes, and code fence lines. Copying a selection puts its Markdown on the clipboard as plain text. With **Show Markdown markers** off, markers stay hidden and the cursor steps over them as before.
 
-At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text. The cursor moves past the closing hint without adding a space or changing your text. This also works when Markdown markers are hidden.
+With **Enable exotic butter** off, the markers are visual hints, not editable characters or a verbatim view of the original delimiters. They are excluded from copied text, saved Markdown, and exports, and code blocks show no extra hints. Use Source view to edit the syntax itself.
+
+At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text, without adding a space or changing your text. With **Enable exotic butter** on, each press moves past one character of a shown closing marker, so leaving `**bold**` takes two presses; with Markdown markers hidden, one press moves past the whole marker. With **Enable exotic butter** off, the cursor moves past the closing hint, including when Markdown markers are hidden.
 
 In GitHub Markdown, `- [ ]` and `- [x]` display as unchecked and checked tasks even without text after the marker. Type either marker followed by a space in Normal view to create a task. You can mix tasks with ordinary bullets and nest tasks inside bullet lists. Consecutive empty tasks stay in one list and can be indented with `Tab`. Indented continuation text belongs to the task. Checkboxes in numbered lists, such as `1. [ ]`, stay literal.
 
