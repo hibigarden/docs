@@ -96,13 +96,13 @@ Opening a note that is already open returns to its tab. This applies to **File â
 
 When another app opens several files at once, cancelling for one note still opens the others.
 
-Hibi also asks once when you return to unsaved edits whose file another app changed, whether you choose the tab, go back or forward, or click its pane in a split. The prompt names the note. **Replace** saves your edits over the file, and **Cancel** keeps both. Hibi asks again only if the file changes again.
+Hibi also asks once when you return to unsaved edits whose file another app changed, whether you choose its tab, close the tab you were viewing, go back or forward, or click its pane in a split. The prompt names the note. **Replace** saves your edits over the file, and **Cancel** keeps both. Hibi asks again only if the file changes again.
 
 If another app writes to the file while Hibi is asking, Hibi asks again before replacing it. [Version history](../editing/version-history.md) keeps the text that **Replace** overwrote.
 
 If another app creates a file with the name of a new note you haven't saved yet, opening that file asks the same way. **Donâ€™t save** discards the new note and opens the file.
 
-If a note's file is moved or deleted outside Hibi, its tab keeps the text. Saving asks first, then writes the note back where it was.
+If a note's file is moved or deleted outside Hibi, its tab keeps the text. Saving asks first, then writes the note back where it was. If its folder was moved or deleted too, Hibi says so; use **Save as** to keep the text.
 
 ## Optional writing tools
 
