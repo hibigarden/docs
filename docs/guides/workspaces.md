@@ -46,7 +46,7 @@ Older `.hibi.json` and `.hibiignore` files still work. Saving workspace settings
 
 Choose **On this page** to browse the current note's headings. Select a heading to jump to it; the outline highlights the section containing your cursor.
 
-Source view lists Markdown headings, including headings inside quotes and lists. Labels follow your syntax settings and resolve reference links. Confirmed top-level math blocks hide their contents from the outline. Unsupported addon syntax or math inside containers shows an unavailable message; switch to visual mode for those notes. Headings produced by embedded HTML appear in formatted views.
+Source view lists Markdown headings, including headings inside quotes and lists. Labels follow your syntax settings and resolve reference links, and math in a heading shows as a formula. Closed math blocks hide their contents from the outline, including math blocks inside quotes, lists, and callouts. Unsupported addon syntax shows an unavailable message; switch to visual mode for those notes. Headings produced by embedded HTML appear in formatted views.
 
 ## Show and resize the sidebar
 

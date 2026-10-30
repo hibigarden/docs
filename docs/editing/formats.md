@@ -38,7 +38,7 @@ If a source language fails to load, choose **Retry language** in its notice. Ret
 
 With the LaTeX addon enabled, use `$x$` for inline math. See [Equations in Markdown](https://github.com/schmayterling/hibi/blob/main/src/addons/math/README.md#equations-in-markdown) for display math and literal dollar signs.
 
-If an existing document used line-final `text $$x$$` for display math, move `$$x$$` onto its own line.
+As in Obsidian, `$$x$$` inside a line of a heading, paragraph, or table cell is display math. The next `$$` closes it, even on a later line of the same paragraph, and the expression can contain single dollar signs or be blank. HTML and PDF exports and the Source view outline draw it as a formula. With **Enable exotic butter (experimental)** turned on in **Settings → Editor**, Normal view and its outline also draw it, and word counts leave it out. Otherwise Normal view keeps these pairs as text and preserves them when saving. Write `\$$x$$` to keep the dollar signs as text.
 
 ## Install required tools
 
