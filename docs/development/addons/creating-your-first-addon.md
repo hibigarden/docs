@@ -41,6 +41,7 @@ export default {
   description: 'A greeting from your first addon.',
   version: '1.0.0',
   apiVersion: ADDON_API_VERSION,
+  kind: 'extension',
   authors: [{ displayName: 'Your name' }],
 } satisfies AddonManifest
 ```

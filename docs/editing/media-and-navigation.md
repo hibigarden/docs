@@ -30,7 +30,7 @@ Place the caret in a link and choose **Edit link** in the toolbar; the **Link** 
 
 Editing a reference link changes that occurrence to an inline link and leaves its shared definition unchanged.
 
-With **Enable exotic butter** on in **Settings → Editor**, as it is by default, Normal view also shows a link's destination and its **Edit**, **Open**, **Copy**, and **Remove** actions when you hover over the link or place the caret in it or at either end of it. **Remove** keeps the link's text, including web and email addresses that Hibi detects as links. Escape hides the actions until you move the caret out of the link. When a note opens with the caret at a link, that link's actions appear once the caret leaves it, or when you point at or click the link.
+Normal view also shows a link's destination and its **Edit**, **Open**, **Copy**, and **Remove** actions when you hover over the link or place the caret in it or at either end of it. **Remove** keeps the link's text, including web and email addresses that Hibi detects as links. Escape hides the actions until you move the caret out of the link. When a note opens with the caret at a link, that link's actions appear once the caret leaves it, or when you point at or click the link.
 
 Right-click a link, or press `Shift+F10` with the caret in it, to choose **Edit link…**, **Open link**, **Copy link**, or **Remove link**. When an addon adds editor actions, such as **Dictionary and thesaurus**, they appear in the same menu as a separate group below the link's actions, in table cells too. In the menu, use the arrow keys, Home, and End to move between actions and Enter to choose one; Escape or Tab closes the menu. When **Tab key indents** is off, Tab from a link also reaches the actions; Escape, or Tab past the last action, returns to the link.
 
@@ -38,7 +38,7 @@ While a note is read-only, **Edit** and **Remove** are unavailable, including in
 
 ## Links and history
 
-Shift-click a link to follow it. In Normal view, you can also hold Ctrl+Cmd while clicking a link. Web and email links open in your default app; local note links open in Hibi. With **Enable exotic butter** on, as it is by default, a link to a heading, such as `guide.md#setup`, opens the note at that heading, including a link to the note you are reading. Regular clicks keep editing.
+Shift-click a link to follow it. In Normal view, you can also hold Ctrl+Cmd while clicking a link. Web and email links open in your default app; local note links open in Hibi. A link to a heading, such as `guide.md#setup`, opens the note at that heading, including a link to the note you are reading. Regular clicks keep editing.
 
 Obsidian `[[Note]]`, `[[Note|Alias]]`, and links to headings or blocks open their note in the current workspace. A heading-only link in the current note jumps to that heading. Links to headings or blocks in another note open the note; Hibi does not yet scroll to the target within that note. Ambiguous note names do not open a guessed target.
 

@@ -84,6 +84,8 @@ Choose **Refresh** in the Hibi garden tab to check for new listings. New addons 
 
 Addons you have installed show **Installed** in the Hibi garden. Choose **Uninstall** to remove one; Hibi moves it to the system trash.
 
+An addon made for an earlier version of Hibi does not run. The **Installed** tab lists it as needing an update for addon API 3: choose **Update** when the Hibi garden has a newer version, or **Uninstall**. Installing a newer version from anywhere else also replaces it.
+
 Hibi's maintainers review every addon in the Hibi garden, and the garden signs the exact files it lists once the addon is accepted. When you install from the Hibi garden, Hibi checks that signature before installing anything, so these addons install without **Allow unsigned addons**. The listing also shows the addon's license. Hibi refuses files that do not match the listing or its signature.
 
 The signature covers only the listed files. The same addon installed another way, such as from its repository URL or a newer commit, is checked like any other package and may be **Unsigned**.
