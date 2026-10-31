@@ -4,7 +4,7 @@ Register a [DocumentFormat](../addon-api-reference/DocumentFormat.md) to add a f
 
 ## Choose the supported views
 
-Every format supports source view, called `markdown` in the API. Include `side-by-side` in `views` when your format has a useful preview. Include `normal` only when it has an editable visual view. Set `editing: 'markdown'` only for formats that can use Hibi's Markdown editor without losing content.
+Every format supports source view, called `markdown` in the API. Include `side-by-side` in `views` when your format has a useful preview. Include `normal` only when it has an editable Normal view. Set `editing: 'markdown'` only for formats that can use Hibi's Markdown editor without losing content.
 
 The `Preview` component receives the source in `value` and the current document in `document`. Its `toolbar` prop is the host's pinned action area. Render shared [PreviewActions](../addon-api-reference/PreviewActions.md) into that target for compile, run, or export buttons.
 
