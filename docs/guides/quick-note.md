@@ -1,6 +1,6 @@
 # Capture a quick note
 
-Enable **Quick note** in **Settings → Addons**. Press `Cmd/Ctrl+Alt+N` from any application, or choose **Quick note: capture** from the command palette. A capture window opens on the display with the pointer, above your other windows. Hibi's main window stays where it is, even when it is hidden, minimized, or on another desktop. On macOS, the capture window also appears over full-screen apps and on every Space.
+Enable **Quick note** in **Settings → Addon Manager**. Press `Cmd/Ctrl+Alt+N` from any application, or choose **Quick note: capture** from the command palette. A capture window opens on the display with the pointer, above your other windows. Hibi's main window stays where it is, even when it is hidden, minimized, or on another desktop. On macOS, the capture window also appears over full-screen apps and on every Space.
 
 Choose a destination in **Settings → Quick note**. Use the current workspace, select a recent workspace, or use **Choose workspace…** to select another folder as a workspace. Then choose its root or a folder. You can change the global shortcut with an Electron accelerator such as `CommandOrControl+Alt+N`; clear it to use only the command palette. Save the settings to apply them.
 

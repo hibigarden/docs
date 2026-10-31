@@ -1,8 +1,8 @@
 # Import documents
 
-Open a Hibi workspace and choose **File → Import into workspace…**. If the folder has no manifest, create one in **Settings → Workspace** first.
+Open a Hibi workspace and choose **File → Import into workspace…**. If the folder has no manifest, create one in **Settings → Workspace settings** first.
 
-Choose **Folder** to copy an ordinary folder. Enable **Import from Obsidian**, **Import from Notion**, or **Import from Bear** in Settings → Addons for those exports. The import dialog explains which export to choose.
+Choose **Folder** to copy an ordinary folder. Enable **Import from Obsidian**, **Import from Notion**, or **Import from Bear** in Settings → Addon Manager for those exports. The import dialog explains which export to choose.
 
 Hibi copies the import into a new folder and keeps your originals. Existing documents are never replaced. Review any notices shown after the import, especially unresolved note links.
 

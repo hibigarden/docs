@@ -1,6 +1,6 @@
 # Diagnostics
 
-Enable **Diagnostics** in **Settings → Addons** to inspect performance. Its settings page shows addon initialization, measured activity, recent stalls, process memory and CPU usage, and runtime versions. Production builds include the addon, but leave it disabled by default. Development sessions started with `npm run dev` enable it unless you have saved a different choice.
+Enable **Diagnostics** in **Settings → Addon Manager** to inspect performance. Its settings page shows addon initialization, measured activity, recent stalls, process memory and CPU usage, and runtime versions. Production builds include the addon, but leave it disabled by default. Development sessions started with `npm run dev` enable it unless you have saved a different choice.
 
 Start with the slowest addon initialization or callback. Initialization is elapsed time and includes module loading and the addon's `start()` function. Async activity also includes time spent waiting, so a long async operation does not necessarily block typing.
 
