@@ -1,6 +1,6 @@
 # Publishing to the Hibi garden
 
-The [Hibi garden](https://www.hibi.garden/addons/) lists community addons. The same list appears in the **Hibi garden** tab of **Settings → Addons**, where people install them with **Install**. Hibi's maintainers review every listed addon. When they accept it, the garden signs the exact files its entry names, so people can install it from the garden without allowing unsigned addons.
+The [Hibi garden](https://www.hibi.garden/addons/) lists community addons. The same list appears in the **Hibi garden** tab of **Settings → Addon Manager**, where people install them with **Install**. Hibi's maintainers review every listed addon. When they accept it, the garden signs the exact files its entry names, so people can install it from the garden without allowing unsigned addons.
 
 ## Start from a template
 
@@ -22,7 +22,7 @@ The directory lives in [hibigarden/addons-repository](https://github.com/hibigar
   "name": "Hello theme",
   "description": "A warm light color scheme and a matching dark one.",
   "version": "1.0.0",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "kind": "theme",
   "authors": [{ "displayName": "Your name" }],
   "license": "MIT",
@@ -34,7 +34,7 @@ The directory lives in [hibigarden/addons-repository](https://github.com/hibigar
 }
 ```
 
-Hibi installs exactly the listed commit or ZIP file. A download whose size or digest differs is refused, and so is a package whose ID, version, or kind differs from its entry or whose files differ from its signature. To publish a new version, update the entry in a new pull request. Copy `id`, `name`, `description`, `version`, `apiVersion`, `kind`, and `authors` from `hibi-addon.json` exactly, and state the addon's license as an [SPDX expression](https://spdx.org/licenses/).
+Hibi installs exactly the listed commit or ZIP file. A download whose size or digest differs is refused, and so is a package whose ID, version, or kind differs from its entry or whose files differ from its signature. To publish a new version, update the entry in a new pull request. Copy `id`, `name`, `description`, `version`, `apiVersion`, `kind`, and `authors` from `hibi-addon.json` exactly, and state the addon's license as an [SPDX expression](https://spdx.org/licenses/). Hibi lists only entries for addon API 3.
 
 Before you submit an entry, you can test a repository entry by installing its commit link, such as `https://github.com/you/hello-theme/tree/<commit>/addons/hello-theme`. See [GitHub links](sideloading.md#github-links).
 

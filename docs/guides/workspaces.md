@@ -22,19 +22,17 @@ Choose **Workspaces** from the sidebar views to see every folder you have opened
 
 Opening a file selects its existing tab or creates one. In single-file mode, Hibi asks what to do with unsaved changes first. Use each item's menu to [create, rename, copy, move, or delete files](../editing/explorer.md).
 
-The tree updates when files change. By default, it shows supported documents and excludes hidden items, `node_modules`, and symbolic links. Turn on **Settings → Workspace → Show all files in sidebar** to include other file types and hidden files. Unsupported formats open in Source view, with Side-by-side and preview views disabled. Hidden folders, `node_modules`, symbolic links, and workspace ignore rules still apply. Files must be UTF-8 text no larger than 2 MiB to open in the editor.
-
-Workspace scans stop at 20,000 items by default. For a larger folder, choose 50,000 or 100,000 under **Settings → Workspace → Workspace item limit**, then reopen the folder to apply the change immediately. Larger limits can use more memory and take longer to scan. This limit counts files and folders visited during a scan, including items excluded by ignore rules or unsupported file types. Hidden folders, symbolic links, and `node_modules` are skipped. Folders beyond 100,000 items still need to be split into smaller workspaces.
+The tree updates when files change. By default, it shows supported documents and excludes hidden items, `node_modules`, and symbolic links. Turn on **Settings → Workspace settings → Show all files in sidebar** to include other file types and hidden files. Unsupported formats open in Source view, with Side-by-side and preview views disabled. Hidden folders, `node_modules`, symbolic links, and workspace ignore rules still apply. Files must be UTF-8 text no larger than 2 MiB to open in the editor.
 
 ## Set up a Hibi workspace
 
-In **Settings → Workspace**, turn on **Hibi workspace** to create `~/Documents/hibi`, or choose another folder. This is off by default. Changing the location assigns a different folder; **Relocate** moves the existing folder into the location you choose. When moving between disks, Hibi keeps the original copy.
+In **Settings → Workspace settings**, turn on **Hibi workspace** to create `~/Documents/hibi`, or choose another folder. This is off by default. Changing the location assigns a different folder; **Relocate** moves the existing folder into the location you choose. When moving between disks, Hibi keeps the original copy.
 
 Choose what opens **At startup**: the empty state, your Hibi workspace, or another folder. Files opened from Finder or another application take precedence.
 
 ## Name and configure a workspace
 
-Open any folder and choose **Create manifest** in Settings → Workspace. Hibi stores workspace information in `.hibi/workspace.json`. Set a name, description, icon identifier, and optional default document. Renaming here changes the display name, leaving the folder path intact. The default document opens when Hibi starts in this workspace.
+Open any folder and choose **Create manifest** in Settings → Workspace settings. Hibi stores workspace information in `.hibi/workspace.json`. Set a name, description, icon identifier, and optional default document. Renaming here changes the display name, leaving the folder path intact. The default document opens when Hibi starts in this workspace.
 
 The **Ignore rules** field writes `.hibi/ignore`. It uses gitignore syntax: `drafts/` hides a folder, `*.tmp` hides matching files, and `!keep.tmp` includes an otherwise ignored file. To include a file within an ignored folder, include its parent folder too. Ignored documents stay on disk and are omitted from workspace browsing and export.
 
@@ -48,7 +46,7 @@ Older `.hibi.json` and `.hibiignore` files still work. Saving workspace settings
 
 Choose **On this page** to browse the current note's headings. Select a heading to jump to it; the outline highlights the section containing your cursor.
 
-Source view lists Markdown headings, including headings inside quotes and lists. Labels follow your syntax settings and resolve reference links, and math in a heading shows as a formula. Closed math blocks hide their contents from the outline, including math blocks inside quotes, lists, and callouts. Unsupported addon syntax shows an unavailable message; switch to visual mode for those notes. Headings produced by embedded HTML appear in formatted views.
+The outline lists Markdown headings, including headings inside quotes and lists. Labels follow your syntax settings and resolve reference links, and math in a heading shows as a formula. Closed math blocks hide their contents from the outline, including math blocks inside quotes, lists, and callouts. When an addon's syntax keeps the outline from finding headings, the outline names that addon; turn it off under **Settings → Addon Manager** to see them.
 
 ## Show and resize the sidebar
 

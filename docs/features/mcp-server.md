@@ -1,6 +1,6 @@
 # MCP Server
 
-Enable **MCP Server** in **Settings → Addons** to let AI tools such as Claude Code and Cursor read, search, and, if you allow it, edit the workspace open in Hibi over the [Model Context Protocol](https://modelcontextprotocol.io). It is disabled by default.
+Enable **MCP Server** in **Settings → Addon Manager** to let AI tools such as Claude Code and Cursor read, search, and, if you allow it, edit the workspace open in Hibi over the [Model Context Protocol](https://modelcontextprotocol.io). It is disabled by default.
 
 The addon's settings show whether the server is running, its endpoint URL, and its access token. The default port is `47821`; you can choose another port between 1024 and 65535 if that one is in use.
 
@@ -18,4 +18,4 @@ Turn on **Allow edits** in the addon's settings to add four more tools. It is of
 
 The server accepts connections from this computer only and requires the access token. While **Allow edits** is off, the tools are read-only and never create, edit, move, or delete files; when it is on, clients can create, edit, move, and trash documents without asking each time. The tools can read the open workspace and the document open in the editor, even if that document is outside the workspace or unsaved. Files the workspace hides or ignores are not available, and unsaved edits are included in what the tools read. Hibi must be running for clients to connect, and disabling the addon stops the server. Regenerating the token disconnects every client that uses the old one.
 
-Open the addon's README from its row in **Settings → Addons** for setup details.
+Open the addon's README from its row in **Settings → Addon Manager** for setup details.

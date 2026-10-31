@@ -1,18 +1,16 @@
 # Editing
 
-Hibi opens on the welcome screen with no document tabs. Start typing to create an unsaved `untitled.md` tab, choose **Open a file…**, use **File → Open**, or select a recent workspace. Choose **Open workspace…** to pick a folder and open it as a workspace.
+Hibi opens on the welcome screen with no document tabs. Start typing to create an unsaved `untitled.md` tab, choose **Open a file…**, use **File → Open…**, or select a recent workspace. Choose **Open workspace…** to pick a folder and open it as a workspace.
 
 ## Choose a view
 
-**Normal** lets you format text without seeing Markdown markers. **Source view** shows the original text with syntax highlighting. **Side-by-side** places editable source next to a read-only formatted preview. You can select and copy preview text; switch to **Normal** to edit formatted text.
-
-While you type in the source pane, the formatted pane may catch up shortly after you pause. Your changes are available to saving and undo immediately. Entering the formatted pane brings it up to date for reading and selection.
+**Normal** lets you format text without seeing Markdown markers. **Source view** shows the original text with syntax highlighting. **Side-by-side** places the source next to the formatted text, and you can edit in either pane. An edit in one pane appears in the other at once, and undo covers both.
 
 Choose your starting view under **Settings → Editor → Layout → Default view**. Only views supported by the current [format](../editing/formats.md) are available. You can switch from the toolbar or use a [keyboard shortcut](../editing/typing-and-shortcuts.md).
 
-Switching views preserves your source. Normal view stays editable regardless of character count or word count. Hibi keeps untouched Markdown when you edit formatted text, including when addons such as LaTeX are enabled, and rejects an edit if it cannot prove the resulting source is safe. Use Source view for syntax the formatted editor cannot preserve, including reference definitions.
+Switching views preserves your source. Normal view stays editable regardless of character count or word count. Hibi keeps untouched Markdown when you edit formatted text, including when addons such as LaTeX are enabled. If an edit would rewrite other Markdown, Hibi refuses it and suggests Source view. Normal view hides reference definitions such as `[help]: guide.md`; edit them in Source view.
 
-Raw HTML appears as a monospace source chip or box in Normal view. Hibi preserves the markup without running it or turning it into live HTML. An `<img>` tag with a `src` shows its image instead, like a Markdown image, sized by any whole-pixel `width` and `height` it sets; with the caret on the tag, its source appears beside the image. In table cells, `<img>` tags stay chips. Click a chip or box to select it, then press Delete or Backspace to remove it as a unit. Use Source view to edit the HTML itself. A chip can include surrounding Markdown formatting to keep the whole fragment intact. When HTML surrounds several Markdown blocks, its opening and closing fragments appear in separate boxes, and you can edit the Markdown between them. Plain `<br>` tags remain line breaks and keep their original spelling when saved. Copying or dragging a chip within the same window preserves it while its copied content is still recognized, including with native copy and paste on Windows. Pasting a chip into another window or after reloading inserts inline code or a fenced code block instead.
+Raw HTML appears as monospace source in Normal view, inline tags as chips and HTML blocks as boxes. Hibi doesn't run the markup or turn it into live HTML, and you can edit it in place like other text. An `<img>` tag with a `src` shows its image instead, like a Markdown image, sized by any whole-pixel `width` and `height` it sets; with the caret on the tag, its source appears beside the image. In table cells, `<img>` tags stay chips. When HTML surrounds several Markdown blocks, its opening and closing fragments appear in separate boxes, and you can edit the Markdown between them. A plain `<br>` tag shows as a line break; while Markdown markers are shown, its tag appears when the caret touches it.
 
 When you use an input method, choosing and revising candidates remains one undo step even if you pause between candidates. Each new composition starts a separate undo step in both source and formatted views.
 
@@ -34,7 +32,7 @@ To keep one file open at a time, turn off **Settings → Editor → Documents �
 
 ## Format text
 
-Select text, then choose a toolbar action. In side-by-side view, formatting actions are available while the source pane is focused. The toolbar offers tools for the current format, with extra buttons in the **More** menu. Within an editable formatted table, additional actions let you add or remove rows and columns.
+Select text, then choose a toolbar action. In side-by-side view, toolbar actions apply to the pane you last focused. The toolbar offers tools for the current format, with extra buttons in the **More** menu. Within an editable formatted table, additional actions let you add or remove rows and columns.
 
 New profiles start with undo and redo, bold and italic, two heading levels, lists, links, and images. Other formatting actions stay in **More**. Tags, workspace graph, and keyboard sound buttons start hidden; their commands remain available. Existing toolbar layouts are preserved.
 
@@ -46,15 +44,13 @@ Escaped block prefixes such as `\# heading` and `1\. item` remain literal text w
 
 In Normal view, the active text block shows its Markdown markers, such as heading levels, bold, italic, strikethrough, and inline code. They follow the cursor and disappear when focus leaves the formatted editor or you select several blocks. To hide them, turn off **Settings → Editor → Writing → Show Markdown markers**. The setting is on by default and persists on this device.
 
-With **Enable exotic butter** on in **Settings → Editor**, the markers Normal view shows are the note's own Markdown: use the arrow keys, click between their characters, select them, or edit them with typing, Backspace, and Delete. This includes link destinations, list, quote, and task prefixes, and code fence lines. Copying a selection puts its Markdown on the clipboard as plain text. With **Show Markdown markers** off, markers stay hidden and the cursor steps over them as before.
+The markers Normal view shows are the note's own Markdown: use the arrow keys, click between their characters, select them, or edit them with typing, Backspace, and Delete. This includes link destinations, list, quote, and task prefixes, and code fence lines. Copying a selection puts its Markdown on the clipboard as plain text. With **Show Markdown markers** off, markers stay hidden and the cursor steps over them.
 
-With **Enable exotic butter** off, the markers are visual hints, not editable characters or a verbatim view of the original delimiters. They are excluded from copied text, saved Markdown, and exports, and code blocks show no extra hints. Use Source view to edit the syntax itself.
-
-At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text, without adding a space or changing your text. With **Enable exotic butter** on, each press moves past one character of a shown closing marker, so leaving `**bold**` takes two presses; with Markdown markers hidden, one press moves past the whole marker. With **Enable exotic butter** off, the cursor moves past the closing hint, including when Markdown markers are hidden.
+At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text, without adding a space or changing your text. Each press moves past one character of a shown closing marker, so leaving `**bold**` takes two presses; with Markdown markers hidden, one press moves past the whole marker.
 
 In GitHub Markdown, `- [ ]` and `- [x]` display as unchecked and checked tasks even without text after the marker. Type either marker followed by a space in Normal view to create a task. You can mix tasks with ordinary bullets and nest tasks inside bullet lists. Consecutive empty tasks stay in one list and can be indented with `Tab`. Indented continuation text belongs to the task. Checkboxes in numbered lists, such as `1. [ ]`, stay literal.
 
-For footnotes in GitHub Markdown, write `text[^note]` and add a definition such as `[^note]: Reference text.` in Source view. Side-by-side view and HTML export place referenced notes at the end of the document. Notes with footnote definitions open without Normal view so their source stays intact.
+For footnotes in GitHub Markdown, write `text[^note]` and add a definition such as `[^note]: Reference text.` on its own line, in either view. Normal view marks each reference and keeps each definition where you wrote it; HTML export places referenced notes at the end of the document.
 
 Under **Settings → Appearance → Toolbar → Arrange toolbar actions**, drag actions or use the arrow controls to reorder them. By default, addon actions follow formatting actions. Select an action and choose **Show in toolbar**, **Menu only**, or **Hide**. Menu-only actions always stay in the **More** dropdown, even in a wide window. Hidden actions disappear from both the toolbar and its dropdown; their commands and shortcuts remain available. These choices are saved separately from the order, so **Reset order** keeps each action's placement.
 
@@ -88,7 +84,7 @@ Files must use UTF-8 and be no larger than 2 MiB. Save your work regularly: unsa
 
 ## When another app changes a note
 
-Opening a note that is already open returns to its tab. This applies to **File → Open**, opening the file from another app, a link, and the explorer, including a link to the note you are reading and the current note's row in the explorer. If the tab has no unsaved edits, it shows the file's latest text. If it has unsaved edits and another app changed the file, Hibi asks whether to save them:
+Opening a note that is already open returns to its tab. This applies to **File → Open…**, opening the file from another app, a link, and the explorer, including a link to the note you are reading and the current note's row in the explorer. If the tab has no unsaved edits, it shows the file's latest text. If it has unsaved edits and another app changed the file, Hibi asks whether to save them:
 
 - **Save** keeps your edits. Hibi then asks before replacing the changed file.
 - **Don’t save** discards your edits and shows the file's text.
@@ -96,22 +92,22 @@ Opening a note that is already open returns to its tab. This applies to **File �
 
 When another app opens several files at once, cancelling for one note still opens the others.
 
-Hibi also asks once when you return to unsaved edits whose file another app changed, whether you choose the tab, go back or forward, or click its pane in a split. The prompt names the note. **Replace** saves your edits over the file, and **Cancel** keeps both. Hibi asks again only if the file changes again.
+Hibi also asks once when you return to unsaved edits whose file another app changed, whether you choose its tab, close the tab you were viewing, go back or forward, or click its pane in a split. The prompt names the note. **Replace** saves your edits over the file, and **Cancel** keeps both. Hibi asks again only if the file changes again.
 
 If another app writes to the file while Hibi is asking, Hibi asks again before replacing it. [Version history](../editing/version-history.md) keeps the text that **Replace** overwrote.
 
 If another app creates a file with the name of a new note you haven't saved yet, opening that file asks the same way. **Don’t save** discards the new note and opens the file.
 
-If a note's file is moved or deleted outside Hibi, its tab keeps the text. Saving asks first, then writes the note back where it was.
+If a note's file is moved or deleted outside Hibi, its tab keeps the text. Saving asks first, then writes the note back where it was. If its folder was moved or deleted too, Hibi says so; use **Save as** to keep the text.
 
 ## Optional writing tools
 
 Enable **Mermaid** to edit `.mmd` diagrams and render Mermaid code blocks in Markdown. **BBCode** adds `.bbcode` and `.bbc` files with a preview and formatting toolbar. Both addons offer HTML export from side-by-side view.
 
-Under **Settings → Addons**, enable **Word count** for word and character totals, or **Block dragging** to rearrange formatted text using a grip beside each block. The grip also offers **Move block up/down**, and moves support undo.
+Under **Settings → Addon Manager**, enable **Word count** for word and character totals, or **Block dragging** to rearrange formatted text using a grip beside each block. The grip also offers **Move block up/down**, and moves support undo.
 
 Enable **Writing suggestions** for workspace tag completions after `#`, note-path completions after `[[` in Source view, and a `;todo` text snippet in either editing view. Choose a suggestion with Enter or Tab; Escape leaves the text unchanged.
 
-Enable **Dictionary and thesaurus** to look up definitions and synonyms for the word at the cursor in English, Chinese, Cantonese, Japanese, Filipino, or French, then replace it with a synonym. Looked-up words are sent to online services unless an offline pack answers, so the addon is off by default. Its readme in **Settings → Addons** describes which services it uses.
+Enable **Dictionary and thesaurus** to look up definitions and synonyms for the word at the cursor in English, Chinese, Cantonese, Japanese, Filipino, or French, then replace it with a synonym. Looked-up words are sent to online services unless an offline pack answers, so the addon is off by default. Its readme in **Settings → Addon Manager** describes which services it uses.
 
 The **Frontmatter** addon adds editable [page properties](frontmatter.md). **Settings → Editor → Writing → Spell check** controls spelling underlines in formatted text. See [settings](settings.md) for other preferences.

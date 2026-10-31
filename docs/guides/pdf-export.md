@@ -1,6 +1,6 @@
 # Export a note as PDF
 
-Open a note, then choose **Export as PDF…** from the command palette or the **File** menu. Choose where to save the PDF. Hibi includes your unsaved edits and renders the note in both editor engines and in source view.
+Open a note, then choose **Export as PDF…** from the command palette or the **File** menu. Choose where to save the PDF. Hibi includes your unsaved edits and renders the note the same way from Normal and Source view.
 
 The PDF always uses Hibi’s light theme, including diagrams, even when the app uses a dark theme. Enabled syntax addons render supported content such as math and Mermaid diagrams. Local images referenced by the note are embedded, and images with an `https://` address use the [copies Hibi keeps](../editing/media-and-navigation.md#supported-media), downloading any it doesn't have yet. Other remote images show their description. Frontmatter properties are omitted.
 
