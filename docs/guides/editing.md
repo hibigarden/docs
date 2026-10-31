@@ -4,15 +4,13 @@ Hibi opens on the welcome screen with no document tabs. Start typing to create a
 
 ## Choose a view
 
-**Normal** lets you format text without seeing Markdown markers. **Source view** shows the original text with syntax highlighting. **Side-by-side** places editable source next to a read-only formatted preview. You can select and copy preview text; switch to **Normal** to edit formatted text.
-
-While you type in the source pane, the formatted pane may catch up shortly after you pause. Your changes are available to saving and undo immediately. Entering the formatted pane brings it up to date for reading and selection.
+**Normal** lets you format text without seeing Markdown markers. **Source view** shows the original text with syntax highlighting. **Side-by-side** places the source next to the formatted text, and you can edit in either pane. An edit in one pane appears in the other at once, and undo covers both.
 
 Choose your starting view under **Settings → Editor → Layout → Default view**. Only views supported by the current [format](../editing/formats.md) are available. You can switch from the toolbar or use a [keyboard shortcut](../editing/typing-and-shortcuts.md).
 
-Switching views preserves your source. Normal view stays editable regardless of character count or word count. Hibi keeps untouched Markdown when you edit formatted text, including when addons such as LaTeX are enabled, and rejects an edit if it cannot prove the resulting source is safe. Use Source view for syntax the formatted editor cannot preserve, including reference definitions.
+Switching views preserves your source. Normal view stays editable regardless of character count or word count. Hibi keeps untouched Markdown when you edit formatted text, including when addons such as LaTeX are enabled. If an edit would rewrite other Markdown, Hibi refuses it and suggests Source view. Normal view hides reference definitions such as `[help]: guide.md`; edit them in Source view.
 
-Raw HTML appears as a monospace source chip or box in Normal view. Hibi preserves the markup without running it or turning it into live HTML. Click a chip or box to select it, then press Delete or Backspace to remove it as a unit. Use Source view to edit the HTML itself. A chip can include surrounding Markdown formatting to keep the whole fragment intact. When HTML surrounds several Markdown blocks, its opening and closing fragments appear in separate boxes, and you can edit the Markdown between them. Plain `<br>` tags remain line breaks and keep their original spelling when saved. Copying or dragging a chip within the same window preserves it while its copied content is still recognized, including with native copy and paste on Windows. Pasting a chip into another window or after reloading inserts inline code or a fenced code block instead.
+Raw HTML appears as monospace source in Normal view, inline tags as chips and HTML blocks as boxes. Hibi doesn't run the markup or turn it into live HTML, and you can edit it in place like other text. An `<img>` tag with a `src` shows its image instead, like a Markdown image, sized by any whole-pixel `width` and `height` it sets; with the caret on the tag, its source appears beside the image. In table cells, `<img>` tags stay chips. When HTML surrounds several Markdown blocks, its opening and closing fragments appear in separate boxes, and you can edit the Markdown between them. A plain `<br>` tag shows as a line break; while Markdown markers are shown, its tag appears when the caret touches it.
 
 When you use an input method, choosing and revising candidates remains one undo step even if you pause between candidates. Each new composition starts a separate undo step in both source and formatted views.
 
@@ -34,7 +32,7 @@ To keep one file open at a time, turn off **Settings → Editor → Documents �
 
 ## Format text
 
-Select text, then choose a toolbar action. In side-by-side view, formatting actions are available while the source pane is focused. The toolbar offers tools for the current format, with extra buttons in the **More** menu. Within an editable formatted table, additional actions let you add or remove rows and columns.
+Select text, then choose a toolbar action. In side-by-side view, toolbar actions apply to the pane you last focused. The toolbar offers tools for the current format, with extra buttons in the **More** menu. Within an editable formatted table, additional actions let you add or remove rows and columns.
 
 New profiles start with undo and redo, bold and italic, two heading levels, lists, links, and images. Other formatting actions stay in **More**. Tags, workspace graph, and keyboard sound buttons start hidden; their commands remain available. Existing toolbar layouts are preserved.
 
@@ -46,15 +44,13 @@ Escaped block prefixes such as `\# heading` and `1\. item` remain literal text w
 
 In Normal view, the active text block shows its Markdown markers, such as heading levels, bold, italic, strikethrough, and inline code. They follow the cursor and disappear when focus leaves the formatted editor or you select several blocks. To hide them, turn off **Settings → Editor → Writing → Show Markdown markers**. The setting is on by default and persists on this device.
 
-With **Enable exotic butter** on in **Settings → Editor**, the markers Normal view shows are the note's own Markdown: use the arrow keys, click between their characters, select them, or edit them with typing, Backspace, and Delete. This includes link destinations, list, quote, and task prefixes, and code fence lines. Copying a selection puts its Markdown on the clipboard as plain text. With **Show Markdown markers** off, markers stay hidden and the cursor steps over them as before.
+The markers Normal view shows are the note's own Markdown: use the arrow keys, click between their characters, select them, or edit them with typing, Backspace, and Delete. This includes link destinations, list, quote, and task prefixes, and code fence lines. Copying a selection puts its Markdown on the clipboard as plain text. With **Show Markdown markers** off, markers stay hidden and the cursor steps over them.
 
-With **Enable exotic butter** off, the markers are visual hints, not editable characters or a verbatim view of the original delimiters. They are excluded from copied text, saved Markdown, and exports, and code blocks show no extra hints. Use Source view to edit the syntax itself.
-
-At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text, without adding a space or changing your text. With **Enable exotic butter** on, each press moves past one character of a shown closing marker, so leaving `**bold**` takes two presses; with Markdown markers hidden, one press moves past the whole marker. With **Enable exotic butter** off, the cursor moves past the closing hint, including when Markdown markers are hidden.
+At the end of a document, press the right arrow key to leave bold, italic, strikethrough, or inline code and continue with plain text, without adding a space or changing your text. Each press moves past one character of a shown closing marker, so leaving `**bold**` takes two presses; with Markdown markers hidden, one press moves past the whole marker.
 
 In GitHub Markdown, `- [ ]` and `- [x]` display as unchecked and checked tasks even without text after the marker. Type either marker followed by a space in Normal view to create a task. You can mix tasks with ordinary bullets and nest tasks inside bullet lists. Consecutive empty tasks stay in one list and can be indented with `Tab`. Indented continuation text belongs to the task. Checkboxes in numbered lists, such as `1. [ ]`, stay literal.
 
-For footnotes in GitHub Markdown, write `text[^note]` and add a definition such as `[^note]: Reference text.` in Source view. Side-by-side view and HTML export place referenced notes at the end of the document. Notes with footnote definitions open without Normal view so their source stays intact.
+For footnotes in GitHub Markdown, write `text[^note]` and add a definition such as `[^note]: Reference text.` on its own line, in either view. Normal view marks each reference and keeps each definition where you wrote it; HTML export places referenced notes at the end of the document.
 
 Under **Settings → Appearance → Toolbar → Arrange toolbar actions**, drag actions or use the arrow controls to reorder them. By default, addon actions follow formatting actions. Select an action and choose **Show in toolbar**, **Menu only**, or **Hide**. Menu-only actions always stay in the **More** dropdown, even in a wide window. Hidden actions disappear from both the toolbar and its dropdown; their commands and shortcuts remain available. These choices are saved separately from the order, so **Reset order** keeps each action's placement.
 

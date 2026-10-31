@@ -12,14 +12,15 @@ Create a folder with this `hibi-addon.json`:
   "name": "Hello",
   "description": "A greeting from your first addon.",
   "version": "1.0.0",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "kind": "extension",
+  "capabilities": [],
   "authors": [{ "displayName": "Your name" }],
   "entry": "index.js"
 }
 ```
 
-Add an `index.js` that exports a factory. Hibi passes its [shared SDK](../addon-api-reference/SideloadFactory.md) to this factory.
+Add an `index.js` that exports a factory. Hibi passes the [SDK parts](../addon-api-reference/CapabilitySdk.md) listed in `capabilities` to this factory.
 
 ```javascript
 export default () => ({
@@ -35,23 +36,22 @@ export default () => ({
 
 Add a readme that explains how to use the command. This example is already JavaScript and needs no build step. For TypeScript or JSX, compile your package before sharing it. Hibi does not run package installation or build scripts.
 
-For TypeScript checking, Hibi's local `@hibi/addon-sdk` tarball supplies addon contracts without runtime code. Run `npm run sdk:pack` in a Hibi source checkout, install the resulting `.tgz` in your addon development project, and use `import type` from `@hibi/addon-sdk/api`, `@hibi/addon-sdk/sdk-loader`, or `@hibi/addon-sdk/sdk`. Use `CapabilityFactory` for a package declaring `capabilities`, or `SideloadFactory` for a legacy package. Set `apiVersion` to `2` for new packages. Strict type checking requires the package's React, CodeMirror, Tiptap, and Marked peers; use Hibi's shared SDK values in installed code.
+For TypeScript checking, Hibi's local `@hibi/addon-sdk` tarball supplies addon contracts without runtime code. Run `npm run sdk:pack` in a Hibi source checkout, install the resulting `.tgz` in your addon development project, and use `import type` from `@hibi/addon-sdk/api` or `@hibi/addon-sdk/sdk-loader`. Type the factory as `CapabilityFactory` and set `apiVersion` to `3`. Strict type checking requires the package's React, CodeMirror, Lezer, and Marked peers; use Hibi's shared SDK values in installed code.
 
-Use the factory's `React`, `ui`, `tiptap`, `codeMirror`, and `markdown` values instead of bundling second copies of those libraries. Relative imports may load other compiled files in your package. Do not import from Hibi's source tree in an installed package.
+Use the factory's `React`, `ui`, `codeMirror`, and `markdown` values instead of bundling second copies of those libraries. Relative imports may load other compiled files in your package. Do not import from Hibi's source tree in an installed package.
 
 ## Load only the SDK you need
 
-New packages can declare `capabilities` in the manifest. Use `ui` for React and shared controls, `rich` for Tiptap, `source` for CodeMirror, and `markdown` for Marked. An empty array supplies only the lightweight `documents` helpers. Packages that omit this field retain the legacy SDK with all engines.
+A package whose entry exports a factory lists the SDK parts it uses in `capabilities`. Use `ui` for React and shared controls, `source` for CodeMirror, `formatted` to add Lezer Markdown to CodeMirror for formatted view extensions and syntax, and `markdown` for Marked. An empty array supplies only the lightweight `documents` helpers. Hibi refuses a factory package without this field.
 
 ```json
 {
-  "capabilities": [],
   "activation": "command",
   "commands": [{ "id": "greet", "label": "Say hello" }]
 }
 ```
 
-Add these fields to the greeting package above to keep its runtime unloaded until the command is invoked. The command descriptor is plain metadata; its ID must match the runtime registration. A source-only integration can use `activation: 'source'`, while `rich` activation runs in visual or split view. Omit activation for document formats and syntax that must exist before editing.
+Add these fields to the greeting package above to keep its runtime unloaded until the command is invoked. The command descriptor is plain metadata; its ID must match the runtime registration. A source-only integration can use `activation: 'source'`, while `formatted` activation runs in Normal or side-by-side view. Omit activation for document formats and syntax that must exist before editing.
 
 A background package can declare its commands too. Once the package is enabled, Hibi lists them and binds their shortcuts in the main window before the package starts. Running one starts the package, then runs the command. Installation refuses a package whose `defaultShortcut` is not a supported key combination on macOS, Windows, and Linux, or is one that Hibi reserves, such as `mod+c`. A package installed before this check still loads, without that shortcut.
 
@@ -67,7 +67,7 @@ Each selected package installs independently. The review list shows success or f
 
 Installed extensions run trusted code with access to documents through the addon APIs. Install packages only from sources you trust. Native handlers, importers, and addon windows must ship with Hibi; installed manifests cannot declare these privileges or replace a built-in addon ID.
 
-Keep `hibi-addon.json` within 64 KiB, including full license notices. Each top-level `licenses[].text` notice can use up to 64 KiB of UTF-8 text, subject to that total manifest limit. Inline color scheme notices retain their 32,000-character limit. API versions 1 and 2 use the same package format and validation.
+Keep `hibi-addon.json` within 64 KiB, including full license notices. Each top-level `licenses[].text` notice can use up to 64 KiB of UTF-8 text, subject to that total manifest limit. Inline color scheme notices retain their 32,000-character limit. Hibi refuses a package made for addon API 1 or 2, or a factory package without `capabilities`, with the notice “This addon was made for an earlier version of Hibi. Ask its author for an update to addon API 3.”
 
 Packages installed before Hibi accepted stylesheets and theme files keep ignoring those fields and native/importer/window declarations without granting privileges. Reinstall such a package to use its stylesheets and themes.
 
