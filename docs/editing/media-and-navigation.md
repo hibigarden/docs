@@ -14,7 +14,7 @@ Hibi copies attachments into an `assets` folder beside the note and keeps the or
 
 Images can be PNG, JPEG, GIF, WebP, AVIF, or SVG, up to 8 MiB each. Videos can be MP4, MOV, WebM, or OGG/Theora, up to 512 MiB each, though playback depends on the codec.
 
-Images with an `https://` address load from their website, which can see when you open the note. Hibi does not load `http://` images or remote videos.
+Images with an `https://` address load from their website, which can see when you open the note. Hibi sends these websites no cookies, keeps none they set, and never asks whether an image it downloaded before has changed, so a website gets no cookie or cache tag to recognize a returning reader by. Instead, Hibi downloads these images again, and they don't show offline. Hibi does not load `http://` images or remote videos.
 
 [Documentation exports](../guides/exporting.md) have a 20 MiB total limit, so share large videos separately.
 
