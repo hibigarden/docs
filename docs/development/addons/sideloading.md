@@ -53,6 +53,8 @@ A package whose entry exports a factory lists the SDK parts it uses in `capabili
 
 Add these fields to the greeting package above to keep its runtime unloaded until the command is invoked. The command descriptor is plain metadata; its ID must match the runtime registration. A source-only integration can use `activation: 'source'`, while `formatted` activation runs in Normal or side-by-side view. Omit activation for document formats and syntax that must exist before editing.
 
+A background package can declare its commands too. Once the package is enabled, Hibi lists them and binds their shortcuts in the main window before the package starts. Running one starts the package, then runs the command. Installation refuses a package whose `defaultShortcut` is not a supported key combination on macOS, Windows, and Linux, or is one that Hibi reserves, such as `mod+c`. A package installed before this check still loads, without that shortcut.
+
 Declaring capabilities also stages editor configuration, commands, toolbar items, and sidebar views until `start()` finishes. Registrations are published in stable ID order and removed if startup fails. Document syntax cannot use command or view activation, and background packages cannot install required editor integrations. These SDK choices control loading; renderer packages still run trusted code.
 
 ## Install it locally
