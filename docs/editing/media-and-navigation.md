@@ -12,9 +12,11 @@ Hibi copies attachments into an `assets` folder beside the note and keeps the or
 
 ### Supported media
 
-Images can be PNG, JPEG, GIF, WebP, AVIF, or SVG, up to 8 MiB each. Videos can be MP4, MOV, WebM, or OGG/Theora, up to 512 MiB each, though playback depends on the codec.
+Local images can be PNG, JPEG, GIF, WebP, AVIF, or SVG, up to 8 MiB each. Videos can be MP4, MOV, WebM, or OGG/Theora, up to 512 MiB each, though playback depends on the codec.
 
-Images with an `https://` address load from their website, which can see when you open the note. Hibi sends these websites no cookies, keeps none they set, and never asks whether an image it downloaded before has changed, so a website gets no cookie or cache tag to recognize a returning reader by. Instead, Hibi downloads these images again, and they don't show offline. Hibi does not load `http://` images or remote videos.
+Images with an `https://` address download from their website, and Hibi keeps a copy so they show again without downloading, even offline. Notes in a workspace keep these copies in its `.hibi/cache` folder, which Git skips; other notes keep them in Hibi's app data folder. A copy can be any image type the website sends, up to 64 MiB, and each folder keeps up to 512 MiB of copies, deleting the ones checked longest ago first. Once a copy is a day old, Hibi asks the website whether the image changed the next time it shows, and downloads it again only if it did; if the website takes more than a few seconds, the old copy shows meanwhile. To download an image again right away, right-click it in Normal view or a preview and choose **Refresh image**. From the keyboard, put the caret in the image in Normal view, or press Tab until the image in a preview has focus, then press `Shift+F10`.
+
+A website can see when Hibi downloads or checks its image. Hibi sends it no cookies and keeps none it sets, but a check sends back the tag the website gave the image (its `ETag` or date), which a website could use to recognize a returning reader. Hibi does not load `http://` images or remote videos.
 
 [Documentation exports](../guides/exporting.md) have a 20 MiB total limit, so share large videos separately.
 
