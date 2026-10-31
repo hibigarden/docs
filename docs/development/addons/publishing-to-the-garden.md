@@ -1,6 +1,6 @@
 # Publishing to the Hibi garden
 
-The [Hibi garden](https://www.hibi.garden/addons/) lists community addons. The same list appears in the **Hibi garden** tab of **Settings → Addons**, where people install them with **Install**. Hibi's maintainers review every listed addon. When they accept it, the garden signs the exact files its entry names, so people can install it from the garden without allowing unsigned addons.
+The [Hibi garden](https://www.hibi.garden/addons/) lists community addons. The same list appears in the **Hibi garden** tab of **Settings → Addon Manager**, where people install them with **Install**. Hibi's maintainers review every listed addon. When they accept it, the garden signs the exact files its entry names, so people can install it from the garden without allowing unsigned addons.
 
 ## Start from a template
 

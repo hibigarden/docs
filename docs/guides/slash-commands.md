@@ -1,6 +1,6 @@
 # Slash commands
 
-Slash commands insert Markdown syntax without leaving the keyboard. The addon is enabled by default; turn it on or off under **Settings → Addons**.
+Slash commands insert Markdown syntax without leaving the keyboard. The addon is enabled by default; turn it on or off under **Settings → Addon Manager**.
 
 ## Insert syntax
 

@@ -1,6 +1,6 @@
 # Document formats
 
-Enable format addons under **Settings → Addons**, then open **Formats** to configure them. Markdown and plain text are always available.
+Enable format addons under **Settings → Addon Manager**, then open **Formats** to configure them. Markdown and plain text are always available.
 
 ## Supported formats
 

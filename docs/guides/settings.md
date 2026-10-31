@@ -58,13 +58,13 @@ Use **Syntax** to enable or disable formatting features, and **Code Highlight** 
 
 ## Addons
 
-**Settings → Addons** has two tabs. **Installed** lists built-in and installed addons and themes alphabetically; enable or disable them there. **Hibi garden** lists addons you can install. Enabling an addon makes its settings and formats available. **Reset all** restores the default enabled addons without removing installed packages.
+**Settings → Addon Manager** has two tabs. **Installed** lists built-in and installed addons and themes alphabetically; enable or disable them there. **Hibi garden** lists addons you can install. Enabling an addon makes its settings and formats available. **Reset all** restores the default enabled addons without removing installed packages.
 
 Enabling an addon can ask to enable its required addons too; disabling a provider leaves its consumers enabled but blocked, while documents stay editable under their existing syntax protections.
 
 Choose a category above either list to show only features, formats, themes, or importers. Categories work together with the text filter; choose **All** to see every category. Categories without any addons in the current list are hidden.
 
-**UI preview** is enabled when you run Hibi in development. In a release build, enable it under **Settings → Addons**, then choose **Open UI preview** from the command palette. Edit the sample text, turn on **Show red outlines** to inspect control boundaries, and enter CSS to preview changes across Hibi. Choose **Save CSS** to keep those rules after restart. If saved CSS obscures the interface, choose **Disable custom CSS** from the native Addons menu.
+**UI preview** is enabled when you run Hibi in development. In a release build, enable it under **Settings → Addon Manager**, then choose **Open UI preview** from the command palette. Edit the sample text, turn on **Show red outlines** to inspect control boundaries, and enter CSS to preview changes across Hibi. Choose **Save CSS** to keep those rules after restart. If saved CSS obscures the interface, choose **Disable custom CSS** from the native Addons menu.
 
 Click anywhere on an addon row outside its controls to read its documentation. On a addon’s settings page, click its title. The row’s enable switch and remove button work separately.
 

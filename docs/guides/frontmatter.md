@@ -18,7 +18,7 @@ Run **Add frontmatter** from the command palette, or use `/frontmatter` with Sla
 
 For lists, objects, or other YAML, open the YAML editor and choose **Apply YAML** when ready. Hibi checks the syntax before applying it. If you change the source while that editor is open, reopen it to load the latest values.
 
-Choose whether properties start expanded under **Settings → Addons → Frontmatter**.
+Choose whether properties start expanded under **Settings → Frontmatter**.
 
 ## How your file is preserved
 

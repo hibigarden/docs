@@ -20,7 +20,7 @@ npx create-hibi-addon hello --name "Hello" --author "Your name"
 
 Use Node.js 22.18 or later and a new destination directory. The creator refuses to overwrite existing paths and removes incomplete output if creation fails, so you can retry. It writes `hibi-addon.json`, `index.js`, `package.json`, and `README.md` without installing dependencies. The folder name becomes the addon ID after removing accents, lowercasing letters, and converting separators to hyphens; `Über Café` becomes `uber-cafe`. The creator prints the derived ID and rejects names that produce an empty or invalid ID.
 
-Run `npm run check` inside the generated folder. In Hibi, choose **Install addon…** from the command palette, select that folder, review it, and enable it in **Settings → Addons**. Run **Say hello** to display a greeting. The addon declares no UI or editor capabilities and loads when its command first runs; disabling it removes the command.
+Run `npm run check` inside the generated folder. In Hibi, choose **Install addon…** from the command palette, select that folder, review it, and enable it in **Settings → Addon Manager**. Run **Say hello** to display a greeting. The addon declares no UI or editor capabilities and loads when its command first runs; disabling it removes the command.
 
 The starter needs no SDK package at runtime. For optional TypeScript checking, use the local, types-only SDK tarball described in [sideloading and sharing](sideloading.md). The SDK is currently private and is not an npm dependency of the starter.
 
@@ -90,6 +90,6 @@ This catalog is part of the application build. Installing a standalone addon sti
 
 ## Try it
 
-Restart `npm run dev` after creating the folder. Open **Settings → Addons**, enable **Hello**, then open the command palette and choose **Say hello**. Disabling the addon removes its command.
+Restart `npm run dev` after creating the folder. Open **Settings → Addon Manager**, enable **Hello**, then open the command palette and choose **Say hello**. Disabling the addon removes its command.
 
 Continue with [adding functionality](adding-functionality.md), or [package the addon](sideloading.md) for an installed copy of Hibi.

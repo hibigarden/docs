@@ -1,6 +1,6 @@
 # Offline dictionary packs
 
-Enable **Dictionary and thesaurus** in **Settings → Addons**, then open its settings. Choose **Install pack** for English, Chinese (Mandarin), Cantonese, Japanese, Filipino (Tagalog), French, or German. You can also run **Dictionary: install offline pack** from the command palette.
+Enable **Dictionary and thesaurus** in **Settings → Addon Manager**, then open its settings. Choose **Install pack** for English, Chinese (Mandarin), Cantonese, Japanese, Filipino (Tagalog), French, or German. You can also run **Dictionary: install offline pack** from the command palette.
 
 Each pack shows its approximate download size, publisher hosts, sources, and licenses before installation. Mandarin includes both simplified and traditional spellings. Japanese includes kanji and kana readings. Definitions are in English.
 
