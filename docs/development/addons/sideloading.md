@@ -61,7 +61,7 @@ Run **Install addon…** from the command palette and choose a package folder or
 
 All installable packages start selected. Review their folders, versions, sources, permissions, network origins, required providers, and any replacement details. Use `Tab` to move between controls and `Space` to toggle a checkbox, then choose **Install selected**. Required providers must already be installed or remain selected. Unchecking a missing provider makes its consumers unavailable and shows a reason; other selected packages can still install. Selecting the provider again makes those consumers available. Selected providers install before their consumers.
 
-Each selected package installs independently. The review list shows success or failure for each row; one failure does not undo other successful installations. Keep the review open to select remaining packages or retry failed rows without downloading the source again. **Cancel** during installation stops pending work, while completed installations remain. Closing the dialog or pressing `Escape` also cancels pending work. New packages stay disabled until you enable them in **Settings → Addons**. A replacement keeps its current setting unless it asks for different access, as described in [update a package](#update-a-package). If you already have a source addon with the same ID, use a different ID for this package.
+Each selected package installs independently. The review list shows success or failure for each row; one failure does not undo other successful installations. Keep the review open to select remaining packages or retry failed rows without downloading the source again. **Cancel** during installation stops pending work, while completed installations remain. Closing the dialog or pressing `Escape` also cancels pending work. New packages stay disabled until you enable them in **Settings → Addon Manager**. A replacement keeps its current setting unless it asks for different access, as described in [update a package](#update-a-package). If you already have a source addon with the same ID, use a different ID for this package.
 
 Installed extensions run trusted code with access to documents through the addon APIs. Install packages only from sources you trust. Native handlers, importers, and addon windows must ship with Hibi; installed manifests cannot declare these privileges or replace a built-in addon ID.
 
@@ -154,7 +154,7 @@ Relative `url()` and `@import` references resolve from the stylesheet's own loca
 
 ## Share it
 
-Publish the prepared files in a public HTTPS Git repository or ZIP archive. Hibi searches recursively, so each package can live in its own nested folder. Users can install that URL through **Settings → Addons → Install from URL** and review several packages together.
+Publish the prepared files in a public HTTPS Git repository or ZIP archive. Hibi searches recursively, so each package can live in its own nested folder. Users can install that URL through **Settings → Addon Manager → Install from URL** and review several packages together.
 
 Git packages need their compiled entry committed, and Git installed on the user's machine. Private repositories, SSH URLs, submodules, and Git LFS files are not supported. Do not include `node_modules`, secrets, or native executables.
 

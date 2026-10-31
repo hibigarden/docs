@@ -1,6 +1,6 @@
 # Graphs and tags
 
-Tags are enabled by default. Enable **Graph** under **Settings → Addons** if you want a visual map. Both work locally and update as your notes change.
+Tags are enabled by default. Enable **Graph** under **Settings → Addon Manager** if you want a visual map. Both work locally and update as your notes change.
 
 Choose **Backlinks** from either sidebar's view menu to see notes that link to the current note. Backlinks work without the Graph addon. They follow each note's Markdown flavor: relative Markdown links are supported, and Obsidian `[[wikilinks]]` count when Obsidian Markdown is enabled for that note. The sidebar warns when unsupported addon syntax may leave results incomplete.
 

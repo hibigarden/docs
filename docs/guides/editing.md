@@ -1,6 +1,6 @@
 # Editing
 
-Hibi opens on the welcome screen with no document tabs. Start typing to create an unsaved `untitled.md` tab, choose **Open a file…**, use **File → Open**, or select a recent workspace. Choose **Open workspace…** to pick a folder and open it as a workspace.
+Hibi opens on the welcome screen with no document tabs. Start typing to create an unsaved `untitled.md` tab, choose **Open a file…**, use **File → Open…**, or select a recent workspace. Choose **Open workspace…** to pick a folder and open it as a workspace.
 
 ## Choose a view
 
@@ -88,7 +88,7 @@ Files must use UTF-8 and be no larger than 2 MiB. Save your work regularly: unsa
 
 ## When another app changes a note
 
-Opening a note that is already open returns to its tab. This applies to **File → Open**, opening the file from another app, a link, and the explorer, including a link to the note you are reading and the current note's row in the explorer. If the tab has no unsaved edits, it shows the file's latest text. If it has unsaved edits and another app changed the file, Hibi asks whether to save them:
+Opening a note that is already open returns to its tab. This applies to **File → Open…**, opening the file from another app, a link, and the explorer, including a link to the note you are reading and the current note's row in the explorer. If the tab has no unsaved edits, it shows the file's latest text. If it has unsaved edits and another app changed the file, Hibi asks whether to save them:
 
 - **Save** keeps your edits. Hibi then asks before replacing the changed file.
 - **Don’t save** discards your edits and shows the file's text.
@@ -108,10 +108,10 @@ If a note's file is moved or deleted outside Hibi, its tab keeps the text. Savin
 
 Enable **Mermaid** to edit `.mmd` diagrams and render Mermaid code blocks in Markdown. **BBCode** adds `.bbcode` and `.bbc` files with a preview and formatting toolbar. Both addons offer HTML export from side-by-side view.
 
-Under **Settings → Addons**, enable **Word count** for word and character totals, or **Block dragging** to rearrange formatted text using a grip beside each block. The grip also offers **Move block up/down**, and moves support undo.
+Under **Settings → Addon Manager**, enable **Word count** for word and character totals, or **Block dragging** to rearrange formatted text using a grip beside each block. The grip also offers **Move block up/down**, and moves support undo.
 
 Enable **Writing suggestions** for workspace tag completions after `#`, note-path completions after `[[` in Source view, and a `;todo` text snippet in either editing view. Choose a suggestion with Enter or Tab; Escape leaves the text unchanged.
 
-Enable **Dictionary and thesaurus** to look up definitions and synonyms for the word at the cursor in English, Chinese, Cantonese, Japanese, Filipino, or French, then replace it with a synonym. Looked-up words are sent to online services unless an offline pack answers, so the addon is off by default. Its readme in **Settings → Addons** describes which services it uses.
+Enable **Dictionary and thesaurus** to look up definitions and synonyms for the word at the cursor in English, Chinese, Cantonese, Japanese, Filipino, or French, then replace it with a synonym. Looked-up words are sent to online services unless an offline pack answers, so the addon is off by default. Its readme in **Settings → Addon Manager** describes which services it uses.
 
 The **Frontmatter** addon adds editable [page properties](frontmatter.md). **Settings → Editor → Writing → Spell check** controls spelling underlines in formatted text. See [settings](settings.md) for other preferences.
