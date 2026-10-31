@@ -30,6 +30,8 @@ Opening or creating a document through Hibi's file controls or the explorer, ope
 
 To keep one file open at a time, turn off **Settings → Editor → Documents → Use tabs**. Hibi keeps the active note and asks what to do with other unsaved tabs. Turning tabs back on does not reopen closed notes. Open tabs are not restored after quitting Hibi.
 
+**Settings → Editor → Documents → Remember scroll position** is on by default. Hibi remembers where you left each file when you reopen it. Turn it off to open files at the top.
+
 ## Format text
 
 Select text, then choose a toolbar action. In side-by-side view, toolbar actions apply to the pane you last focused. The toolbar offers tools for the current format, with extra buttons in the **More** menu. Within an editable formatted table, additional actions let you add or remove rows and columns.
