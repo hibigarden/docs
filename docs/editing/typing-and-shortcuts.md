@@ -27,7 +27,7 @@ Letter shortcuts and punctuation on letter keys follow your active keyboard layo
 
 ## Undo and redo
 
-Undo history is shared between source and formatted editing and survives switching tabs. Hibi limits the memory used by history; when it needs space, older edits in less recently used tabs may stop being undoable. This keeps your current text and saved files intact. Use [Version history](version-history.md) to restore an earlier saved version.
+Undo history is shared between source and formatted editing and survives switching tabs. Hibi limits the memory used by history; when it needs space, older edits in less recently used tabs may stop being undoable. This keeps your current text and saved files intact. A closed note keeps its undo history up to its last save, unless you turn that off under **Settings → Editor → Undo history**. Use [History](version-history.md) to return to a saved version or to a point while you edited.
 
 ## Markdown formatting
 
