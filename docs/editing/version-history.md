@@ -10,7 +10,7 @@
 
 Restoring is an edit, so undo takes it back. The file on disk stays unchanged until you save. A saved version too large to preview or to undo replaces the text instead: History says so before you restore it, and Hibi asks about unsaved changes first.
 
-Older entries thin out: past a day, the list keeps one an hour, and past a week, one a day. Every save you ask for stays listed.
+Older entries thin out: past a day, the list keeps one an hour, and past a week, one a day. Within the last day, autosaves list about 3 minutes apart. Every save you ask for and the newest version stay listed.
 
 ## All steps
 
