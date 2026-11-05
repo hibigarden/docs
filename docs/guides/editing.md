@@ -80,7 +80,7 @@ When normal view rewrites Markdown, entity references such as `&copy;` can save 
 
 To rename a note, run **Rename document…** from the command palette or choose **Rename** in its workspace menu. Renaming keeps unsaved edits and does not replace another file.
 
-Files must use UTF-8 and be no larger than 2 MiB. Save your work regularly: unsaved drafts can be lost in an app or machine crash. [History](../editing/version-history.md) keeps previous saves.
+Files must use UTF-8 and be no larger than 2 MiB. If Hibi stops suddenly, you can [get back unsaved text](settings.md#getting-back-unsaved-text) the next time you open it. [History](../editing/version-history.md) keeps previous saves.
 
 ## When another app changes a note
 

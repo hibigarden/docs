@@ -42,6 +42,23 @@ Open files keep their autosave timers when you switch tabs. Each file saves afte
 
 If another app changes the file, autosave pauses. Save manually to review the conflict.
 
+## Getting back unsaved text
+
+If Hibi is killed, crashes, or your computer loses power, your unsaved text is still there the next time you open Hibi. Hibi lists each note with its folder, when the text was written, and its size. You can restore it, discard it, or decide later, and Hibi asks again at the next launch.
+
+Restoring never changes your file. If the file still holds the text your edits began from, the note opens with your text as unsaved changes. If the file has changed or is gone, your text opens as a separate note named `note (recovered).md`, so you can compare them and choose what to keep.
+
+Hibi writes this copy about once a second while you type, or less often for very large notes, so a sudden stop can lose about the last second of typing. A saved note or one you close with **Don't save** leaves no copy behind.
+
+These copies are plain text in Hibi's app data on this device, readable only by your user account. They are never stored beside your notes. Under **Editor → Saving** you can change how they work:
+
+- **Keep unsaved text for recovery** turns them off. Turning it off deletes the copies that are waiting.
+- **Delete unclaimed copies after** sets how long a copy you haven't restored or discarded stays, from 7 days to a year, or never. Time counts from when Hibi first offered it. The default is 30 days.
+- **Recovery copies size limit** bounds all the copies together, from 128 MB to 4 GB. The default is 512 MB. Past it, the oldest unclaimed copies go first. Copies of notes you have open stay, and a note too large to fit gets no copy, which Hibi tells you.
+- **Open unsaved text at launch** skips the question and opens the notes for you, up to 20 at a time, by the same rules as restoring. Hibi tells you how many it opened. Any others wait in the usual list.
+
+Lowering a limit asks first when it would delete a waiting copy, and names what would go.
+
 ## Keyboard shortcuts
 
 Under **Hotkeys**, select a binding and press a new shortcut. Enter saves it and Escape cancels. You can clear individual shortcuts or reset them. Hibi rejects conflicts and reserved shortcuts; menus and the command palette show your current bindings.

@@ -8,7 +8,7 @@ Desktop requests that read or act on document content pass through this barrier,
 
 Preload announces journal readiness before exposing editing APIs. Closing a window before that bridge exists does not wait for a response it cannot send; existing native snapshots still receive the unsaved-change check.
 
-The main-process snapshot survives a renderer crash. It is not a disk journal: a whole-app crash or power loss can still lose unsaved work. Autosave and ordinary saving provide disk persistence, including the existing checks for external file changes.
+The main-process snapshot survives a renderer crash. A whole-app crash or power loss is what the recovery journal in `src/main/recovery-journal.ts` is for: it keeps each dirty tab's text in app data, written as a new checksummed file about once a second, and offers it at the next launch. At worst the last write interval is lost. Autosave and ordinary saving provide disk persistence, including the existing checks for external file changes.
 
 The recovery screen can reload the main frame's trusted app entrypoint and recover the native snapshot. The navigation guard allows that same entrypoint in production and development while rejecting other paths, query strings, external destinations and subframe navigation. A failed editor-module load uses this same recovery path.
 
