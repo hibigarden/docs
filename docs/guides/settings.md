@@ -46,7 +46,7 @@ If another app changes the file, autosave pauses. Save manually to review the co
 
 If Hibi is killed, crashes, or your computer loses power, Hibi can offer recent copies of your unsaved text the next time you open it. Hibi lists each note with its folder, when the text was written, and its size. You can restore it, discard it, or decide later, and Hibi asks again at the next launch.
 
-Restoring never changes your file. If the file still holds the text your edits began from, the note opens with your text as unsaved changes. If the file has changed or is gone, your text opens as a separate note named `note (recovered).md`, so you can compare them and choose what to keep.
+Restoring opens your text as unsaved changes. If the file still holds the text your edits began from, Hibi opens that note; autosave can then save it if enabled. If the file has changed or is gone, Hibi opens a separate note named `note (recovered).md`, so you can compare them and choose what to keep.
 
 Hibi writes copies about once a second while you type in small notes. Large notes can wait up to 30 seconds between writes, plus the time needed to write the copy. A sudden stop can lose changes since the last complete copy. If Hibi cannot keep a copy, it tells you to save the note. A saved note or one you close with **Don't save** leaves no copy behind.
 
