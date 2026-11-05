@@ -102,6 +102,12 @@ If a note's file is moved or deleted outside Hibi, its tab keeps the text. Savin
 
 ## Optional writing tools
 
+Enable **Editor width** in **Settings → Addon Manager** to add a slider and **Width cap** toggle to the status bar at the bottom of the editor. Drag the slider to adjust the width, or focus it and use the arrow keys, Home, or End. Turn off **Width cap** for full width, then turn it back on to restore your chosen width. Changes apply immediately in Normal, Source, and side-by-side views.
+
+The default is 800 pixels, with slider limits of 320 and 1600 pixels. Open **Editor width** in Settings to change **Minimum width**, **Maximum width**, and **Width unit**. Any supported CSS length unit works, including `px`, `rem`, `ch`, `vw`, and `%`. The same unit applies to both limits and the chosen width. Leave a field or press Enter to save; the width stays within the new limits. Pixel widths stay fixed when resizing a sidebar unless the pane cannot fit them. Relative units follow CSS sizing, so `%` follows the pane and `vw` follows the window. Hibi remembers these choices on this device for all documents; disabling the addon restores full width.
+
+Use **Show width slider** and **Show width toggle** in the addon settings to hide either status bar control independently. Your chosen width and cap state stay unchanged. Run **Toggle editor width** from the command palette to turn the cap on or off even when both controls are hidden, or assign it a shortcut in **Settings → Hotkeys**.
+
 Enable **Mermaid** to edit `.mmd` diagrams and render Mermaid code blocks in Markdown. **BBCode** adds `.bbcode` and `.bbc` files with a preview and formatting toolbar. Both addons offer HTML export from side-by-side view.
 
 Under **Settings → Addon Manager**, enable **Word count** for word and character totals, or **Block dragging** to rearrange formatted text using a grip beside each block. The grip also offers **Move block up/down**, and moves support undo.
