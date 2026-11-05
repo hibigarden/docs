@@ -48,9 +48,9 @@ If Hibi is killed, crashes, or your computer loses power, Hibi can offer recent 
 
 Restoring opens your text as unsaved changes. If the file still holds the text your edits began from, Hibi opens that note; autosave can then save it if enabled. If the file has changed or is gone, Hibi opens a separate note named `note (recovered).md`, so you can compare them and choose what to keep.
 
-Hibi writes copies about once a second while you type in small notes. Large notes can wait up to 30 seconds between writes, plus the time needed to write the copy. A sudden stop can lose changes since the last complete copy. If Hibi cannot keep a copy, it tells you to save the note. A saved note or one you close with **Don't save** leaves no copy behind.
+Hibi writes copies about once a second while you type in small notes. Large notes can wait up to 30 seconds between writes, plus the time needed to write the copy. A sudden stop can lose changes since the last complete copy. If Hibi cannot keep a copy, it tells you to save the note. A saved note or one you close with **Don't save** leaves no copy behind. If another program is holding a copy's file, Hibi removes it at a later launch and never offers it again.
 
-These copies are plain text in Hibi's app data on this device, readable only by your user account. They are never stored beside your notes. Under **Editor → Saving** you can change how they work:
+These copies are plain text in Hibi's app data, readable only by your user account. They are never stored beside your notes, but backups of your user folder, such as Time Machine, can include them. Spotlight doesn't index their text. Under **Editor → Saving** you can change how they work:
 
 - **Keep unsaved text for recovery** turns them off. Turning it off deletes the copies that are waiting.
 - **Delete unclaimed copies after** sets how long a copy you haven't restored or discarded stays, from 7 days to a year, or never. Time counts from when Hibi first offered it. The default is 30 days.
