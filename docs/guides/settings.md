@@ -40,7 +40,7 @@ Autosave is on by default and saves two seconds after you stop typing. Turn it o
 
 Open files keep their autosave timers when you switch tabs. Each file saves after its own typing delay.
 
-If another app changes the file, autosave pauses. Save manually to review the conflict.
+If another app changes the file, autosave pauses. Save manually to review the conflict. Autosave also leaves a read-only file alone and tells you; it tries again once the file can be changed.
 
 Each save takes a moment on a very large note, so Hibi waits longer between saves there. Your text is still [kept for recovery](#getting-back-unsaved-text) in between.
 
