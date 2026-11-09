@@ -165,7 +165,7 @@ if (snapshot.target) {
 
 Each position has `start` and `end` locations with zero-based `line`, `col` and `offset`. Columns and offsets count UTF-16 units in the original source, including a BOM and both units of CRLF; ends are exclusive. Stream pages reject stale folder, syntax, source or continuation identities. Use the lower-level `query({kind: 'metadata', target, path})` pages when you need completeness diagnostics for unsupported syntax.
 
-Resolve a heading or explicit block with `context.workspace.query({kind: 'resolve-subpath', target, path, subpath: '#^important'})`; pass a heading name or slug instead of `^important` for a heading. A successful result includes its source position and version. Check the captured document and editor versions again before moving a caret, and translate source positions to the mounted editor's normalized coordinates.
+Resolve a heading or explicit block with `context.workspace.query({kind: 'resolve-subpath', target, path, subpath: '#^important'})`; pass a heading name or slug instead of `^important` for a heading. Join heading names with `#` to select a nested section, such as `#Overview#Details`; each segment stays inside its preceding section. Block identifiers match exactly, including case. A successful result includes its source position and version. Check the captured document and editor versions again before moving a caret, and translate source positions to the mounted editor's normalized coordinates.
 
 For an active-note worker, `context.editor.getMetadataSyntax(document.id, document.markdown)` supplies bounded built-in parser settings, a fingerprint for cache keys, and a completeness flag. Treat an incomplete worker result as a best-effort count.
 
