@@ -42,7 +42,9 @@ While a note is read-only, **Edit** and **Remove** are unavailable, including in
 
 Shift-click a link to follow it. In Normal view, you can also hold Ctrl+Cmd while clicking a link. Web and email links open in your default app; local note links open in Hibi. A link to a heading, such as `guide.md#setup`, opens the note at that heading, including a link to the note you are reading. Regular clicks keep editing.
 
-Obsidian `[[Note]]`, `[[Note|Alias]]`, and links to headings or blocks open their note in the current workspace. A heading-only link in the current note jumps to that heading. Links to headings or blocks in another note open the note; Hibi does not yet scroll to the target within that note. Ambiguous note names do not open a guessed target.
+Obsidian `[[Note]]`, `[[Note|Alias]]`, and links such as `[[Note#Heading]]` or `[[Note#^block-id]]` open the note at that heading or block in the current workspace. A heading-only link jumps within the current note. Ambiguous note names do not open a guessed target.
+
+To link to a paragraph, add an ID such as `^important` at its end. Then use `[Jump](#^important)` in the same note, or `[[Other note#^important]]` from another note in the open folder. For a list, table, quote or code block, put the ID on its own line after the block. Hibi keeps the ID in the Markdown source and follows the link without changing the note.
 
 In Markdown source, this also follows reference links such as `[guide][help]` with a `[help]: guide.md` definition elsewhere in the note. Labels ignore case, and the first matching definition wins. Definitions inside enabled frontmatter are excluded. This supports the built-in Markdown, GitHub Markdown and Text extras readers; addons with custom parsers or projections keep their existing link behavior.
 
