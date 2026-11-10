@@ -8,7 +8,7 @@
 2. Under **Points**, choose an entry to preview what returning to it changes. Entries are the versions your saves kept and points while you edited: before an undo, where edits branched, a pause, before a large edit such as a paste, and every few minutes of steady typing.
 3. Choose **Restore**.
 
-Restoring is an edit, so undo takes it back. The file on disk stays unchanged until you save. A saved version too large to preview or to undo replaces the text instead: History says so before you restore it, and Hibi asks about unsaved changes first.
+Restoring is an edit, so undo takes it back. With autosave on, Hibi saves the restored text after the usual wait. With autosave off, the file on disk stays unchanged until you save. A saved version too large to preview or to undo replaces the text instead: History says so before you restore it, and Hibi asks about unsaved changes first.
 
 Older entries thin out: past a day, the list keeps one an hour, and past a week, one a day. Within the last day, autosaves list about 3 minutes apart. Every save you ask for and the newest version stay listed.
 
