@@ -18,7 +18,7 @@ Older entries thin out: past a day, the list keeps one an hour, and past a week,
 
 ## What is kept
 
-Hibi keeps a local copy of the text after each save. This works without Git. History keeps recent saves on this computer, outside your workspace and exported documentation. It has storage limits, so it is not a substitute for a backup. A new note has no saved versions until you save it.
+Hibi keeps a local copy of the text after each save. This works without Git. History keeps recent saves on this computer, outside your workspace and exported documentation. It has storage limits, so it is not a substitute for a backup. When a note's history is full, autosaves make room before saves you asked for. A new note has no saved versions until you save it.
 
 Saved versions belong to a file's path. **Save as** uses the destination's versions. If the file saves but its version cannot be stored, Hibi tells you.
 
