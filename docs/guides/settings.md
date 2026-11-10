@@ -77,7 +77,7 @@ Use **Syntax** to enable or disable formatting features, and **Code Highlight** 
 
 ## Addons
 
-**Settings → Addon Manager** has three tabs. **Installed** lists built-in and installed addons, Obsidian plugins, and themes. **Hibi garden** lists Hibi addons you can install. **Obsidian community** lists Obsidian plugins and themes. Enabling an addon makes its settings and formats available. **Reset all** restores the default enabled addons without removing installed packages.
+**Settings → Addon Manager** has two tabs. **Installed** lists built-in and installed addons and themes alphabetically; enable or disable them there. **Hibi garden** lists addons you can install. Enabling an addon makes its settings and formats available. **Reset all** restores the default enabled addons without removing installed packages.
 
 Enabling an addon can ask to enable its required addons too; disabling a provider leaves its consumers enabled but blocked, while documents stay editable under their existing syntax protections.
 
@@ -114,20 +114,6 @@ Websites and other apps can link to an addon. A `hibi://addons/install?id=<id>` 
 Only install addons you trust. Enabled addons can access your documents and workspace. Git installation requires Git on your computer; private repositories and packages that need a build are unsupported.
 
 **Open addons folder** shows installed packages. A replacement that asks for the same access as the installed version keeps its enabled setting and restarts with the new files; your open documents stay as they are. If it asks for different access, such as new network origins, it stays disabled until you enable it. Removing a package moves it to the system trash.
-
-### Obsidian plugins and themes
-
-Open **Obsidian community** to search the official directory, filter plugins or themes, and sort by downloads, name, or update time. Open **Details** to read a project's description and documentation. The install button offers to turn on the required Obsidian addon when it is off. You can also use **Install Obsidian plugin from folder** or **Install Obsidian theme from folder** under **Installed**.
-
-Review the author, repository, version, and trust notice before installing a plugin. Copies install once for all folders and start disabled. Enable them under **Installed**; their settings appear in the **Addon settings** sidebar and their commands appear in the command palette. Hibi supports part of Obsidian's API, so plugins that depend on Obsidian's internal interface may not work. Updates keep plugin settings and require you to enable the new copy again.
-
-Plugin settings live in Hibi's app data. Opening a vault can offer its plugins and a **Use this vault’s settings** action. Importing those settings never writes them back to the vault. Replacing existing global settings asks first and keeps the previous three copies in Hibi's app data.
-
-Desktop plugins need a separate **Full computer access** confirmation. It names the plugin and explains that it can read or write any file and run programs. Hibi itself then runs in a less isolated workspace. Other Obsidian plugins without their own full-access grant, and other installed Hibi addons, are paused; bundled addons keep working. Code injected into Hibi's interface can also gain computer access in this mode. Grant access only to code you trust.
-
-The **Installed** rows show when full access is on. Disable a full-access plugin, choose **Revoke all full access**, or use **Turn off full computer access** on a paused addon to revoke permission. Hibi keeps open notes and replaces the workspace window. Programs a plugin already launched may keep running.
-
-Themes also install globally and never apply automatically. Use **Preview** or **Apply** in their Installed rows, or choose their light and dark palettes in [Appearance](colorschemes.md). CSS snippets and theme options are available there too. Hibi stores its copies outside the vault and leaves Obsidian's configuration unchanged.
 
 ### Signed addons
 
