@@ -108,6 +108,10 @@ context.toolbar.register({ id: 'greet', label: 'Say hello', commandId: 'greet' }
 
 The command appears in Hibi's Addons menu. Its in-app shortcut can be changed under **Settings → Hotkeys**; `mod` means Command on macOS and Control on Windows and Linux. Toolbar and status-bar registrations return handles with `update` and `dispose` methods. Update an existing item when its value changes. Status-bar items should show useful state, such as a count, rather than repeat the addon name.
 
+A status-bar item can instead include `slider: { min, max, step?, value, valueText?, onChange }`. Its `label` names the control, and `valueText` supplies a spoken value with units. `onChange(value)` runs as the user drags or adjusts the slider with the keyboard. Use the item's handle to update `slider.value`; a slider takes precedence over `onClick`. Stopping the addon removes the control and revokes its callback.
+
+Sliders also accept `disabled` and `step: 'any'`. A separate item with `toggle: { checked, onChange }` renders a labeled checkbox switch. Update `checked` through the status handle when the user changes it. Toggle callbacks share the same error handling and shutdown cleanup as clicks. Sliders take precedence over toggles, and toggles take precedence over `onClick` when more than one is supplied.
+
 Users control toolbar order and each action's placement in Appearance settings. Actions can appear in the toolbar, stay in its dropdown, or be hidden. These choices persist across addon reloads. The shared [ToolbarPreferences](../addon-api-reference/ToolbarPreferences.md) API exposes them as `order` and `placements`; preserve other entries when changing one action. Context-specific `hidden` and `when` rules still apply.
 
 For an action on a right-clicked workspace entry, register the command with `menu: { location: 'explorer' }`. The captured `file.path` is relative to the workspace; `file.fileId` is opaque. Use `when` to disable actions that do not apply to folders or files.
