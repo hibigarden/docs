@@ -147,26 +147,6 @@ Use `context.workspace.index()` for note text and drafts. It returns `null` when
 
 Use `context.workspace.query()` for bounded links, backlinks, tags, properties, headings, graph pages, and searches. The host captures each file's Markdown flavor, current syntax settings, and active Markdown projections for metadata queries; results report `flavorAware: true`. Check `complete` before treating a missing result as definitive; `unsupportedSyntax` means selected addon syntax cannot be fully interpreted by the built-in metadata parser. Path and text searches read note source directly and remain complete when only syntax support is missing. A graph cursor becomes stale when parser settings change.
 
-Use `context.workspace.metadata({target, path})` to read one note's positioned metadata without loading the workspace's source text. Capture `target` from `await context.workspace.changeSnapshot()` and pass a folder-relative `path`. The async iterator yields headings, links, embeds, tag occurrences, list items, sections, explicit block IDs and nested frontmatter, including open-note edits that have not been saved. Frontmatter links retain their property paths and source positions.
-
-```typescript
-const snapshot = await context.workspace.changeSnapshot()
-if (snapshot.target) {
-  for await (const entry of context.workspace.metadata({
-    target: snapshot.target,
-    path: 'notes/example.md',
-  })) {
-    if (entry.kind === 'heading') {
-      console.log(entry.value.text, entry.value.position.start)
-    }
-  }
-}
-```
-
-Each position has `start` and `end` locations with zero-based `line`, `col` and `offset`. Columns and offsets count UTF-16 units in the original source, including a BOM and both units of CRLF; ends are exclusive. Stream pages reject stale folder, syntax, source or continuation identities. Use the lower-level `query({kind: 'metadata', target, path})` pages when you need completeness diagnostics for unsupported syntax.
-
-Resolve a heading or explicit block with `context.workspace.query({kind: 'resolve-subpath', target, path, subpath: '#^important'})`; pass a heading name or slug instead of `^important` for a heading. A successful result includes its source position and version. Check the captured document and editor versions again before moving a caret, and translate source positions to the mounted editor's normalized coordinates.
-
 For an active-note worker, `context.editor.getMetadataSyntax(document.id, document.markdown)` supplies bounded built-in parser settings, a fingerprint for cache keys, and a completeness flag. Treat an incomplete worker result as a best-effort count.
 
 ## Attach editor behavior
