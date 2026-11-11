@@ -36,7 +36,7 @@ Choose **Quit** from the tray or app menu to stop Hibi. Use `Cmd+Q` on macOS or 
 
 ## Autosave
 
-Autosave is on by default and saves two seconds after you stop typing. Turn it off or change the wait under **Editor**. If you turned it off, it stays off. New notes and remote drafts need one manual save to choose a local destination.
+Autosave is on by default and saves two seconds after you stop typing. Turn it off or change the wait under **Editor**. If you turned it off, it stays off, including after a crash. If Hibi cannot read this setting when it starts, autosave starts off and you can keep editing; your saved choice is not changed, and the next launch reads it again. If a change cannot be saved, Hibi says so and keeps the previous setting. New notes and remote drafts need one manual save to choose a local destination.
 
 Open files keep their autosave timers when you switch tabs. Each file saves after its own typing delay.
 
@@ -48,7 +48,7 @@ Each save takes a moment on a very large note, so Hibi waits longer between save
 
 If Hibi is killed, crashes, or your computer loses power, Hibi can offer recent copies of your unsaved text the next time you open it. Hibi lists each note with its folder, when the text was written, and its size. You can restore it, discard it, or decide later, and Hibi asks again at the next launch.
 
-Restoring opens your text as unsaved changes. If the file still holds the text your edits began from, Hibi opens that note; autosave can then save it if enabled. If the file has changed or is gone, Hibi opens a separate note named `note (recovered).md`, so you can compare them and choose what to keep.
+Restoring opens your text as unsaved changes. If the file still holds the text your edits began from, Hibi opens that note and leaves the file unchanged until you edit or explicitly save it. With autosave enabled, its status says **Autosave · waiting for an edit** until you edit or save the note. Addon saves also wait for your first edit; your own **Save** accepts the recovered text immediately. Switching views or opening a split pane does not resume autosave. Autosave resumes after your first edit if enabled. The recovery copy continues protecting the untouched text, including when **Open unsaved text at launch** opens it for you. If the file has changed or is gone, Hibi opens a separate note named `note (recovered).md`, so you can compare them and choose what to keep.
 
 Hibi writes copies about once a second while you type in small notes. Large notes can wait up to 30 seconds between writes, plus the time needed to write the copy. A sudden stop can lose changes since the last complete copy. If Hibi cannot keep a copy, it tells you to save the note. A saved note or one you close with **Don't save** leaves no copy behind. If another program is holding a copy's file, Hibi removes it at a later launch and never offers it again.
 
