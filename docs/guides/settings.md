@@ -77,6 +77,8 @@ The right sidebar starts collapsed with no view selected. Use **Toggle right sid
 
 Use **Syntax** to enable or disable formatting features, and **Code Highlight** to choose which programming languages receive highlighting.
 
+With the Text extras addon enabled, write `__text__` or `<u>text</u>` to underline text. Both forms are on by default. Under **Settings → Syntax → Text extras**, turn off **Underline** to have `__text__` display as bold. Turn off **Underline tag** to show the `<u>` tags as source in Normal view.
+
 ## Addons
 
 **Settings → Addon Manager** has two tabs. **Installed** lists built-in and installed addons and themes alphabetically; enable or disable them there. **Hibi garden** lists addons you can install. Enabling an addon makes its settings and formats available. **Reset all** restores the default enabled addons without removing installed packages.
